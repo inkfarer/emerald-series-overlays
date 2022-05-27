@@ -1,0 +1,28 @@
+@import './layout.scss';
+@import './typography.scss';
+@import '~@iplsplatoon/vue-components/dist/scss/colors';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+body {
+    margin: 8px;
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: $background-tertiary rgba(0, 0, 0, 0);
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $background-tertiary;
+        border-radius: 3px;
+    }
+}

@@ -1,0 +1,68 @@
+.layout {
+    display: flex;
+
+    &.horizontal {
+        flex-direction: row;
+
+        &.center-horizontal {
+            justify-content: center;
+        }
+
+        &.center-vertical {
+            align-items: center;
+        }
+    }
+
+    &.vertical {
+        flex-direction: column;
+
+        &.center-horizontal {
+            align-items: center;
+        }
+    }
+}
+
+.space-between-horizontal {
+    justify-content: space-between;
+}
+
+$layout-margins: 2, 4, 6, 8, 16;
+
+@each $margin in $layout-margins {
+    .m-t-#{$margin} {
+        margin-top: #{$margin}px;
+    }
+    .m-b-#{$margin} {
+        margin-bottom: #{$margin}px;
+    }
+    .m-l-#{$margin} {
+        margin-left: #{$margin}px;
+    }
+    .m-r-#{$margin} {
+        margin-right: #{$margin}px;
+    }
+    .m-x-#{$margin} {
+        margin-right: #{$margin}px;
+        margin-left: #{$margin}px;
+    }
+}
+
+.max-width {
+    width: 100%;
+}
+
+.d-block {
+    display: block;
+}
+
+.h-max-content {
+    height: max-content;
+}
+
+.large-icon {
+    font-size: 1.25em;
+}
+
+.xl-icon {
+    font-size: 1.35em;
+}

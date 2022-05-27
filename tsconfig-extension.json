@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es2015",
+        "allowJs": true,
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "baseUrl": ".",
+        "paths": {
+            "nodecg/*": [
+                "../../types/*"
+            ],
+            "types/*": [
+                "src/types/*"
+            ],
+            "schemas": [
+                "src/types/schemas/index"
+            ]
+        },
+        "resolveJsonModule": true
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "src/extension/**/*.ts",
+        "src/types/**/*.d.ts"
+    ]
+}

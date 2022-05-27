@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "noImplicitAny": true,
+        "module": "esnext",
+        "target": "es6",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "types": [
+            "webpack-env",
+            "jest"
+        ],
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "moduleResolution": "Node",
+        "baseUrl": ".",
+        "paths": {
+            "nodecg/*": [
+                "../../types/*"
+            ],
+            "types/*": [
+                "src/types/*"
+            ],
+            "schemas": [
+                "src/types/schemas/index"
+            ]
+        }
+    },
+    "exclude": [
+        "**/jest.config.ts",
+        "**/__mocks__/**/*.ts"
+    ]
+}
