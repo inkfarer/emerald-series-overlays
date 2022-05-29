@@ -5,10 +5,13 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type TeamStore = {
+export type TeamStore = Team[];
+
+export interface Team {
 	id: string;
 	name?: string;
 	players: {
+		id: string;
 		name: string;
 	}[];
-}[];
+}

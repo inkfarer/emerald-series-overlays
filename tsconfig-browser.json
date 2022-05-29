@@ -26,6 +26,9 @@
             "types/*": [
                 "src/types/*"
             ],
+            "@helpers/*": [
+                "src/helpers/*"
+            ],
             "schemas": [
                 "src/types/schemas/index"
             ]

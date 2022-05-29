@@ -1,48 +1,120 @@
 <template>
-    <ipl-space
-        class="layout horizontal center-vertical"
-    >
-        <ipl-button
+    <ipl-space>
+        <ipl-toggle-button
+            v-model="creatingTeam"
             label="Add team"
-            color="green"
         />
-        <ipl-button
-            label="Show all teams"
-            color="#262f40"
-            class="m-l-8"
+    </ipl-space>
+
+    <ipl-space
+        v-if="!creatingTeam"
+        class="layout horizontal m-t-8"
+    >
+        <ipl-space
+            color="light"
+            class="text-center"
+            clickable
+            @click="selectPreviousTeam"
+        >
+            <font-awesome-icon
+                icon="circle-arrow-left"
+                class="text-size-medium"
+            />
+        </ipl-space>
+        <ipl-space
+            color="light"
+            class="m-l-8 text-center max-width"
+            clickable
             @click="teamListOpen = true"
-        />
+        >
+            {{ addDots(selectedTeam?.name) }}
+        </ipl-space>
+        <ipl-space
+            color="light"
+            class="m-l-8 text-center"
+            clickable
+            @click="selectNextTeam"
+        >
+            <font-awesome-icon
+                icon="circle-arrow-right"
+                class="text-size-medium"
+            />
+        </ipl-space>
     </ipl-space>
 
-    <ipl-space class="m-t-8">
-        test test
-    </ipl-space>
-
-    <ipl-sidebar
-        v-model:is-open="teamListOpen"
+    <team-editor
+        v-if="!!teamInTeamEditor"
+        :selected-team="teamInTeamEditor"
+        :is-new-team="creatingTeam"
+        class="m-t-8"
+        @update="onUpdate"
+        @delete="selectNextTeam"
     />
+
+    <ipl-sidebar v-model:is-open="teamListOpen">
+        <team-list v-model="selectedTeamId" />
+    </ipl-sidebar>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { IplButton, IplSidebar, IplSpace } from '@iplsplatoon/vue-components';
+import { computed, defineComponent, ref, watch } from 'vue';
+import { IplButton, IplSidebar, IplSpace, IplToggleButton } from '@iplsplatoon/vue-components';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
-import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import TeamList from './components/TeamList.vue';
+import { useTeamStore } from '../store/teams';
+import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons/faCircleArrowLeft';
+import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons/faCircleArrowRight';
+import { addDots } from '@helpers/stringHelper';
+import TeamEditor from './components/TeamEditor.vue';
+import { getNextIndex, getPreviousIndex } from '@helpers/arrayHelper';
 
-library.add(faBars, faPlus);
+library.add(faCircleArrowLeft, faCircleArrowRight);
 
 export default defineComponent({
     name: 'TeamsPanel',
 
-    components: { IplSidebar, IplButton, IplSpace, FontAwesomeIcon },
+    components: { TeamEditor, IplToggleButton, TeamList, IplSidebar, IplButton, IplSpace, FontAwesomeIcon },
 
     setup() {
+        const teamStore = useTeamStore();
         const teamListOpen = ref(false);
+        const creatingTeam = ref(false);
+        const selectedTeamId = ref<string>(teamStore.teamStore[0].id);
+        const selectedTeam = computed(() => teamStore.teamStore.find(team => team.id === selectedTeamId.value));
+        const teamInTeamEditor = computed(() => creatingTeam.value ? { name: '', players: []} : selectedTeam.value);
+
+        watch(selectedTeamId, () => {
+            teamListOpen.value = false;
+        });
+
+        watch(selectedTeam, newValue => {
+            if (!newValue) {
+                selectedTeamId.value = teamStore.teamStore[0].id;
+            }
+        });
 
         return {
-            teamListOpen
+            addDots,
+            teamListOpen,
+            creatingTeam,
+            selectedTeamId,
+            onUpdate(updatedTeamId: string) {
+                selectedTeamId.value = updatedTeamId;
+                creatingTeam.value = false;
+            },
+            selectNextTeam() {
+                const currentIndex = teamStore.teamStore.findIndex(team => team.id === selectedTeamId.value);
+                if (currentIndex < 0) return;
+                selectedTeamId.value = teamStore.teamStore[getNextIndex(teamStore.teamStore, currentIndex)].id;
+            },
+            selectPreviousTeam() {
+                const currentIndex = teamStore.teamStore.findIndex(team => team.id === selectedTeamId.value);
+                if (currentIndex < 0) return;
+                selectedTeamId.value = teamStore.teamStore[getPreviousIndex(teamStore.teamStore, currentIndex)].id;
+            },
+            selectedTeam,
+            teamInTeamEditor
         };
     }
 });
