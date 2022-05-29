@@ -1,4 +1,5 @@
 <template>
+    <error-log />
     <ipl-space>
         <ipl-toggle-button
             v-model="creatingTeam"
@@ -68,13 +69,14 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons/faCircleAr
 import { addDots } from '@helpers/stringHelper';
 import TeamEditor from './components/TeamEditor.vue';
 import { getNextIndex, getPreviousIndex } from '@helpers/arrayHelper';
+import ErrorLog from '../components/ErrorLog.vue';
 
 library.add(faCircleArrowLeft, faCircleArrowRight);
 
 export default defineComponent({
     name: 'TeamsPanel',
 
-    components: { TeamEditor, IplToggleButton, TeamList, IplSidebar, IplButton, IplSpace, FontAwesomeIcon },
+    components: { ErrorLog, TeamEditor, IplToggleButton, TeamList, IplSidebar, IplButton, IplSpace, FontAwesomeIcon },
 
     setup() {
         const teamStore = useTeamStore();

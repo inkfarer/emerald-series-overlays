@@ -147,9 +147,9 @@ export default defineComponent({
             addPlayer() {
                 internalTeam.value.players.push({ id: undefined, name: '' });
             },
-            deleteTeam() {
+            async deleteTeam() {
+                await teamStore.delete(props.selectedTeam.id);
                 emit('delete');
-                teamStore.delete(props.selectedTeam.id);
             }
         };
     }
