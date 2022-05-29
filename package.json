@@ -29,6 +29,17 @@
             }
         ]
     },
+    "scripts": {
+        "build": "cross-env NODE_ENV=production webpack",
+        "build:dev": "webpack",
+        "build:watch": "webpack -w",
+        "build:clean": "npm run clean && npm run build",
+        "clean": "trash node_modules/.cache && trash dashboard && trash extension && trash graphics",
+        "start": "node ../..",
+        "schema-types": "nodecg schema-types",
+        "lint": "eslint --ext .js,.vue,.ts ./src",
+        "lint:fix": "eslint ./src --fix"
+    },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-brands-svg-icons": "^6.1.1",
@@ -67,16 +78,5 @@
         "webpack-cli": "^4.9.2",
         "webpack-livereload-plugin": "^3.0.2",
         "webpack-node-externals": "^3.0.0"
-    },
-    "scripts": {
-        "build": "cross-env NODE_ENV=production webpack",
-        "build:dev": "webpack",
-        "build:clean": "npm run clean && npm run build",
-        "clean": "trash node_modules/.cache && trash dashboard && trash extension",
-        "start": "node ../..",
-        "watch": "webpack -w",
-        "schema-types": "nodecg schema-types",
-        "lint:fix": "eslint ./src --fix",
-        "lint": "eslint --ext .js,.vue,.ts ./src"
     }
 }
