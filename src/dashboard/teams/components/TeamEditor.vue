@@ -67,6 +67,7 @@
                 class="m-l-8"
                 color="red"
                 requires-confirmation
+                :disabled="disableDeletion"
                 @click="deleteTeam"
             />
         </ipl-space>
@@ -75,7 +76,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import { Team } from 'schemas';
+import { Player, Team } from 'schemas';
 import { IplButton, IplInput, IplSpace } from '@iplsplatoon/vue-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -87,9 +88,7 @@ import { useTeamStore } from '../../store/teams';
 
 library.add(faPlus, faTimes);
 
-interface InternalPlayer {
-    id: string
-    name: string
+interface InternalPlayer extends Player {
     markedForDeletion?: boolean
 }
 
@@ -147,6 +146,7 @@ export default defineComponent({
             addPlayer() {
                 internalTeam.value.players.push({ id: undefined, name: '' });
             },
+            disableDeletion: computed(() => Object.keys(teamStore.teamStore).length <= 1),
             async deleteTeam() {
                 await teamStore.delete(props.selectedTeam.id);
                 emit('delete');
