@@ -17,7 +17,7 @@
                 "title": "Teams",
                 "width": 3,
                 "file": "teams.html",
-                "workspace": "VCA",
+                "workspace": "VCA Setup",
                 "headerColor": "#262F40"
             }
         ],
@@ -46,9 +46,6 @@
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@iplsplatoon/vue-components": "^2.8.0",
-        "lodash": "^4.17.21",
-        "pinia": "^2.0.14",
-        "ts-node": "^10.8.0",
         "vue": "^3.2.36"
     },
     "devDependencies": {
@@ -67,11 +64,14 @@
         "fork-ts-checker-webpack-plugin": "^7.2.11",
         "globby": "^11.0.3",
         "html-webpack-plugin": "^5.5.0",
+        "lodash": "^4.17.21",
+        "pinia": "^2.0.14",
         "sass": "^1.52.1",
         "sass-loader": "^13.0.0",
         "style-loader": "^3.3.1",
         "trash-cli": "^5.0.0",
         "ts-loader": "^9.3.0",
+        "ts-node": "^10.8.1",
         "tsconfig-paths-webpack-plugin": "^3.5.2",
         "typescript": "^4.7.2",
         "vue-loader": "^17.0.0",
