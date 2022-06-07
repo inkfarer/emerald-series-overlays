@@ -2,9 +2,9 @@ import '../styles/panel.scss';
 import TeamsPanel from './TeamsPanel.vue';
 import { createApp } from 'vue';
 import { setUpReplicants } from '../store/storeHelper';
-import { teamStoreReps, useTeamStore } from '../store/teams';
+import { teamStoreReps, useTeamStore } from '../store/TeamStore';
 import { createPinia } from 'pinia';
-import { setUpErrorHandler } from '../store/errorHandlerStore';
+import { setUpErrorHandler } from '../store/ErrorHandlerStore';
 
 (async () => {
     const app = createApp(TeamsPanel);

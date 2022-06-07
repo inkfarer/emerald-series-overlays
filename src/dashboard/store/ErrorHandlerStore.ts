@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import { generateId } from '../../helpers/generateId';
+import { generateId } from '@helpers/generateId';
 import { defineStore } from 'pinia';
 
 export const useErrorHandlerStore = defineStore('errorHandler', {

@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useErrorHandlerStore } from '../store/errorHandlerStore';
+import { useErrorHandlerStore } from '../store/ErrorHandlerStore';
 import { IplMessage } from '@iplsplatoon/vue-components';
 import { addDots } from '@helpers/stringHelper';
 
