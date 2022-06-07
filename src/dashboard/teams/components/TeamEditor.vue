@@ -76,7 +76,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, watch } from 'vue';
-import { Player, Team } from 'schemas';
 import { IplButton, IplInput, IplSpace } from '@iplsplatoon/vue-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -84,7 +83,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import isEqual from 'lodash/isEqual';
-import { useTeamStore } from '../../store/teams';
+import { useTeamStore } from '../../store/TeamStore';
+import { Player, Team } from 'types/Team';
 
 library.add(faPlus, faTimes);
 

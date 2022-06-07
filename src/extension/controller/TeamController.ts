@@ -1,11 +1,13 @@
 import type { NodeCG } from 'nodecg/server';
 import type { UnhandledListenForCb } from 'nodecg/lib/nodecg-instance';
-import { Team, TeamStore } from '../types/schemas';
-import { generateId } from '../helpers/generateId';
+import { TeamStore } from '../../types/schemas';
+import { generateId } from '../../helpers/generateId';
+import { Team } from '../../types/Team';
+import { ActiveMatchService } from '../service/ActiveMatchService';
 
 
 export class TeamController {
-    constructor(nodecg: NodeCG) {
+    constructor(nodecg: NodeCG, activeMatchService: ActiveMatchService) {
         const teamStore = nodecg.Replicant<TeamStore>('teamStore');
 
         nodecg.listenFor('teams:save', (data: Team, ack: UnhandledListenForCb) => {
@@ -19,6 +21,7 @@ export class TeamController {
                 }
 
                 teamStore.value[teamIndex] = data;
+                activeMatchService.updateTeam(data);
             } else {
                 data.id = generateId();
                 teamStore.value.push(data);
@@ -47,6 +50,7 @@ export class TeamController {
                 }
             ];
 
+            activeMatchService.setTeams('aaa111', 'bbb222');
             ack(null);
         });
 
@@ -60,7 +64,7 @@ export class TeamController {
             teamStore.value = teamStore.value.filter(team => team.id !== data);
 
             if (teamStore.value.length === oldLength) {
-                return ack(new Error(`Could not find team with ID "${data}".`));
+                return ack(new Error(`Could not find team with ID '${data}'.`));
             }
 
             ack(null);

@@ -63,7 +63,7 @@ import { IplButton, IplSidebar, IplSpace, IplToggleButton } from '@iplsplatoon/v
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import TeamList from './components/TeamList.vue';
-import { useTeamStore } from '../store/teams';
+import { useTeamStore } from '../store/TeamStore';
 import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons/faCircleArrowLeft';
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons/faCircleArrowRight';
 import { addDots } from '@helpers/stringHelper';

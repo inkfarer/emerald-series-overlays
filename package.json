@@ -19,6 +19,14 @@
                 "file": "teams.html",
                 "workspace": "VCA Setup",
                 "headerColor": "#262F40"
+            },
+            {
+                "name": "activematch",
+                "title": "Active Match",
+                "width": 2,
+                "file": "activematch.html",
+                "workspace": "VCA",
+                "headerColor": "#262F40"
             }
         ],
         "graphics": [
