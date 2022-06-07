@@ -5,7 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type TeamStore = {
+export type ActiveMatchTeam = {
 	id: string;
 	name: string;
 	players: {
@@ -13,4 +13,22 @@ export type TeamStore = {
 		name: string;
 	}[];
 	[k: string]: unknown;
-}[];
+} & {
+	score: number;
+	[k: string]: unknown;
+};
+
+export interface ActiveMatch {
+	teamA: ActiveMatchTeam;
+	teamB: ActiveMatchTeam;
+	match: {
+		id: string;
+		name: string;
+		isCompleted: boolean;
+	};
+	games: {
+		winner: 'none' | 'alpha' | 'bravo';
+		map: string;
+		[k: string]: unknown;
+	}[];
+}

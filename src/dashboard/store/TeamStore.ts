@@ -1,6 +1,7 @@
 import { NodeCGBrowser } from 'nodecg/browser';
-import { Team, TeamStore } from 'schemas';
+import { TeamStore } from 'schemas';
 import { defineStore } from 'pinia';
+import { Team } from 'types/Team';
 
 export const teamStoreReps = [
     nodecg.Replicant<TeamStore>('teamStore')

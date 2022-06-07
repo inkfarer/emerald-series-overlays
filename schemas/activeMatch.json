@@ -1,0 +1,108 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "definitions": {
+        "activeMatchTeam": {
+            "allOf": [
+                {
+                    "$ref": "defs/team.json#/team"
+                },
+                {
+                    "properties": {
+                        "score": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "score"
+                    ]
+                }
+            ]
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["teamA", "teamB", "games", "match"],
+    "properties": {
+        "teamA": {
+            "$ref": "#/definitions/activeMatchTeam"
+        },
+        "teamB": {
+            "$ref": "#/definitions/activeMatchTeam"
+        },
+        "match": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "isCompleted": {
+                    "type": "boolean"
+                }
+            },
+            "required": ["name", "isCompleted"]
+        },
+        "games": {
+            "type": "array",
+            "additionalItems": false,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "winner": {
+                        "type": "string",
+                        "enum": [
+                            "none",
+                            "alpha",
+                            "bravo"
+                        ]
+                    },
+                    "map": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "winner",
+                    "map"
+                ]
+            }
+        }
+    },
+    "default": {
+        "teamA": {
+            "id": "aaa111",
+            "name": "Example team 1",
+            "score": 0,
+            "players": [
+                { "id": "aaa1111", "name": "Player One" },
+                { "id": "aaa1112", "name": "Player Two" }
+            ]
+        },
+        "teamB": {
+            "id": "bbb222",
+            "name": "Example team 2",
+            "score": 0,
+            "players": [
+                { "id": "bbb2221", "name": "Player Three" },
+                { "id": "bbb2222", "name": "Player Four" }
+            ]
+        },
+        "match": {
+            "name": "Round One",
+            "isCompleted": false
+        },
+        "games": [
+            {
+                "winner": "none",
+                "map": "Unknown"
+            },
+            {
+                "winner": "none",
+                "map": "Unknown"
+            },
+            {
+                "winner": "none",
+                "map": "Unknown"
+            }
+        ]
+    }
+}
