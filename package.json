@@ -35,6 +35,14 @@
                 "file": "nextmatch.html",
                 "workspace": "VCA",
                 "headerColor": "#262F40"
+            },
+            {
+                "name": "casters",
+                "title": "Casters",
+                "width": 2,
+                "file": "casters.html",
+                "workspace": "VCA",
+                "headerColor": "#262F40"
             }
         ],
         "graphics": [
@@ -62,7 +70,7 @@
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@iplsplatoon/vue-components": "^2.8.0",
-        "vue": "^3.2.36"
+        "vue": "3.2.26"
     },
     "devDependencies": {
         "@types/lodash": "^4.14.182",

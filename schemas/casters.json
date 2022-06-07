@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+
+    "definitions": {
+        "caster": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name", "twitter", "pronouns"],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "twitter": {
+                    "type": "string"
+                },
+                "pronouns": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "type": "array",
+    "maxItems": 3,
+    "items": {
+        "$ref": "#/definitions/caster"
+    },
+    "default": [
+        {
+            "id": "aaa111",
+            "name": "First Caster",
+            "twitter": "@CasterFirst",
+            "pronouns": "he/him"
+        },
+        {
+            "id": "bbb222",
+            "name": "Second Caster",
+            "twitter": "@CasterSecond",
+            "pronouns": "she/her"
+        }
+    ]
+}
