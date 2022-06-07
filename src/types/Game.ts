@@ -4,3 +4,7 @@ export interface Game {
     winner: GameWinnerValues
     map: string
 }
+
+export interface NextMatchGame {
+    map: string
+}

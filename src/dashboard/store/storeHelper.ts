@@ -1,6 +1,7 @@
 import { ReplicantBrowser } from 'nodecg/browser';
 import type * as Pinia from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
+import { Ref, watch, WatchSource } from 'vue';
 
 export async function setUpReplicants(
     reps: ReplicantBrowser<unknown>[],
@@ -14,4 +15,10 @@ export async function setUpReplicants(
         });
     });
     await NodeCG.waitForReplicants(...Object.values(reps));
+}
+
+export function updateRefOnValueChange<T>(source: WatchSource<T>, targetRef: Ref<T>) {
+    watch(source, newValue => {
+        targetRef.value = newValue;
+    }, { immediate: true });
 }

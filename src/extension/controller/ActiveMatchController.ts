@@ -1,6 +1,6 @@
 import type { NodeCG } from 'nodecg/server';
 import type { UnhandledListenForCb } from 'nodecg/lib/nodecg-instance';
-import { BeginNewMatchRequest, UpdateActiveMatchRequest, SetWinnerRequest } from '../../types/messages/ActiveMatch';
+import { UpdateActiveMatchRequest, SetWinnerRequest } from '../../types/messages/ActiveMatch';
 import { ActiveMatchService } from '../service/ActiveMatchService';
 
 export class ActiveMatchController {
@@ -32,14 +32,6 @@ export class ActiveMatchController {
         nodecg.listenFor('activeMatch:update', (data: UpdateActiveMatchRequest, ack: UnhandledListenForCb) => {
             try {
                 this.activeMatchService.setTeams(data.teamAId, data.teamBId, data.matchName);
-            } catch (e) {
-                return ack(e);
-            }
-        });
-
-        nodecg.listenFor('activeMatch:beginNewMatch', (data: BeginNewMatchRequest, ack: UnhandledListenForCb) => {
-            try {
-                this.activeMatchService.beginNewMatch(data.teamAId, data.teamBId, data.matchName);
             } catch (e) {
                 return ack(e);
             }

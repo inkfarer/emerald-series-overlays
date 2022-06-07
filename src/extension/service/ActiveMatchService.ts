@@ -70,13 +70,6 @@ export class ActiveMatchService {
         this.activeMatch.value = newValue;
     }
 
-    beginNewMatch(teamAId: string, teamBId: string, matchName: string): void {
-        this.setTeams(teamAId, teamBId, matchName);
-        this.activeMatch.value.teamA.score = 0;
-        this.activeMatch.value.teamB.score = 0;
-        this.activeMatch.value.match.name = matchName;
-    }
-
     setTeams(teamAId: string, teamBId: string, matchName?: string): void {
         const teamA = this.teamStoreService.getTeam(teamAId);
         const teamB = this.teamStoreService.getTeam(teamBId);
@@ -85,7 +78,7 @@ export class ActiveMatchService {
         this.setTeam('B', teamB);
 
         if (!isBlank(matchName)) {
-            this.activeMatch.value.match.name = matchName;
+            this.setActiveMatchName(matchName);
         }
     }
 
@@ -122,5 +115,16 @@ export class ActiveMatchService {
 
         this.activeMatch.value.games = this.activeMatch.value.games.map((game, index) =>
             ({ ...game, map: maps[index] }));
+    }
+
+    replaceMaps(maps: string[]): void {
+        this.activeMatch.value.games = maps.map(map => ({ map, winner: GameWinner.NO_WINNER }));
+        this.activeMatch.value.teamA.score = 0;
+        this.activeMatch.value.teamB.score = 0;
+        this.activeMatch.value.match.isCompleted = false;
+    }
+
+    setActiveMatchName(matchName: string): void {
+        this.activeMatch.value.match.name = matchName;
     }
 }

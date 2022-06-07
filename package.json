@@ -27,6 +27,14 @@
                 "file": "activematch.html",
                 "workspace": "VCA",
                 "headerColor": "#262F40"
+            },
+            {
+                "name": "nextmatch",
+                "title": "Next Match",
+                "width": 2,
+                "file": "nextmatch.html",
+                "workspace": "VCA",
+                "headerColor": "#262F40"
             }
         ],
         "graphics": [

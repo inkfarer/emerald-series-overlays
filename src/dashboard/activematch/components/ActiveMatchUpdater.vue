@@ -23,7 +23,7 @@
         <ipl-button
             label="Update"
             class="m-t-8"
-            :color="teamsChanged ? 'red' : 'blue'"
+            :color="dataChanged ? 'red' : 'blue'"
             @click="onUpdate"
         />
     </ipl-expanding-space>
@@ -61,7 +61,7 @@ export default defineComponent({
             teamAId,
             teamBId,
             matchName,
-            teamsChanged: computed(() =>
+            dataChanged: computed(() =>
                 teamAId.value !== activeMatchStore.activeMatch.teamA.id
                 || teamBId.value !== activeMatchStore.activeMatch.teamB.id
                 || matchName.value !== activeMatchStore.activeMatch.match.name),
