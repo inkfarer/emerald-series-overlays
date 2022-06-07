@@ -1,8 +1,5 @@
 <template>
-    <ipl-expanding-space
-        title="Edit Maps"
-        expanded
-    >
+    <ipl-expanding-space title="Edit Maps">
         <map-select
             v-for="(game, index) in games"
             :key="`map-select_${index}`"
