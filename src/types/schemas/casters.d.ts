@@ -5,7 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Casters = [] | [Caster] | [Caster, Caster] | [Caster, Caster, Caster];
+export type Casters = [] | [Caster] | [Caster, Caster];
 
 export interface Caster {
 	id: string;
