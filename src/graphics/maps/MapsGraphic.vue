@@ -4,6 +4,7 @@
             <maps-top-info />
             <maps-bottom-info />
         </div>
+        <map-list />
     </div>
     <graphic-background />
 </template>
@@ -13,11 +14,12 @@ import { defineComponent } from 'vue';
 import GraphicBackground from '../components/GraphicBackground.vue';
 import MapsTopInfo from './components/topInfo/MapsTopInfo.vue';
 import MapsBottomInfo from './components/bottomInfo/MapsBottomInfo.vue';
+import MapList from './components/MapList.vue';
 
 export default defineComponent({
     name: 'MapsGraphic',
 
-    components: { MapsBottomInfo, MapsTopInfo, GraphicBackground }
+    components: { MapList, MapsBottomInfo, MapsTopInfo, GraphicBackground }
 });
 </script>
 

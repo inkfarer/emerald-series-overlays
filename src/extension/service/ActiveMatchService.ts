@@ -1,6 +1,6 @@
 import { ActiveMatch } from '../../types/schemas';
 import type { NodeCG, ReplicantServer } from 'nodecg/server';
-import { GameWinner } from '../../types/enums/GameWinner';
+import { TeamRef } from '../../types/enums/TeamRef';
 import cloneDeep from 'lodash/cloneDeep';
 import { TeamStoreService } from './TeamStoreService';
 import findLastIndex from 'lodash/findLastIndex';
@@ -16,7 +16,7 @@ export class ActiveMatchService {
         this.teamStoreService = teamStoreService;
     }
 
-    setLastWinner(winner: GameWinner): void {
+    setLastWinner(winner: TeamRef): void {
         const scoreSum = this.activeMatch.value.teamA.score + this.activeMatch.value.teamB.score;
 
         this.setWinner(scoreSum, winner);
@@ -24,13 +24,13 @@ export class ActiveMatchService {
 
     removeLastWinner(): void {
         const lastWinnerIndex
-            = findLastIndex(this.activeMatch.value.games, game => game.winner !== GameWinner.NO_WINNER);
+            = findLastIndex(this.activeMatch.value.games, game => game.winner !== TeamRef.NONE);
         if (lastWinnerIndex >= 0) {
-            this.setWinner(lastWinnerIndex, GameWinner.NO_WINNER);
+            this.setWinner(lastWinnerIndex, TeamRef.NONE);
         }
     }
 
-    setWinner(index: number, winner: GameWinner): void {
+    setWinner(index: number, winner: TeamRef): void {
         if (index >= this.activeMatch.value.games.length || index < 0) {
             throw new Error(`Cannot set winner for game ${index + 1} as it does not exist.`);
         }
@@ -38,27 +38,27 @@ export class ActiveMatchService {
         const newValue = cloneDeep(this.activeMatch.value);
         const activeGame = cloneDeep(this.activeMatch.value.games[index]);
 
-        if (winner === GameWinner.NO_WINNER) {
-            if (activeGame.winner === GameWinner.ALPHA) {
+        if (winner === TeamRef.NONE) {
+            if (activeGame.winner === TeamRef.ALPHA) {
                 newValue.teamA.score--;
-            } else if (activeGame.winner === GameWinner.BRAVO) {
+            } else if (activeGame.winner === TeamRef.BRAVO) {
                 newValue.teamB.score--;
             }
 
-            newValue.games[index].winner = GameWinner.NO_WINNER;
+            newValue.games[index].winner = TeamRef.NONE;
         } else {
-            if (winner === GameWinner.ALPHA) {
+            if (winner === TeamRef.ALPHA) {
                 newValue.teamA.score++;
                 newValue.games[index].winner = winner;
 
-                if (activeGame.winner === GameWinner.BRAVO) {
+                if (activeGame.winner === TeamRef.BRAVO) {
                     newValue.teamB.score--;
                 }
-            } else if (winner === GameWinner.BRAVO) {
+            } else if (winner === TeamRef.BRAVO) {
                 newValue.teamB.score++;
                 newValue.games[index].winner = winner;
 
-                if (activeGame.winner === GameWinner.ALPHA) {
+                if (activeGame.winner === TeamRef.ALPHA) {
                     newValue.teamA.score--;
                 }
             }
@@ -118,7 +118,7 @@ export class ActiveMatchService {
     }
 
     replaceMaps(maps: string[]): void {
-        this.activeMatch.value.games = maps.map(map => ({ map, winner: GameWinner.NO_WINNER }));
+        this.activeMatch.value.games = maps.map(map => ({ map, winner: TeamRef.NONE, pickedBy: TeamRef.NONE }));
         this.activeMatch.value.teamA.score = 0;
         this.activeMatch.value.teamB.score = 0;
         this.activeMatch.value.match.isCompleted = false;
@@ -126,5 +126,15 @@ export class ActiveMatchService {
 
     setActiveMatchName(matchName: string): void {
         this.activeMatch.value.match.name = matchName;
+    }
+
+    setFirstPicker(firstPicker: TeamRef): void {
+        if (firstPicker === TeamRef.ALPHA) {
+            this.activeMatch.value.games[0].pickedBy = TeamRef.ALPHA;
+            this.activeMatch.value.games[1].pickedBy = TeamRef.BRAVO;
+        } else if (firstPicker === TeamRef.BRAVO) {
+            this.activeMatch.value.games[0].pickedBy = TeamRef.BRAVO;
+            this.activeMatch.value.games[1].pickedBy = TeamRef.ALPHA;
+        }
     }
 }

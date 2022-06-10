@@ -1,7 +1,7 @@
-import { GameWinner } from '../enums/GameWinner';
+import { TeamRef } from '../enums/TeamRef';
 
 export interface SetWinnerRequest {
-    winner: GameWinner;
+    winner: TeamRef;
     gameIndex?: number;
 }
 

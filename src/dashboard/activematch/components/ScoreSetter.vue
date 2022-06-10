@@ -67,7 +67,7 @@
 <script lang="ts">
 import { IplButton, IplSpace } from '@iplsplatoon/vue-components';
 import { computed, defineComponent } from 'vue';
-import { GameWinner } from 'types/enums/GameWinner';
+import { TeamRef } from 'types/enums/TeamRef';
 import last from 'lodash/last';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
@@ -90,8 +90,8 @@ export default defineComponent({
             teamBScore: computed(() => activeMatchStore.activeMatch.teamB.score),
             teamAName: computed(() => addDots(activeMatchStore.activeMatch.teamA.name, 36)),
             teamBName: computed(() => addDots(activeMatchStore.activeMatch.teamB.name, 36)),
-            GameWinner,
-            setLastWinner(winner: GameWinner) {
+            GameWinner: TeamRef,
+            setLastWinner(winner: TeamRef) {
                 activeMatchStore.setLastWinner(winner);
             },
             removeWinner() {
@@ -102,7 +102,7 @@ export default defineComponent({
                 return activeMatch.teamA.score + activeMatch.teamB.score >= activeMatch.games.length;
             }),
             lastWinner: computed(() =>
-                last(activeMatchStore.activeMatch.games.filter(game => game.winner !== GameWinner.NO_WINNER))?.winner)
+                last(activeMatchStore.activeMatch.games.filter(game => game.winner !== TeamRef.NONE))?.winner)
         };
     }
 });

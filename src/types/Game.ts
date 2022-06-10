@@ -1,7 +1,7 @@
-import { GameWinnerValues } from './enums/GameWinner';
+import { TeamRefValues } from './enums/TeamRef';
 
 export interface Game {
-    winner: GameWinnerValues
+    winner: TeamRefValues
     map: string
 }
 
