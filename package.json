@@ -72,6 +72,11 @@
                 "file": "intermission.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "rosters.html",
+                "width": 1920,
+                "height": 1080
             }
         ]
     },

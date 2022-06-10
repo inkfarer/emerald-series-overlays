@@ -1,0 +1,49 @@
+<template>
+    <div class="content-wrapper">
+        <tournament-logo class="tournament-logo" />
+        <div class="center-info-wrapper">
+            <slot />
+        </div>
+        <intermission-info-bar />
+    </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import IntermissionInfoBar from './IntermissionInfoBar.vue';
+import TournamentLogo from '../TournamentLogo.vue';
+
+export default defineComponent({
+    name: 'IntermissionLayout',
+
+    components: {
+        IntermissionInfoBar,
+        TournamentLogo
+    }
+});
+</script>
+
+<style lang="scss">
+.content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 150px);
+    margin: 75px 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tournament-logo {
+    filter: drop-shadow(0 0 8px rgba(34, 34, 34, 0.35));
+}
+
+.center-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
