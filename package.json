@@ -21,6 +21,22 @@
                 "headerColor": "#262F40"
             },
             {
+                "name": "tournament",
+                "title": "Tournament Info",
+                "width": 2,
+                "file": "tournament.html",
+                "workspace": "VCA Setup",
+                "headerColor": "#262F40"
+            },
+            {
+                "name": "intermission",
+                "title": "Intermission",
+                "width": 2,
+                "file": "intermission.html",
+                "workspace": "VCA",
+                "headerColor": "#262F40"
+            },
+            {
                 "name": "activematch",
                 "title": "Active Match",
                 "width": 2,
