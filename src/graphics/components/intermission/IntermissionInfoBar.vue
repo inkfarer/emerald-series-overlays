@@ -8,7 +8,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import SponsorLogos from '../SponsorLogos.vue';
 import IibSupportLinks from './IIBSupportLinks.vue';
 import { useSlides } from '@helpers/useSlides';
 import OpacitySwapTransition from '../OpacitySwapTransition.vue';
@@ -16,12 +15,11 @@ import OpacitySwapTransition from '../OpacitySwapTransition.vue';
 export default defineComponent({
     name: 'IntermissionInfoBar',
 
-    components: { IibSupportLinks, SponsorLogos, OpacitySwapTransition },
+    components: { IibSupportLinks, OpacitySwapTransition },
 
     setup() {
         const slides = useSlides([
-            { component: 'IibSupportLinks' },
-            { component: 'SponsorLogos' }
+            { component: 'IibSupportLinks' }
         ]);
 
         return {
