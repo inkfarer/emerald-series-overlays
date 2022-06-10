@@ -28,9 +28,9 @@ export default defineComponent({
 
     setup() {
         const slides = useSlides([
-            // { component: 'GameplayInfoTournamentLogo' },
-            // { component: 'GameplayInfoCasters' },
-            // { component: 'GameplayInfoTournamentData' },
+            { component: 'GameplayInfoTournamentLogo' },
+            { component: 'GameplayInfoCasters' },
+            { component: 'GameplayInfoTournamentData' },
             { component: 'GameplayInfoPlayerNames' }
         ]);
 
