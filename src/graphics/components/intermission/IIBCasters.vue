@@ -40,7 +40,9 @@ library.add(faMicrophone);
 
 export default defineComponent({
     name: 'IibCasters',
+
     components: { FittedContent, FontAwesomeIcon },
+
     setup() {
         const casterStore = useCasterStore();
 
