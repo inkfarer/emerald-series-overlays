@@ -1,5 +1,5 @@
 <template>
-    <intermission-layout>
+    <intermission-layout show-casters>
         <div class="rosters-wrapper">
             <team-roster team="A" />
             <team-roster team="B" />

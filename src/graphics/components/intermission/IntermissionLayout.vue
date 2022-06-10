@@ -4,7 +4,7 @@
         <div class="center-info-wrapper">
             <slot />
         </div>
-        <intermission-info-bar />
+        <intermission-info-bar :show-casters="showCasters" />
     </div>
 </template>
 
@@ -19,6 +19,13 @@ export default defineComponent({
     components: {
         IntermissionInfoBar,
         TournamentLogo
+    },
+
+    props: {
+        showCasters: {
+            type: Boolean,
+            default: false
+        }
     }
 });
 </script>

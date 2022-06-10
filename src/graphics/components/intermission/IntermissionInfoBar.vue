@@ -7,19 +7,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import IibSupportLinks from './IIBSupportLinks.vue';
+import IibCasters from './IIBCasters.vue';
 import { useSlides } from '@helpers/useSlides';
 import OpacitySwapTransition from '../OpacitySwapTransition.vue';
 
 export default defineComponent({
     name: 'IntermissionInfoBar',
 
-    components: { IibSupportLinks, OpacitySwapTransition },
+    components: { IibSupportLinks, IibCasters, OpacitySwapTransition },
 
-    setup() {
+    props: {
+        showCasters: {
+            type: Boolean,
+            default: false
+        }
+    },
+
+    setup(props) {
         const slides = useSlides([
-            { component: 'IibSupportLinks' }
+            { component: 'IibSupportLinks' },
+            { component: 'IibCasters', enabled: computed(() => props.showCasters) }
         ]);
 
         return {
