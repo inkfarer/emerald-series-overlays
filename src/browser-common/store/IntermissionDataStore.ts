@@ -17,6 +17,9 @@ export const useIntermissionDataStore = defineStore('intermissionData', {
     actions: {
         setFlavorText(flavorText: string): void {
             intermissionData.value.flavorText = flavorText;
+        },
+        setShowNextMatch(showNextMatch: boolean): void {
+            intermissionData.value.showNextMatch = showNextMatch;
         }
     }
 });

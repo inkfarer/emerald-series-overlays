@@ -7,4 +7,5 @@
 
 export interface IntermissionData {
 	flavorText: string;
+	showNextMatch: boolean;
 }

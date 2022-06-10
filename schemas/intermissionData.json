@@ -2,13 +2,17 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "type": "object",
     "additionalProperties": false,
-    "required": ["flavorText"],
+    "required": ["flavorText", "showNextMatch"],
     "properties": {
         "flavorText": {
             "type": "string"
+        },
+        "showNextMatch": {
+            "type": "boolean"
         }
     },
     "default": {
-        "flavorText": "Starting soon..."
+        "flavorText": "Starting soon...",
+        "showNextMatch": false
     }
 }

@@ -9,6 +9,10 @@ body {
     color: $text-color-light;
 }
 
+.font-condensed {
+    font-family: 'futura-pt-condensed', 'Kosugi', 'Noto Sans', sans-serif;
+}
+
 .font-numeric {
     font-feature-settings: 'tnum';
 }
