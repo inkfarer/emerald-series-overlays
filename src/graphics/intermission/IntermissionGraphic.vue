@@ -35,9 +35,7 @@
                 </fitted-content>
             </div>
         </div>
-        <div class="sponsors-wrapper">
-            <sponsor-logos />
-        </div>
+        <intermission-info-bar />
     </div>
     <graphic-background />
 </template>
@@ -52,11 +50,19 @@ import { useTournamentDataStore } from '@browser-common/store/TournamentDataStor
 import SponsorLogos from '../components/SponsorLogos.vue';
 import OpacitySwapTransition from '../components/OpacitySwapTransition.vue';
 import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
+import IntermissionInfoBar from '../components/IntermissionInfoBar/IntermissionInfoBar.vue';
 
 export default defineComponent({
     name: 'IntermissionGraphic',
 
-    components: { OpacitySwapTransition, SponsorLogos, FittedContent, TournamentLogo, GraphicBackground },
+    components: {
+        IntermissionInfoBar,
+        OpacitySwapTransition,
+        SponsorLogos,
+        FittedContent,
+        TournamentLogo,
+        GraphicBackground
+    },
 
     setup() {
         const intermissionDataStore = useIntermissionDataStore();
@@ -141,17 +147,5 @@ export default defineComponent({
             color: $text-color-light;
         }
     }
-}
-
-.sponsors-wrapper {
-    height: 125px;
-    width: 1500px;
-    background-color: $container-background;
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    border-bottom: 15px solid $accent;
 }
 </style>
