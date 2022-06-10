@@ -83,7 +83,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import isEqual from 'lodash/isEqual';
-import { useTeamStore } from '../../store/TeamStore';
+import { useTeamStore } from '@browser-common/store/TeamStore';
 import { Player, Team } from 'types/Team';
 
 library.add(faPlus, faTimes);

@@ -23,7 +23,7 @@ import { NextMatchGame } from 'types/Game';
 import isEqual from 'lodash/isEqual';
 import MapSelect from '../../components/MapSelect.vue';
 import cloneDeep from 'lodash/cloneDeep';
-import { useNextMatchStore } from '../../store/NextMatchStore';
+import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
 
 export default defineComponent({
     name: 'NextMapEditor',

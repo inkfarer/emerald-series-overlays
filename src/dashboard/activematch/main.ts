@@ -1,11 +1,11 @@
 import '../styles/panel.scss';
 import { createApp } from 'vue';
-import { setUpReplicants } from '../store/storeHelper';
-import { teamStoreReps, useTeamStore } from '../store/TeamStore';
+import { setUpReplicants } from '@browser-common/store/storeHelper';
+import { teamStoreReps, useTeamStore } from '@browser-common/store/TeamStore';
 import { createPinia } from 'pinia';
-import { setUpErrorHandler } from '../store/ErrorHandlerStore';
+import { setUpErrorHandler } from '@browser-common/store/ErrorHandlerStore';
 import ActiveMatchPanel from './ActiveMatchPanel.vue';
-import { activeMatchStoreReps, useActiveMatchStore } from '../store/ActiveMatchStore';
+import { activeMatchStoreReps, useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 
 (async () => {
     const app = createApp(ActiveMatchPanel);

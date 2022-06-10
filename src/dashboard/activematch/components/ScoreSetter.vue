@@ -69,7 +69,7 @@ import { IplButton, IplSpace } from '@iplsplatoon/vue-components';
 import { computed, defineComponent } from 'vue';
 import { GameWinner } from 'types/enums/GameWinner';
 import last from 'lodash/last';
-import { useActiveMatchStore } from '../../store/ActiveMatchStore';
+import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { library } from '@fortawesome/fontawesome-svg-core';

@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watchEffect } from 'vue';
-import { useCasterStore } from '../store/CasterStore';
+import { useCasterStore } from '@browser-common/store/CasterStore';
 import { IplButton, IplExpandingSpaceGroup, IplSpace } from '@iplsplatoon/vue-components';
 import { storeToRefs } from 'pinia';
 import { Caster } from 'schemas';

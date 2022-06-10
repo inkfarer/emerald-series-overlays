@@ -33,7 +33,7 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import { IplButton, IplExpandingSpace, IplInput } from '@iplsplatoon/vue-components';
 import TeamSelect from '../../components/TeamSelect.vue';
-import { useActiveMatchStore } from '../../store/ActiveMatchStore';
+import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 
 export default defineComponent({
     name: 'ActiveMatchUpdater',

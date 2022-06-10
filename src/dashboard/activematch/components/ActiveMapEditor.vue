@@ -19,7 +19,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { IplButton, IplExpandingSpace } from '@iplsplatoon/vue-components';
-import { useActiveMatchStore } from '../../store/ActiveMatchStore';
+import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { Game } from 'types/Game';
 import isEqual from 'lodash/isEqual';
 import MapSelect from '../../components/MapSelect.vue';

@@ -17,8 +17,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { IplButton, IplInput, IplSpace } from '@iplsplatoon/vue-components';
-import { updateRefOnValueChange } from '../store/storeHelper';
-import { useTournamentDataStore } from '../store/TournamentDataStore';
+import { updateRefOnValueChange } from '@browser-common/store/storeHelper';
+import { useTournamentDataStore } from '@browser-common/store/TournamentDataStore';
 
 export default defineComponent({
     name: 'TournamentPanel',

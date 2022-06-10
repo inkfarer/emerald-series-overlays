@@ -11,6 +11,12 @@
     ],
     "nodecg": {
         "compatibleRange": "^1.7.0",
+        "mount": [
+            {
+                "directory": "assets",
+                "endpoint": "assets"
+            }
+        ],
         "dashboardPanels": [
             {
                 "name": "teams",
@@ -63,7 +69,7 @@
         ],
         "graphics": [
             {
-                "file": "main.html",
+                "file": "intermission.html",
                 "width": 1920,
                 "height": 1080
             }

@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useTeamStore } from '../../store/TeamStore';
+import { useTeamStore } from '@browser-common/store/TeamStore';
 import { addDots } from '@helpers/stringHelper';
 import { IplButton, IplSpace } from '@iplsplatoon/vue-components';
 

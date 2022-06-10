@@ -17,8 +17,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { IplButton, IplInput, IplSpace } from '@iplsplatoon/vue-components';
-import { useIntermissionDataStore } from '../store/IntermissionDataStore';
-import { updateRefOnValueChange } from '../store/storeHelper';
+import { useIntermissionDataStore } from '@browser-common/store/IntermissionDataStore';
+import { updateRefOnValueChange } from '@browser-common/store/storeHelper';
 
 export default defineComponent({
     name: 'IntermissionPanel',

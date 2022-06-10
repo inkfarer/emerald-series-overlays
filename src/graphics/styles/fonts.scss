@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi&family=Noto+Sans:wght@400;500;600;900&display=swap');
+@import url('https://use.typekit.net/mvz0qep.css');
+@import 'constants';
+
+body {
+    font-family: 'futura-pt', 'Kosugi', 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: $text-color-light;
+}
+
+.font-numeric {
+    font-feature-settings: 'tnum';
+}

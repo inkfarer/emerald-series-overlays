@@ -29,6 +29,9 @@
             "@helpers/*": [
                 "src/helpers/*"
             ],
+            "@browser-common/*": [
+                "src/browser-common/*"
+            ],
             "schemas": [
                 "src/types/schemas/index"
             ]

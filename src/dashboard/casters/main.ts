@@ -1,10 +1,10 @@
 import '../styles/panel.scss';
-import { castersReps, useCasterStore } from '../store/CasterStore';
+import { castersReps, useCasterStore } from '@browser-common/store/CasterStore';
 import Panel from './CastersPanel.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { setUpReplicants } from '../store/storeHelper';
-import { setUpErrorHandler } from '../store/ErrorHandlerStore';
+import { setUpReplicants } from '@browser-common/store/storeHelper';
+import { setUpErrorHandler } from '@browser-common/store/ErrorHandlerStore';
 
 (async () => {
     const app = createApp(Panel);

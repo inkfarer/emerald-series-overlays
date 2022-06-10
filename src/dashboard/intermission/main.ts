@@ -2,9 +2,9 @@ import '../styles/panel.scss';
 import IntermissionPanel from './IntermissionPanel.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { setUpErrorHandler } from '../store/ErrorHandlerStore';
-import { setUpReplicants } from '../store/storeHelper';
-import { intermissionReps, useIntermissionDataStore } from '../store/IntermissionDataStore';
+import { setUpErrorHandler } from '@browser-common/store/ErrorHandlerStore';
+import { setUpReplicants } from '@browser-common/store/storeHelper';
+import { intermissionReps, useIntermissionDataStore } from '@browser-common/store/IntermissionDataStore';
 
 (async () => {
     const app = createApp(IntermissionPanel);

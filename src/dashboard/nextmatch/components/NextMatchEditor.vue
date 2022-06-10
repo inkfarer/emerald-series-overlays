@@ -42,8 +42,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import { IplButton, IplInput, IplRadio, IplSpace } from '@iplsplatoon/vue-components';
 import TeamSelect from '../../components/TeamSelect.vue';
-import { useNextMatchStore } from '../../store/NextMatchStore';
-import { updateRefOnValueChange } from '../../store/storeHelper';
+import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
+import { updateRefOnValueChange } from '@browser-common/store/storeHelper';
 
 export default defineComponent({
     name: 'NextMatchEditor',

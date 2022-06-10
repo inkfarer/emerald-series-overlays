@@ -9,7 +9,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { IplSelect } from '@iplsplatoon/vue-components';
-import { useTeamStore } from '../store/TeamStore';
+import { useTeamStore } from '@browser-common/store/TeamStore';
 import { addDots } from '@helpers/stringHelper';
 
 export default defineComponent({
