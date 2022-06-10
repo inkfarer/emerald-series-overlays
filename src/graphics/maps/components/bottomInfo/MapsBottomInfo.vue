@@ -45,7 +45,7 @@ export default defineComponent({
 @import 'src/graphics/styles/constants';
 
 .maps-bottom-info {
-    height: 100%;
+    height: calc(100% - 10px);
     width: 100%;
     background-color: $container-background;
     border-bottom: 10px solid $accent;

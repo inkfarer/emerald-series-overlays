@@ -31,12 +31,20 @@
             :formatter="pronounFormatter"
             @focuschange="setFocused"
         />
-        <div class="m-t-8">
+        <div class="layout horizontal m-t-8">
             <ipl-button
-                label="Update"
-                :color="isEdited ? 'red' : 'blue'"
+                :label="updateButtonLabel"
+                :color="buttonColor"
+                :disabled="disableSave"
                 data-test="update-button"
                 @click="updateCaster"
+            />
+            <ipl-button
+                icon="times"
+                class="m-l-6"
+                color="red"
+                data-test="remove-button"
+                @click="removeCaster"
             />
         </div>
     </ipl-expanding-space>
@@ -70,10 +78,16 @@ export default defineComponent({
         casterId: {
             type: String,
             required: true
+        },
+        uncommitted: {
+            type: Boolean,
+            default: false
         }
     },
 
-    setup(props) {
+    emits: ['save'],
+
+    setup(props, { emit }) {
         const store = useCasterStore();
         const internalCaster: Ref<Caster> = ref({ id: null, name: null, twitter: null, pronouns: null });
         const isFocused = ref(false);
@@ -90,12 +104,30 @@ export default defineComponent({
             internalCaster,
             key,
             async updateCaster() {
-                store.updateCaster(pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns']));
+                if (props.uncommitted) {
+                    const newId = await store.saveUncommittedCaster(props.casterId);
+                    // todo: breaks in newer vue versions (presumably caused by https://github.com/vuejs/core/pull/5679)
+                    emit('save', newId);
+                } else {
+                    store.updateCaster(pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns']));
+                }
+            },
+            removeCaster() {
+                if (props.uncommitted) {
+                    store.removeUncommittedCaster(props.casterId);
+                } else {
+                    store.removeCaster(props.casterId);
+                }
             },
             setFocused(focused: boolean) {
                 isFocused.value = focused;
             },
+            disableSave: computed(() => {
+                return props.uncommitted && Object.keys(store.casters).length >= 3;
+            }),
             isEdited,
+            buttonColor: computed(() => props.uncommitted ? 'green' : isEdited.value ? 'red' : 'blue'),
+            updateButtonLabel: computed(() => props.uncommitted ? 'Save' : 'Update'),
             pronounFormatter: (input: string) => input.toLowerCase(),
             twitterFormatter: (input: string) => input.startsWith('@') ? input : '@' + input
         };

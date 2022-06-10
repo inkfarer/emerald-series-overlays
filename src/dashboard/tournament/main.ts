@@ -9,7 +9,7 @@ import { tournamentReps, useTournamentDataStore } from '@browser-common/store/To
 (async () => {
     const app = createApp(TournamentPanel);
     app.use(createPinia());
-    setUpReplicants(tournamentReps, useTournamentDataStore());
+    await setUpReplicants(tournamentReps, useTournamentDataStore());
     setUpErrorHandler(app);
     app.mount('#app');
 })();

@@ -56,6 +56,14 @@
                             "bravo"
                         ]
                     },
+                    "pickedBy": {
+                        "type": "string",
+                        "enum": [
+                            "none",
+                            "alpha",
+                            "bravo"
+                        ]
+                    },
                     "map": {
                         "type": "string"
                     }
@@ -93,14 +101,17 @@
         "games": [
             {
                 "winner": "none",
+                "pickedBy": "alpha",
                 "map": "Unknown"
             },
             {
                 "winner": "none",
+                "pickedBy": "bravo",
                 "map": "Unknown"
             },
             {
                 "winner": "none",
+                "pickedBy": "none",
                 "map": "Unknown"
             }
         ]

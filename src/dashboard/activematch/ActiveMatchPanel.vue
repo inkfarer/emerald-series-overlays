@@ -2,6 +2,7 @@
     <error-log />
     <score-setter />
     <active-match-updater class="m-t-8" />
+    <counterpick-options class="m-t-8" />
     <active-map-editor class="m-t-8" />
 </template>
 
@@ -11,10 +12,11 @@ import ScoreSetter from './components/ScoreSetter.vue';
 import ErrorLog from '../components/ErrorLog.vue';
 import ActiveMatchUpdater from './components/ActiveMatchUpdater.vue';
 import ActiveMapEditor from './components/ActiveMapEditor.vue';
+import CounterpickOptions from './components/CounterpickOptions.vue';
 
 export default defineComponent({
     name: 'ActiveMatchPanel',
 
-    components: { ActiveMapEditor, ActiveMatchUpdater, ErrorLog, ScoreSetter }
+    components: { CounterpickOptions, ActiveMapEditor, ActiveMatchUpdater, ErrorLog, ScoreSetter }
 });
 </script>

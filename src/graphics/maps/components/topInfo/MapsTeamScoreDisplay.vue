@@ -1,13 +1,6 @@
 <template>
     <div class="maps-team-score-display">
-        <div class="player-skins">
-            <skin-loader
-                v-for="player in players"
-                :key="`player-skin_${player.id}`"
-                :username="player.name"
-                class="player-skin"
-            />
-        </div>
+        <team-skins :team="team" />
         <div class="score font-condensed font-numeric">{{ selectedTeam.score }}</div>
         <div class="background" />
     </div>
@@ -17,11 +10,12 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import SkinLoader from '../../../components/SkinLoader.vue';
+import TeamSkins from '../../../components/TeamSkins.vue';
 
 export default defineComponent({
     name: 'MapsTeamScoreDisplay',
 
-    components: { SkinLoader },
+    components: { TeamSkins, SkinLoader },
 
     props: {
         team: {
@@ -38,8 +32,7 @@ export default defineComponent({
             : activeMatchStore.activeMatch.teamB);
 
         return {
-            selectedTeam,
-            players: computed(() => selectedTeam.value.players.slice(0, 2))
+            selectedTeam
         };
     }
 });
@@ -55,24 +48,9 @@ export default defineComponent({
     margin-right: 80px;
     position: relative;
 
-    .player-skins {
-        display: flex;
+    .team-skins {
         margin-left: 25px;
         margin-bottom: -25px;
-
-        .player-skin {
-            width: 100px;
-            height: 100%;
-
-            &:not(:last-child) {
-                margin-right: -10px;
-            }
-
-            .image-loader {
-                background-size: contain;
-                background-position: center bottom;
-            }
-        }
     }
 
     .score {

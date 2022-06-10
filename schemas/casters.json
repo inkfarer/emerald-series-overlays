@@ -23,7 +23,7 @@
         }
     },
     "type": "array",
-    "maxItems": 2,
+    "maxItems": 3,
     "items": {
         "$ref": "#/definitions/caster"
     },
