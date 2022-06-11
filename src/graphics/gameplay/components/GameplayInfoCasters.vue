@@ -63,6 +63,7 @@ export default defineComponent({
     .icon {
         font-size: 40px;
         margin: 0 15px;
+        text-align: center;
     }
 }
 </style>

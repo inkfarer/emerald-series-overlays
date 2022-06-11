@@ -29,6 +29,8 @@ export interface ActiveMatch {
 		winner: 'none' | 'alpha' | 'bravo';
 		pickedBy?: 'none' | 'alpha' | 'bravo';
 		map: string;
+		teamAGoalCount: number;
+		teamBGoalCount: number;
 		[k: string]: unknown;
 	}[];
 }
