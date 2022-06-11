@@ -1,6 +1,7 @@
 <template>
     <error-log />
-    <score-setter />
+    <goal-count-setter />
+    <score-setter class="m-t-8" />
     <active-match-updater class="m-t-8" />
     <counterpick-options class="m-t-8" />
     <active-map-editor class="m-t-8" />
@@ -13,10 +14,11 @@ import ErrorLog from '../components/ErrorLog.vue';
 import ActiveMatchUpdater from './components/ActiveMatchUpdater.vue';
 import ActiveMapEditor from './components/ActiveMapEditor.vue';
 import CounterpickOptions from './components/CounterpickOptions.vue';
+import GoalCountSetter from './components/GoalCountSetter.vue';
 
 export default defineComponent({
     name: 'ActiveMatchPanel',
 
-    components: { CounterpickOptions, ActiveMapEditor, ActiveMatchUpdater, ErrorLog, ScoreSetter }
+    components: { CounterpickOptions, ActiveMapEditor, ActiveMatchUpdater, ErrorLog, ScoreSetter, GoalCountSetter }
 });
 </script>

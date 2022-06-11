@@ -31,6 +31,12 @@ export const useActiveMatchStore = defineStore('activeMatch', {
         },
         setFirstPicker(firstPicker: TeamRef) {
             nodecg.sendMessage('activeMatch:setFirstPicker', firstPicker);
+        },
+        addToGoalCount(team: TeamRef) {
+            nodecg.sendMessage('activeMatch:addToGoalCount', team);
+        },
+        removeFromGoalCount(team: TeamRef) {
+            nodecg.sendMessage('activeMatch:removeFromGoalCount', team);
         }
     }
 });

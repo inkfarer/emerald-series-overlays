@@ -66,11 +66,19 @@
                     },
                     "map": {
                         "type": "string"
+                    },
+                    "teamAGoalCount": {
+                        "type": "number"
+                    },
+                    "teamBGoalCount": {
+                        "type": "number"
                     }
                 },
                 "required": [
                     "winner",
-                    "map"
+                    "map",
+                    "teamAGoalCount",
+                    "teamBGoalCount"
                 ]
             }
         }
@@ -102,17 +110,23 @@
             {
                 "winner": "none",
                 "pickedBy": "alpha",
-                "map": "Unknown"
+                "map": "Unknown",
+                "teamAGoalCount": 0,
+                "teamBGoalCount": 0
             },
             {
                 "winner": "none",
                 "pickedBy": "bravo",
-                "map": "Unknown"
+                "map": "Unknown",
+                "teamAGoalCount": 0,
+                "teamBGoalCount": 0
             },
             {
                 "winner": "none",
                 "pickedBy": "none",
-                "map": "Unknown"
+                "map": "Unknown",
+                "teamAGoalCount": 0,
+                "teamBGoalCount": 0
             }
         ]
     }

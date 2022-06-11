@@ -53,5 +53,21 @@ export class ActiveMatchController {
                 return ack(e);
             }
         });
+
+        nodecg.listenFor('activeMatch:addToGoalCount', (data: TeamRef, ack: UnhandledListenForCb) => {
+            try {
+                this.activeMatchService.addToGoalCount(data);
+            } catch (e) {
+                return ack(e);
+            }
+        });
+
+        nodecg.listenFor('activeMatch:removeFromGoalCount', (data: TeamRef, ack: UnhandledListenForCb) => {
+            try {
+                this.activeMatchService.removeFromGoalCount(data);
+            } catch (e) {
+                return ack(e);
+            }
+        });
     }
 }

@@ -118,7 +118,13 @@ export class ActiveMatchService {
     }
 
     replaceMaps(maps: string[]): void {
-        this.activeMatch.value.games = maps.map(map => ({ map, winner: TeamRef.NONE, pickedBy: TeamRef.NONE }));
+        this.activeMatch.value.games = maps.map(map => ({
+            map,
+            winner: TeamRef.NONE,
+            pickedBy: TeamRef.NONE,
+            teamAGoalCount: 0,
+            teamBGoalCount: 0
+        }));
         this.activeMatch.value.teamA.score = 0;
         this.activeMatch.value.teamB.score = 0;
         this.activeMatch.value.match.isCompleted = false;
@@ -135,6 +141,34 @@ export class ActiveMatchService {
         } else if (firstPicker === TeamRef.BRAVO) {
             this.activeMatch.value.games[0].pickedBy = TeamRef.BRAVO;
             this.activeMatch.value.games[1].pickedBy = TeamRef.ALPHA;
+        }
+    }
+
+    addToGoalCount(team: TeamRef): void {
+        const nextGameIndex = this.activeMatch.value.games.findIndex(game => game.winner === TeamRef.NONE);
+
+        if (nextGameIndex >= 0) {
+            if (team === TeamRef.ALPHA) {
+                const goalCount = this.activeMatch.value.games[nextGameIndex].teamAGoalCount;
+                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.min(goalCount + 1, 5);
+            } else if (team === TeamRef.BRAVO) {
+                const goalCount = this.activeMatch.value.games[nextGameIndex].teamBGoalCount;
+                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.min(goalCount + 1, 5);
+            }
+        }
+    }
+
+    removeFromGoalCount(team: TeamRef): void {
+        const nextGameIndex = this.activeMatch.value.games.findIndex(game => game.winner === TeamRef.NONE);
+
+        if (nextGameIndex >= 0) {
+            if (team === TeamRef.ALPHA) {
+                const goalCount = this.activeMatch.value.games[nextGameIndex].teamAGoalCount;
+                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.max(goalCount - 1, 0);
+            } else if (team === TeamRef.BRAVO) {
+                const goalCount = this.activeMatch.value.games[nextGameIndex].teamBGoalCount;
+                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.max(goalCount - 1, 0);
+            }
         }
     }
 }
