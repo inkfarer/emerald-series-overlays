@@ -1,13 +1,10 @@
 <template>
-    <div
-        class="score-display"
-        :style="{ gridTemplateRows: `repeat(${gameCount}, 1fr)` }"
-    >
+    <div class="score-display">
         <div
-            v-for="i in gameCount"
+            v-for="i in 5"
             :key="`score-${i}`"
             class="score-indicator"
-            :class="{ 'filled': gameCount - i < score, [`team-${team}`]: true }"
+            :class="{ 'filled': 5 - i < score, [`team-${team}`]: true }"
         />
     </div>
 </template>
@@ -15,6 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
+import { TeamRef } from 'types/enums/TeamRef';
 
 export default defineComponent({
     name: 'GameplayTeamScoreDisplay',
@@ -29,13 +27,19 @@ export default defineComponent({
     setup(props) {
         const activeMatchStore = useActiveMatchStore();
 
-        const selectedTeam = computed(() => props.team === 'A'
-            ? activeMatchStore.activeMatch.teamA
-            : activeMatchStore.activeMatch.teamB);
+        const nextGameIndex = computed(() => activeMatchStore.activeMatch.games
+            .findIndex(game => game.winner === TeamRef.NONE));
 
         return {
-            score: computed(() => selectedTeam.value.score),
-            gameCount: computed(() => activeMatchStore.activeMatch.games.length)
+            score: computed(() => {
+                if (nextGameIndex.value >= 0) {
+                    const nextGame = activeMatchStore.activeMatch.games[nextGameIndex.value];
+
+                    return props.team === 'A' ? nextGame.teamAGoalCount : nextGame.teamBGoalCount;
+                } else {
+                    return 0;
+                }
+            })
         };
     }
 });
@@ -46,6 +50,7 @@ export default defineComponent({
     width: 31px;
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
     align-items: end;
     gap: 10px;
 
