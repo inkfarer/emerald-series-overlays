@@ -18,7 +18,9 @@ import { loadAndCheckIfImageExists } from '@helpers/imageHelper';
 
 export default defineComponent({
     name: 'ImageLoader',
+
     components: { OpacitySwapTransition },
+
     props: {
         src: {
             type: [String, null] as PropType<string | null>,

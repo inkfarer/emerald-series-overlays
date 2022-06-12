@@ -36,10 +36,17 @@
             >
                 <template v-if="!player.markedForDeletion">
                     <ipl-input
-                        v-model="player.name"
+                        :model-value="player.name"
                         label="Name"
                         name="player-name"
                         class="max-width"
+                        @update:model-value="setPlayerName($event, index)"
+                    />
+                    <ipl-input
+                        v-model="player.minecraftName"
+                        label="Minecraft IGN or UUID"
+                        name="minecraft-name"
+                        class="max-width m-l-8"
                     />
                     <ipl-button
                         icon="times"
@@ -144,12 +151,21 @@ export default defineComponent({
                 }
             },
             addPlayer() {
-                internalTeam.value.players.push({ id: undefined, name: '' });
+                internalTeam.value.players.push({ id: undefined, name: '', minecraftName: '' });
             },
             disableDeletion: computed(() => Object.keys(teamStore.teamStore).length <= 1),
             async deleteTeam() {
                 await teamStore.delete(props.selectedTeam.id);
                 emit('delete');
+            },
+            setPlayerName(name: string, index: number) {
+                const playerToUpdate = internalTeam.value.players[index];
+
+                if (playerToUpdate.name === playerToUpdate.minecraftName) {
+                    playerToUpdate.minecraftName = name;
+                }
+
+                playerToUpdate.name = name;
             }
         };
     }

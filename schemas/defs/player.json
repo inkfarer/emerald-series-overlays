@@ -3,12 +3,15 @@
     "player": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "name"],
+        "required": ["id", "name", "minecraftName"],
         "properties": {
             "id": {
                 "type": "string"
             },
             "name": {
+                "type": "string"
+            },
+            "minecraftName": {
                 "type": "string"
             }
         }

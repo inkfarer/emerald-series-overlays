@@ -11,6 +11,7 @@ export type TeamStore = {
 	players: {
 		id: string;
 		name: string;
+		minecraftName: string;
 	}[];
 	[k: string]: unknown;
 }[];

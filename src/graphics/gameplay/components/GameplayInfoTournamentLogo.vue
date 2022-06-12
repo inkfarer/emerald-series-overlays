@@ -1,5 +1,5 @@
 <template>
-    <div class="gameplay-info-tournament-logo">
+    <div class="gameplay-info-tournament-logo flex center-y">
         <img
             class="vca-logo"
             src="/bundles/emerald-series-overlays/assets/VCALogo_Light.png"
@@ -21,10 +21,6 @@ export default defineComponent({
 
 <style lang="scss">
 .gameplay-info-tournament-logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
     .vca-logo {
         width: 200px;
     }

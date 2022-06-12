@@ -1,5 +1,5 @@
 <template>
-    <div class="maps-team-score-display">
+    <div class="maps-team-score-display flex">
         <team-skins :team="team" />
         <div class="score font-condensed font-numeric">{{ selectedTeam.score }}</div>
         <div class="background" />
@@ -42,7 +42,6 @@ export default defineComponent({
 @import 'src/graphics/styles/constants';
 
 .maps-team-score-display {
-    display: flex;
     border-bottom: 10px solid $accent;
     overflow: hidden;
     margin-right: 80px;

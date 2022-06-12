@@ -1,20 +1,20 @@
 <template>
     <div class="team-roster">
-        <div class="player-skins-wrapper">
+        <div class="player-skins-wrapper flex center-x">
             <div class="background" />
             <skin-loader
                 v-for="player in players"
                 :key="`player-skin_${player.id}`"
-                :username="player.name"
+                :username="player.minecraftName"
                 :direction="team === 'A' ? 'right' : 'left'"
                 class="player-skin"
             />
         </div>
-        <div class="player-names">
+        <div class="player-names flex">
             <div
                 v-for="player in players"
                 :key="`player-name_${player.id}`"
-                class="player-name"
+                class="player-name flex center-x"
             >
                 <fitted-content
                     :max-width="300"
@@ -65,7 +65,6 @@ export default defineComponent({
 .team-roster {
     .player-names {
         width: 100%;
-        display: flex;
         justify-content: space-around;
 
         .player-name {
@@ -73,8 +72,6 @@ export default defineComponent({
             font-size: 45px;
             font-weight: bold;
             color: $text-color-dark;
-            display: flex;
-            justify-content: center;
             background-color: $container-background-light;
             border-bottom: 10px solid $accent;
             padding: 10px 0;
@@ -86,8 +83,6 @@ export default defineComponent({
         border-bottom: 10px solid $accent;
         margin-bottom: 15px;
         position: relative;
-        display: flex;
-        justify-content: center;
         overflow: hidden;
 
         > .background {

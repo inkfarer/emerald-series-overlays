@@ -29,7 +29,9 @@ import FittedContent from '../../../components/FittedContent.vue';
 
 export default defineComponent({
     name: 'BottomInfoPlayerNames',
+
     components: { FittedContent },
+
     setup() {
         const activeMatchStore = useActiveMatchStore();
 

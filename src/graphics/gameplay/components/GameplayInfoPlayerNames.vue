@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-info-player-names">
+    <div class="gameplay-info-player-names flex center-y">
         <div class="team">
             <fitted-content
                 v-for="player in teamAPlayers"
@@ -48,10 +48,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.bottom-info-player-names {
-    display: flex;
-    align-items: center;
-
+.gameplay-info-player-names {
     .versus {
         font-style: oblique;
         font-size: 40px;

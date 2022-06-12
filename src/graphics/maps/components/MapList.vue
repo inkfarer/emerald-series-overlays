@@ -1,27 +1,27 @@
 <template>
     <div class="map-list-wrapper">
         <div
-            class="map-list"
+            class="map-list flex vertical"
             :class="`active-map-${activeMapIndex}`"
         >
             <div
                 v-for="(game, index) in activeMatchStore.activeMatch.games"
                 :key="`game_${index}`"
-                class="game"
+                class="game flex"
                 :class="{ 'is-active': nextGameIndex === index }"
             >
-                <div class="game-info-layout">
+                <div class="game-info-layout flex vertical">
                     <div class="picked-by">
                         <div class="background" />
                         <div
                             v-if="game.pickedBy === 'none'"
-                            class="neutral-pick font-condensed"
+                            class="neutral-pick font-condensed flex center-xy"
                         >
                             Neutral map pick
                         </div>
                         <div
                             v-else
-                            class="map-picked-by font-condensed"
+                            class="map-picked-by flex font-condensed"
                         >
                             <team-skins
                                 :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
@@ -36,9 +36,9 @@
                             </fitted-content>
                         </div>
                     </div>
-                    <div class="number-map-section">
-                        <div class="game-number font-condensed">Game {{ index + 1 }}</div>
-                        <div class="map-name">
+                    <div class="number-map-section flex">
+                        <div class="game-number font-condensed flex center-xy">Game {{ index + 1 }}</div>
+                        <div class="map-name flex center-xy">
                             <fitted-content
                                 :max-width="250"
                                 align="center"
@@ -53,7 +53,7 @@
                         <div
                             v-if="game.winner !== 'none'"
                             :key="game.winner"
-                            class="map-winner-wrapper"
+                            class="map-winner-wrapper flex center-xy"
                             :class="`winner-${game.winner}`"
                         >
                             <team-skins
@@ -88,7 +88,9 @@ import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 
 export default defineComponent({
     name: 'MapList',
+
     components: { OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
+
     setup() {
         const activeMatchStore = useActiveMatchStore();
         const nextGameIndex = computed(() => activeMatchStore.activeMatch.games
@@ -127,15 +129,12 @@ export default defineComponent({
     position: absolute;
     top: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
     align-items: flex-end;
     transition: top 750ms ease-in-out;
 }
 
 .game {
     height: 28.3vh;
-    display: flex;
     align-items: flex-end;
     margin-bottom: 3vh;
 
@@ -148,8 +147,6 @@ export default defineComponent({
     .game-info-layout {
         height: 100%;
         width: 420px;
-        display: flex;
-        flex-direction: column;
         margin-right: 10px;
 
         .picked-by {
@@ -176,13 +173,9 @@ export default defineComponent({
                 left: 0;
                 height: 90px;
                 width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
             }
 
             > .map-picked-by {
-                display: flex;
                 position: absolute;
                 bottom: 0;
                 left: 0;
@@ -206,7 +199,6 @@ export default defineComponent({
 
         .number-map-section {
             margin-top: 10px;
-            display: flex;
 
             .game-number {
                 width: 150px;
@@ -217,9 +209,6 @@ export default defineComponent({
                 text-transform: uppercase;
                 font-style: oblique;
                 padding: 8px 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
 
             .map-name {
@@ -231,9 +220,6 @@ export default defineComponent({
                 font-weight: bold;
                 font-size: 40px;
                 padding: 4px 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
         }
     }
@@ -267,10 +253,6 @@ export default defineComponent({
             top: 0;
             left: 0;
             z-index: 2;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             &.winner-alpha {
                 background-color: rgba(255, 85, 85, 0.6);

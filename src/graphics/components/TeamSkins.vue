@@ -1,9 +1,9 @@
 <template>
-    <div class="team-skins">
+    <div class="team-skins flex">
         <skin-loader
             v-for="player in players"
             :key="`player-skin_${player.id}`"
-            :username="player.name"
+            :username="player.minecraftName"
             class="player-skin"
             :style="`width: ${width}px`"
         />
@@ -47,8 +47,6 @@ export default defineComponent({
 
 <style lang="scss">
 .team-skins {
-    display: flex;
-
     .player-skin {
         height: 100%;
 

@@ -24,7 +24,7 @@
                 </fitted-content>
             </opacity-swap-transition>
         </div>
-        <div class="tournament-name-wrapper">
+        <div class="tournament-name-wrapper flex center-xy">
             <fitted-content
                 align="center"
                 :max-width="850"
@@ -80,9 +80,6 @@ export default defineComponent({
 .center-info-wrapper {
     font-weight: 700;
     text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     .center-info-top-text-wrapper {
         text-align: center;
@@ -117,9 +114,6 @@ export default defineComponent({
         height: 150px;
         background-color: $container-background;
         border-bottom: 15px solid $accent;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         font-size: 75px;
 
         .intermission-tournament-name {

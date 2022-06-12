@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-info-tournament-data">
+    <div class="bottom-info-tournament-data flex vertical center-xy">
         <div class="tournament-name">{{ tournamentDataStore.tournamentData.name }}</div>
         <fitted-content
             :max-width="400"
@@ -18,7 +18,9 @@ import FittedContent from '../../../components/FittedContent.vue';
 
 export default defineComponent({
     name: 'BottomInfoTournamentData',
+
     components: { FittedContent },
+
     setup() {
         const tournamentDataStore = useTournamentDataStore();
         const activeMatchStore = useActiveMatchStore();
@@ -34,9 +36,6 @@ export default defineComponent({
 <style lang="scss">
 .bottom-info-tournament-data {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     .tournament-name {
         text-transform: uppercase;
