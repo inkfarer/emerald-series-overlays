@@ -1,10 +1,10 @@
 <template>
     <div class="score-display">
         <div
-            v-for="i in 5"
+            v-for="i in MAX_GOAL_COUNT"
             :key="`score-${i}`"
             class="score-indicator"
-            :class="{ 'filled': 5 - i < score, [`team-${team}`]: true }"
+            :class="{ 'filled': MAX_GOAL_COUNT - i < score, [`team-${team}`]: true }"
         />
     </div>
 </template>
@@ -13,6 +13,7 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { TeamRef } from 'types/enums/TeamRef';
+import { MAX_GOAL_COUNT } from '@helpers/constants';
 
 export default defineComponent({
     name: 'GameplayTeamScoreDisplay',
@@ -39,7 +40,8 @@ export default defineComponent({
                 } else {
                     return 0;
                 }
-            })
+            }),
+            MAX_GOAL_COUNT
         };
     }
 });
@@ -49,8 +51,6 @@ export default defineComponent({
 .score-display {
     width: 31px;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
     align-items: end;
     gap: 10px;
 

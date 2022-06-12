@@ -11,7 +11,7 @@
                         icon="plus"
                         color="green"
                         small
-                        :disabled="teamAGoalCount >= 5 || nextGameIndex < 0"
+                        :disabled="teamAGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
                         @click="addToGoalCount(TeamRef.ALPHA)"
                     />
                     <ipl-button
@@ -40,7 +40,7 @@
                         icon="plus"
                         color="green"
                         small
-                        :disabled="teamBGoalCount >= 5 || nextGameIndex < 0"
+                        :disabled="teamBGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
                         @click="addToGoalCount(TeamRef.BRAVO)"
                     />
                     <ipl-button
@@ -65,6 +65,7 @@ import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { MAX_GOAL_COUNT } from '@helpers/constants';
 
 library.add(faPlus, faMinus);
 
@@ -91,7 +92,8 @@ export default defineComponent({
             },
             removeFromGoalCount(team: TeamRef) {
                 activeMatchStore.removeFromGoalCount(team);
-            }
+            },
+            MAX_GOAL_COUNT
         };
     }
 });

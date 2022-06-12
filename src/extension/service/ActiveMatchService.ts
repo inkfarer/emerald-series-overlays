@@ -6,6 +6,7 @@ import { TeamStoreService } from './TeamStoreService';
 import findLastIndex from 'lodash/findLastIndex';
 import { Team } from '../../types/Team';
 import { isBlank } from '../../helpers/stringHelper';
+import { MAX_GOAL_COUNT } from '../../helpers/constants';
 
 export class ActiveMatchService {
     private activeMatch: ReplicantServer<ActiveMatch>;
@@ -150,10 +151,10 @@ export class ActiveMatchService {
         if (nextGameIndex >= 0) {
             if (team === TeamRef.ALPHA) {
                 const goalCount = this.activeMatch.value.games[nextGameIndex].teamAGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.min(goalCount + 1, 5);
+                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.min(goalCount + 1, MAX_GOAL_COUNT);
             } else if (team === TeamRef.BRAVO) {
                 const goalCount = this.activeMatch.value.games[nextGameIndex].teamBGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.min(goalCount + 1, 5);
+                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.min(goalCount + 1, MAX_GOAL_COUNT);
             }
         }
     }
