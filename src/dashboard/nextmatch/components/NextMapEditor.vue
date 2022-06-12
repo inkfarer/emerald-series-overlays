@@ -24,6 +24,7 @@ import isEqual from 'lodash/isEqual';
 import MapSelect from '../../components/MapSelect.vue';
 import cloneDeep from 'lodash/cloneDeep';
 import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'NextMapEditor',
@@ -47,8 +48,8 @@ export default defineComponent({
         return {
             games,
             hasDifference: computed(() => !isEqual(getMaps(games.value), getMaps(nextMatchStore.nextMatch.games))),
-            onUpdate() {
-                nextMatchStore.setMaps(games.value.map(game => game.map));
+            async onUpdate() {
+                await sendMessage('nextMatch:setMaps', games.value.map(game => game.map));
             }
         };
     }

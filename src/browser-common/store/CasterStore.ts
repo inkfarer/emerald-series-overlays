@@ -24,9 +24,6 @@ export const useCasterStore = defineStore('casters', {
         uncommittedCasters: []
     } as CasterStore),
     actions: {
-        async updateCaster(caster: Caster) {
-            return sendMessage('casters:save', caster);
-        },
         removeUncommittedCaster(id: string): void {
             this.uncommittedCasters = (this.uncommittedCasters as Caster[]).filter(caster => caster.id !== id);
         },

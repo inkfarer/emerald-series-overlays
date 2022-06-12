@@ -62,6 +62,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faGripVertical } from '@fortawesome/free-solid-svg-icons/faGripVertical';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import pick from 'lodash/pick';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 library.add(faTimes, faGripVertical);
 
@@ -109,7 +110,7 @@ export default defineComponent({
                     // todo: breaks in newer vue versions (presumably caused by https://github.com/vuejs/core/pull/5679)
                     emit('save', newId);
                 } else {
-                    store.updateCaster(pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns']));
+                    await sendMessage('casters:save', pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns']));
                 }
             },
             removeCaster() {

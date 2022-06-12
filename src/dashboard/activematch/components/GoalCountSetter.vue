@@ -66,6 +66,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { MAX_GOAL_COUNT } from '@helpers/constants';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 library.add(faPlus, faMinus);
 
@@ -82,11 +83,11 @@ export default defineComponent({
             teamAGoalCount: computed(() => activeMatchStore.nextGame?.teamAGoalCount),
             teamBGoalCount: computed(() => activeMatchStore.nextGame?.teamBGoalCount),
             TeamRef,
-            addToGoalCount(team: TeamRef) {
-                activeMatchStore.addToGoalCount(team);
+            async addToGoalCount(team: TeamRef) {
+                await sendMessage('activeMatch:addToGoalCount', team);
             },
-            removeFromGoalCount(team: TeamRef) {
-                activeMatchStore.removeFromGoalCount(team);
+            async removeFromGoalCount(team: TeamRef) {
+                await sendMessage('activeMatch:removeFromGoalCount', team);
             },
             MAX_GOAL_COUNT
         };

@@ -24,6 +24,7 @@ import { Game } from 'types/Game';
 import isEqual from 'lodash/isEqual';
 import MapSelect from '../../components/MapSelect.vue';
 import cloneDeep from 'lodash/cloneDeep';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'ActiveMapEditor',
@@ -47,8 +48,8 @@ export default defineComponent({
         return {
             games,
             hasDifference: computed(() => !isEqual(getMaps(games.value), getMaps(activeMatchStore.activeMatch.games))),
-            onUpdate() {
-                activeMatchStore.setMaps(games.value.map(game => game.map));
+            async onUpdate() {
+                await sendMessage('activeMatch:setMaps', games.value.map(game => game.map));
             }
         };
     }

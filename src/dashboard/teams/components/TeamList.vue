@@ -24,6 +24,7 @@ import { computed, defineComponent } from 'vue';
 import { useTeamStore } from '@browser-common/store/TeamStore';
 import { addDots } from '@helpers/stringHelper';
 import { IplButton, IplSpace } from '@iplsplatoon/vue-components';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'TeamList',
@@ -53,8 +54,8 @@ export default defineComponent({
                     emit('update:modelValue', newValue);
                 }
             }),
-            resetTeams() {
-                teamStore.reset();
+            async resetTeams() {
+                await sendMessage('teams:reset');
             }
         };
     }

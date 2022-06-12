@@ -48,6 +48,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { addDots } from '@helpers/stringHelper';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 library.add(faPlus, faMinus);
 
@@ -72,18 +73,18 @@ export default defineComponent({
             teamAName: computed(() => addDots(activeMatchStore.activeMatch.teamA.name, 36)),
             teamBName: computed(() => addDots(activeMatchStore.activeMatch.teamB.name, 36)),
             TeamRef,
-            setLastWinner(winner: TeamRef) {
-                activeMatchStore.setLastWinner(winner);
+            async setLastWinner(winner: TeamRef) {
+                await sendMessage('activeMatch:setWinner', { winner });
             },
-            removeWinner() {
-                activeMatchStore.removeLastWinner();
+            async removeWinner() {
+                await sendMessage('activeMatch:removeLastWinner');
             },
             disableAddScore,
             finishGameDisabled: computed(() =>
                 disableAddScore.value
                 || activeMatchStore.nextGame?.teamAGoalCount === activeMatchStore.nextGame?.teamBGoalCount),
             async onFinishGame() {
-                await activeMatchStore.setLastWinnerAutomatically();
+                await sendMessage('activeMatch:setLastWinnerAutomatically');
             }
         };
     }

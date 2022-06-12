@@ -16,6 +16,7 @@ import { computed, defineComponent } from 'vue';
 import { IplExpandingSpace, IplRadio } from '@iplsplatoon/vue-components';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { TeamRef } from 'types/enums/TeamRef';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'CounterpickOptions',
@@ -31,8 +32,8 @@ export default defineComponent({
                 get() {
                     return activeMatchStore.activeMatch.games[0].pickedBy;
                 },
-                set(newValue: TeamRef) {
-                    activeMatchStore.setFirstPicker(newValue);
+                async set(newValue: TeamRef) {
+                    await sendMessage('activeMatch:setFirstPicker', newValue);
                 }
             }),
             firstPickerOptions: computed(() => [
