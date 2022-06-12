@@ -13,7 +13,7 @@
     >
         <ipl-space
             color="light"
-            class="text-center"
+            class="text-center layout center-vertical"
             clickable
             @click="selectPreviousTeam"
         >
@@ -32,7 +32,7 @@
         </ipl-space>
         <ipl-space
             color="light"
-            class="m-l-8 text-center"
+            class="m-l-8 text-center layout center-vertical"
             clickable
             @click="selectNextTeam"
         >
