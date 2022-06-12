@@ -1,19 +1,19 @@
 <template>
-    <div class="gameplay-graphic-wrapper">
+    <div class="gameplay-graphic-wrapper flex center-xy">
         <div class="gameplay-graphic-layout">
-            <div class="team-display">
+            <div class="team-display flex center-x">
                 <team-skins
                     team="A"
                     :width="70"
                 />
                 <div class="background" />
             </div>
-            <div class="gameplay-info">
+            <div class="gameplay-info flex">
                 <gameplay-team-score-display team="A" />
                 <gameplay-info-bar />
                 <gameplay-team-score-display team="B" />
             </div>
-            <div class="team-display">
+            <div class="team-display flex center-x">
                 <team-skins
                     team="B"
                     :width="70"
@@ -41,9 +41,6 @@ export default defineComponent({
 @import 'src/graphics/styles/constants';
 
 .gameplay-graphic-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 200px;
     width: 100%;
     position: absolute;
@@ -62,8 +59,6 @@ export default defineComponent({
     .team-display {
         border-bottom: 10px solid $accent;
         position: relative;
-        display: flex;
-        justify-content: center;
         overflow: hidden;
         height: 175px;
 
@@ -83,8 +78,6 @@ export default defineComponent({
     }
 
     .gameplay-info {
-        display: flex;
-
         .score-display {
             height: 135px;
             margin: 0 10px;

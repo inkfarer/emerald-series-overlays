@@ -1,5 +1,5 @@
 <template>
-    <div class="maps-bottom-info">
+    <div class="maps-bottom-info flex center-xy">
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
@@ -49,8 +49,5 @@ export default defineComponent({
     width: 100%;
     background-color: $container-background;
     border-bottom: 10px solid $accent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 </style>

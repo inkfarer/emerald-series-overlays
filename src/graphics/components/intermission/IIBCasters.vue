@@ -4,8 +4,8 @@
             :max-width="700"
             align="right"
         >
-            <div class="caster first-caster">
-                <div class="additional-info">
+            <div class="caster first-caster flex center-y">
+                <div class="additional-info flex vertical">
                     <div class="pronouns">{{ firstCaster.pronouns }}</div>
                     <div class="twitter font-condensed">{{ firstCaster.twitter }}</div>
                 </div>
@@ -17,9 +17,9 @@
             class="icon"
         />
         <fitted-content :max-width="700">
-            <div class="caster">
+            <div class="caster flex center-y">
                 <div class="name">{{ secondCaster.name }}</div>
-                <div class="additional-info">
+                <div class="additional-info flex vertical">
                     <div class="pronouns">{{ secondCaster.pronouns }}</div>
                     <div class="twitter font-condensed">{{ secondCaster.twitter }}</div>
                 </div>
@@ -71,9 +71,6 @@ export default defineComponent({
     }
 
     .caster {
-        display: flex;
-        align-items: center;
-
         .name {
             font-size: 65px;
             font-weight: 700;
@@ -81,8 +78,6 @@ export default defineComponent({
         }
 
         .additional-info {
-            display: flex;
-            flex-direction: column;
             margin: 0 10px;
         }
 

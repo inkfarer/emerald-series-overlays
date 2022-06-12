@@ -1,5 +1,5 @@
 <template>
-    <div class="tournament-logo__wrapper">
+    <div class="tournament-logo__wrapper flex center-y space-between">
         <img src="/bundles/emerald-series-overlays/assets/VCALogo_Dark.png">
         <img src="/bundles/emerald-series-overlays/assets/BuckyTour_Long.png">
     </div>
@@ -15,10 +15,6 @@ export default defineComponent({
 
 <style lang="scss">
 .tournament-logo__wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     width: 600px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="intermission-info-bar__content-wrapper">
+    <div class="intermission-info-bar__content-wrapper flex center-xy">
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
@@ -46,10 +46,6 @@ export default defineComponent({
     height: 125px;
 
     background-color: $container-background;
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
 
     border-bottom: 15px solid $accent;
 }

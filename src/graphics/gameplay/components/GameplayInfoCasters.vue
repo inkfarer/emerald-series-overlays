@@ -1,5 +1,5 @@
 <template>
-    <div class="gameplay-info-casters">
+    <div class="gameplay-info-casters flex center-y">
         <fitted-content
             :max-width="315"
             class="caster-name"
@@ -50,9 +50,6 @@ export default defineComponent({
 
 <style lang="scss">
 .gameplay-info-casters {
-    display: flex;
-    align-items: center;
-
     .caster-name {
         text-transform: uppercase;
         font-weight: bold;

@@ -1,5 +1,5 @@
 <template>
-    <div class="gameplay-info-bar">
+    <div class="gameplay-info-bar flex center-xy">
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
@@ -47,8 +47,5 @@ export default defineComponent({
 .gameplay-info-bar {
     background-color: $container-background;
     border-bottom: 10px solid $accent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 </style>

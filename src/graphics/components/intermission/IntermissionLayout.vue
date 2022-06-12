@@ -1,7 +1,7 @@
 <template>
-    <div class="content-wrapper">
+    <div class="content-wrapper flex vertical center-x space-between">
         <tournament-logo class="tournament-logo" />
-        <div class="center-info-wrapper">
+        <div class="center-info-wrapper flex vertical center-xy">
             <slot />
         </div>
         <intermission-info-bar :show-casters="showCasters" />
@@ -38,19 +38,9 @@ export default defineComponent({
     margin: 75px 0;
     top: 0;
     left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .tournament-logo {
     filter: drop-shadow(0 0 8px rgba(34, 34, 34, 0.35));
-}
-
-.center-info-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 </style>

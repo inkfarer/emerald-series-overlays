@@ -1,6 +1,6 @@
 <template>
     <intermission-layout show-casters>
-        <div class="rosters-wrapper">
+        <div class="rosters-wrapper flex">
             <team-roster team="A" />
             <team-roster team="B" />
         </div>
@@ -24,7 +24,6 @@ export default defineComponent({
 <style lang="scss">
 .rosters-wrapper {
     width: 1700px;
-    display: flex;
     justify-content: space-between;
 
     > .team-roster {

@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-info-tournament-data">
+    <div class="bottom-info-tournament-data flex vertical center-xy">
         <div class="tournament-name">{{ tournamentDataStore.tournamentData.name }}</div>
         <fitted-content
             :max-width="400"
@@ -34,9 +34,6 @@ export default defineComponent({
 <style lang="scss">
 .bottom-info-tournament-data {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     .tournament-name {
         text-transform: uppercase;
