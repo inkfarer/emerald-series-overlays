@@ -88,7 +88,9 @@ import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 
 export default defineComponent({
     name: 'MapList',
+
     components: { OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
+
     setup() {
         const activeMatchStore = useActiveMatchStore();
         const nextGameIndex = computed(() => activeMatchStore.activeMatch.games

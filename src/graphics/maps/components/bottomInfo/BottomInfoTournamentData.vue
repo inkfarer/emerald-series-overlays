@@ -18,7 +18,9 @@ import FittedContent from '../../../components/FittedContent.vue';
 
 export default defineComponent({
     name: 'BottomInfoTournamentData',
+
     components: { FittedContent },
+
     setup() {
         const tournamentDataStore = useTournamentDataStore();
         const activeMatchStore = useActiveMatchStore();

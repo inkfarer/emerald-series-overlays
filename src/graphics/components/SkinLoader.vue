@@ -8,7 +8,9 @@ import ImageLoader from './ImageLoader.vue';
 
 export default defineComponent({
     name: 'SkinLoader',
+
     components: { ImageLoader },
+
     props: {
         username: {
             type: String,
