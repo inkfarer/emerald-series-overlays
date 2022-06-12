@@ -3,6 +3,7 @@ import { TeamStore } from '../../types/schemas';
 import { generateId } from '../../helpers/generateId';
 import { ActiveMatchService } from '../service/ActiveMatchService';
 import { BaseController } from './BaseController';
+import { addDots, isBlank } from '../../helpers/stringHelper';
 
 export class TeamController extends BaseController {
     constructor(nodecg: NodeCG, activeMatchService: ActiveMatchService) {
@@ -12,6 +13,10 @@ export class TeamController extends BaseController {
 
         this.listen('teams:save', data => {
             data.players = data.players?.map(player => ({ ...player, id: player.id ?? generateId() }));
+
+            if (isBlank(data.name)) {
+                data.name = data.players.slice(0, 2).map(player => addDots(player.name)).join(' & ');
+            }
 
             if (data.id) {
                 const teamIndex = teamStore.value.findIndex(team => team.id === data.id);
