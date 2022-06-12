@@ -11,7 +11,7 @@
                         icon="plus"
                         color="green"
                         small
-                        :disabled="teamAGoalCount >= 5 || nextGameIndex < 0"
+                        :disabled="teamAGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
                         @click="addToGoalCount(TeamRef.ALPHA)"
                     />
                     <ipl-button
@@ -40,7 +40,7 @@
                         icon="plus"
                         color="green"
                         small
-                        :disabled="teamBGoalCount >= 5 || nextGameIndex < 0"
+                        :disabled="teamBGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
                         @click="addToGoalCount(TeamRef.BRAVO)"
                     />
                     <ipl-button
@@ -65,6 +65,8 @@ import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { MAX_GOAL_COUNT } from '@helpers/constants';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 library.add(faPlus, faMinus);
 
@@ -76,22 +78,18 @@ export default defineComponent({
     setup() {
         const activeMatchStore = useActiveMatchStore();
 
-        const nextGameIndex = computed(() => activeMatchStore.activeMatch.games
-            .findIndex(game => game.winner === TeamRef.NONE));
-
         return {
-            nextGameIndex,
-            teamAGoalCount: computed(() => nextGameIndex.value >= 0
-                ? activeMatchStore.activeMatch.games[nextGameIndex.value].teamAGoalCount : 0),
-            teamBGoalCount: computed(() => nextGameIndex.value >= 0
-                ? activeMatchStore.activeMatch.games[nextGameIndex.value].teamBGoalCount : 0),
+            nextGameIndex: computed(() => activeMatchStore.nextGameIndex),
+            teamAGoalCount: computed(() => activeMatchStore.nextGame?.teamAGoalCount),
+            teamBGoalCount: computed(() => activeMatchStore.nextGame?.teamBGoalCount),
             TeamRef,
-            addToGoalCount(team: TeamRef) {
-                activeMatchStore.addToGoalCount(team);
+            async addToGoalCount(team: TeamRef) {
+                await sendMessage('activeMatch:addToGoalCount', team);
             },
-            removeFromGoalCount(team: TeamRef) {
-                activeMatchStore.removeFromGoalCount(team);
-            }
+            async removeFromGoalCount(team: TeamRef) {
+                await sendMessage('activeMatch:removeFromGoalCount', team);
+            },
+            MAX_GOAL_COUNT
         };
     }
 });

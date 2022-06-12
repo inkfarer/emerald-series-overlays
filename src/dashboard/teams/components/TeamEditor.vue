@@ -92,6 +92,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import isEqual from 'lodash/isEqual';
 import { useTeamStore } from '@browser-common/store/TeamStore';
 import { Player, Team } from 'types/Team';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 library.add(faPlus, faTimes);
 
@@ -139,7 +140,7 @@ export default defineComponent({
                         return player;
                     });
 
-                const newId = await teamStore.save(newValue);
+                const newId = await sendMessage('teams:save', newValue);
                 emit('update', newId);
             },
             removePlayer(index: number) {
@@ -155,7 +156,7 @@ export default defineComponent({
             },
             disableDeletion: computed(() => Object.keys(teamStore.teamStore).length <= 1),
             async deleteTeam() {
-                await teamStore.delete(props.selectedTeam.id);
+                await sendMessage('teams:delete', props.selectedTeam.id);
                 emit('delete');
             },
             setPlayerName(name: string, index: number) {

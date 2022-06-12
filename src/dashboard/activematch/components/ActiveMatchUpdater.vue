@@ -34,6 +34,7 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import { IplButton, IplExpandingSpace, IplInput } from '@iplsplatoon/vue-components';
 import TeamSelect from '../../components/TeamSelect.vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'ActiveMatchUpdater',
@@ -65,8 +66,8 @@ export default defineComponent({
                 teamAId.value !== activeMatchStore.activeMatch.teamA.id
                 || teamBId.value !== activeMatchStore.activeMatch.teamB.id
                 || matchName.value !== activeMatchStore.activeMatch.match.name),
-            onUpdate() {
-                activeMatchStore.setTeams({
+            async onUpdate() {
+                await sendMessage('activeMatch:update', {
                     teamAId: teamAId.value,
                     teamBId: teamBId.value,
                     matchName: matchName.value

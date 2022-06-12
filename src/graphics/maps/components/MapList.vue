@@ -27,13 +27,14 @@
                                 :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
                                 :width="70"
                             />
-                            <fitted-content
-                                :max-width="255"
-                                class="picking-team-name"
-                            >
+                            <div class="picking-team-name">
                                 Picked by:<br>
-                                {{ getFirstPlayerNames(game.pickedBy) }}
-                            </fitted-content>
+                                <fitted-content
+                                    :max-width="255"
+                                >
+                                    {{ getFirstPlayerNames(game.pickedBy) }}
+                                </fitted-content>
+                            </div>
                         </div>
                     </div>
                     <div class="number-map-section flex">
@@ -275,7 +276,7 @@ export default defineComponent({
                 font-weight: bold;
                 text-transform: uppercase;
                 line-height: 50px;
-                word-break: break-all;
+                overflow-wrap: break-word;
             }
         }
     }

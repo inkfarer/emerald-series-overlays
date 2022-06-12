@@ -8,7 +8,7 @@
                 align="right"
                 class="player-name"
             >
-                {{ player.name }}
+                {{ addDots(player.name) }}
             </fitted-content>
         </div>
         <div class="versus font-condensed">VS</div>
@@ -20,7 +20,7 @@
                 align="left"
                 class="player-name"
             >
-                {{ player.name }}
+                {{ addDots(player.name) }}
             </fitted-content>
         </div>
     </div>
@@ -30,6 +30,7 @@
 import { computed, defineComponent } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import FittedContent from '../../components/FittedContent.vue';
+import { addDots } from '@helpers/stringHelper';
 
 export default defineComponent({
     name: 'GameplayInfoPlayerNames',
@@ -41,7 +42,8 @@ export default defineComponent({
 
         return {
             teamAPlayers: computed(() => activeMatchStore.activeMatch.teamA.players.slice(0, 2)),
-            teamBPlayers: computed(() => activeMatchStore.activeMatch.teamB.players.slice(0, 2))
+            teamBPlayers: computed(() => activeMatchStore.activeMatch.teamB.players.slice(0, 2)),
+            addDots
         };
     }
 });

@@ -1,23 +1,28 @@
 import type { NodeCG } from 'nodecg/server';
-import type { UnhandledListenForCb } from 'nodecg/lib/nodecg-instance';
 import { TeamStore } from '../../types/schemas';
 import { generateId } from '../../helpers/generateId';
-import { Team } from '../../types/Team';
 import { ActiveMatchService } from '../service/ActiveMatchService';
+import { BaseController } from './BaseController';
+import { addDots, isBlank } from '../../helpers/stringHelper';
 
-
-export class TeamController {
+export class TeamController extends BaseController {
     constructor(nodecg: NodeCG, activeMatchService: ActiveMatchService) {
+        super(nodecg);
+
         const teamStore = nodecg.Replicant<TeamStore>('teamStore');
 
-        nodecg.listenFor('teams:save', (data: Team, ack: UnhandledListenForCb) => {
+        this.listen('teams:save', data => {
             data.players = data.players?.map(player => ({ ...player, id: player.id ?? generateId() }));
+
+            if (isBlank(data.name)) {
+                data.name = data.players.slice(0, 2).map(player => addDots(player.name)).join(' & ');
+            }
 
             if (data.id) {
                 const teamIndex = teamStore.value.findIndex(team => team.id === data.id);
 
                 if (teamIndex < 0) {
-                    return ack(new Error(`Could not find team with ID "${data.id}"`));
+                    throw new Error(`Could not find team with ID "${data.id}"`);
                 }
 
                 teamStore.value[teamIndex] = data;
@@ -27,10 +32,10 @@ export class TeamController {
                 teamStore.value.push(data);
             }
 
-            ack(null, data.id);
+            return data.id;
         });
 
-        nodecg.listenFor('teams:reset', (data: never, ack: UnhandledListenForCb) => {
+        this.listen('teams:reset', () => {
             teamStore.value = [
                 {
                     id: 'aaa111',
@@ -51,23 +56,20 @@ export class TeamController {
             ];
 
             activeMatchService.setTeams('aaa111', 'bbb222');
-            ack(null);
         });
 
-        nodecg.listenFor('teams:delete', (data: string, ack: UnhandledListenForCb) => {
+        this.listen('teams:delete', data => {
             const oldLength = teamStore.value.length;
 
             if (oldLength <= 1) {
-                return ack(new Error('Cannot delete the last team.'));
+                throw new Error('Cannot delete the last team.');
             }
 
             teamStore.value = teamStore.value.filter(team => team.id !== data);
 
             if (teamStore.value.length === oldLength) {
-                return ack(new Error(`Could not find team with ID '${data}'.`));
+                throw new Error(`Could not find team with ID '${data}'.`);
             }
-
-            ack(null);
         });
     }
 }

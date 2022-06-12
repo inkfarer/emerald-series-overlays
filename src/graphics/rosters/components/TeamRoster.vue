@@ -20,7 +20,7 @@
                     :max-width="300"
                     align="center"
                 >
-                    {{ player.name }}
+                    {{ addDots(player.name) }}
                 </fitted-content>
             </div>
         </div>
@@ -32,6 +32,7 @@ import { computed, defineComponent, PropType } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import FittedContent from '../../components/FittedContent.vue';
 import SkinLoader from '../../components/SkinLoader.vue';
+import { addDots } from '@helpers/stringHelper';
 
 export default defineComponent({
     name: 'TeamRoster',
@@ -53,7 +54,8 @@ export default defineComponent({
             : activeMatchStore.activeMatch.teamB);
 
         return {
-            players: computed(() => selectedTeam.value.players.slice(0, 2))
+            players: computed(() => selectedTeam.value.players.slice(0, 2)),
+            addDots
         };
     }
 });

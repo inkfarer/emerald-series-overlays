@@ -44,6 +44,7 @@ import { IplButton, IplInput, IplRadio, IplSpace } from '@iplsplatoon/vue-compon
 import TeamSelect from '../../components/TeamSelect.vue';
 import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
 import { updateRefOnValueChange } from '@browser-common/store/storeHelper';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export default defineComponent({
     name: 'NextMatchEditor',
@@ -78,16 +79,16 @@ export default defineComponent({
                 { value: '5', name: '5' },
                 { value: '7', name: '7' }
             ],
-            onUpdate() {
-                nextMatchStore.setTeamsAndMatchData({
+            async onUpdate() {
+                await sendMessage('nextMatch:setTeamsAndMatchData', {
                     teamAId: teamAId.value,
                     teamBId: teamBId.value,
                     matchName: matchName.value,
                     numberOfGames: Number(gameCount.value),
                 });
             },
-            onBeginMatch() {
-                nextMatchStore.beginMatch();
+            async onBeginMatch() {
+                await sendMessage('nextMatch:begin');
             }
         };
     }
