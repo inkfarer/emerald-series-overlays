@@ -275,7 +275,7 @@ export default defineComponent({
                 font-weight: bold;
                 text-transform: uppercase;
                 line-height: 50px;
-                word-break: break-all;
+                overflow-wrap: break-word;
             }
         }
     }
