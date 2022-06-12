@@ -1,32 +1,21 @@
 import type { NodeCG } from 'nodecg/server';
-import type { UnhandledListenForCb } from 'nodecg/lib/nodecg-instance';
-import { UpdateNextTeamsAndMatchRequest } from '../../types/messages/NextMatch';
 import { NextMatchService } from '../service/NextMatchService';
+import { BaseController } from './BaseController';
 
-export class NextMatchController {
+export class NextMatchController extends BaseController {
     constructor(nodecg: NodeCG, nextMatchService: NextMatchService) {
-        nodecg.listenFor('nextMatch:setTeamsAndMatchData', (data: UpdateNextTeamsAndMatchRequest, ack: UnhandledListenForCb) => {
-            try {
-                nextMatchService.setTeamsAndMatchData(data.teamAId, data.teamBId, data.numberOfGames, data.matchName);
-            } catch (e) {
-                return ack(e);
-            }
+        super(nodecg);
+
+        this.listen('nextMatch:setTeamsAndMatchData', data => {
+            nextMatchService.setTeamsAndMatchData(data.teamAId, data.teamBId, data.numberOfGames, data.matchName);
         });
 
-        nodecg.listenFor('nextMatch:setMaps', (data: string[], ack: UnhandledListenForCb) => {
-            try {
-                nextMatchService.setMaps(data);
-            } catch (e) {
-                return ack(e);
-            }
+        this.listen('nextMatch:setMaps', data => {
+            nextMatchService.setMaps(data);
         });
 
-        nodecg.listenFor('nextMatch:begin', (data: never, ack: UnhandledListenForCb) => {
-            try {
-                nextMatchService.beginMatch();
-            } catch (e) {
-                return ack(e);
-            }
+        this.listen('nextMatch:begin', () => {
+            nextMatchService.beginMatch();
         });
     }
 }

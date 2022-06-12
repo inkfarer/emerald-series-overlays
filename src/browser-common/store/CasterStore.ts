@@ -1,7 +1,7 @@
 import { Caster, Casters } from 'schemas';
 import { generateId } from '@helpers/generateId';
 import { defineStore } from 'pinia';
-import omit from 'lodash/omit';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export const castersReps = [
     nodecg.Replicant<Casters>('casters')
@@ -24,8 +24,8 @@ export const useCasterStore = defineStore('casters', {
         uncommittedCasters: []
     } as CasterStore),
     actions: {
-        updateCaster(caster: Caster): void {
-            nodecg.sendMessage('casters:save', caster);
+        async updateCaster(caster: Caster) {
+            return sendMessage('casters:save', caster);
         },
         removeUncommittedCaster(id: string): void {
             this.uncommittedCasters = (this.uncommittedCasters as Caster[]).filter(caster => caster.id !== id);
@@ -39,12 +39,15 @@ export const useCasterStore = defineStore('casters', {
             return id;
         },
         async saveUncommittedCaster(id: string): Promise<string> {
-            const newCaster = await nodecg.sendMessage('casters:save', omit((this.uncommittedCasters as Caster[]).find(caster => caster.id === id), ['id']));
+            const newCaster = await sendMessage('casters:save', {
+                ...(this.uncommittedCasters as Caster[]).find(caster => caster.id === id),
+                id: undefined
+            });
             this.removeUncommittedCaster(id);
             return newCaster.id;
         },
-        async removeCaster(id: string): Promise<void> {
-            return nodecg.sendMessage('casters:delete', id);
+        async removeCaster(id: string) {
+            return sendMessage('casters:delete', id);
         }
     }
 });

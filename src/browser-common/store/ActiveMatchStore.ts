@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { ActiveMatch } from 'schemas';
 import { TeamRef } from 'types/enums/TeamRef';
 import { UpdateActiveMatchRequest } from 'types/messages/ActiveMatch';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export const activeMatchStoreReps = [
     nodecg.Replicant<ActiveMatch>('activeMatch')
@@ -17,29 +18,29 @@ export const useActiveMatchStore = defineStore('activeMatch', {
         activeMatch: null
     } as ActiveMatchStore),
     actions: {
-        setLastWinner(winner: TeamRef): void {
-            nodecg.sendMessage('activeMatch:setWinner', { winner });
+        async setLastWinner(winner: TeamRef) {
+            return sendMessage('activeMatch:setWinner', { winner });
         },
-        async setLastWinnerAutomatically(): Promise<void> {
-            return nodecg.sendMessage('activeMatch:setLastWinnerAutomatically');
+        async setLastWinnerAutomatically() {
+            return sendMessage('activeMatch:setLastWinnerAutomatically');
         },
-        removeLastWinner(): void {
-            nodecg.sendMessage('activeMatch:removeLastWinner');
+        async removeLastWinner() {
+            return sendMessage('activeMatch:removeLastWinner');
         },
-        setTeams(request: UpdateActiveMatchRequest): void {
-            nodecg.sendMessage('activeMatch:update', request);
+        async setTeams(request: UpdateActiveMatchRequest) {
+            return sendMessage('activeMatch:update', request);
         },
-        setMaps(request: string[]) {
-            nodecg.sendMessage('activeMatch:setMaps', request);
+        async setMaps(request: string[]) {
+            return sendMessage('activeMatch:setMaps', request);
         },
-        setFirstPicker(firstPicker: TeamRef) {
-            nodecg.sendMessage('activeMatch:setFirstPicker', firstPicker);
+        async setFirstPicker(firstPicker: TeamRef) {
+            return sendMessage('activeMatch:setFirstPicker', firstPicker);
         },
-        addToGoalCount(team: TeamRef) {
-            nodecg.sendMessage('activeMatch:addToGoalCount', team);
+        async addToGoalCount(team: TeamRef) {
+            return sendMessage('activeMatch:addToGoalCount', team);
         },
-        removeFromGoalCount(team: TeamRef) {
-            nodecg.sendMessage('activeMatch:removeFromGoalCount', team);
+        async removeFromGoalCount(team: TeamRef) {
+            return sendMessage('activeMatch:removeFromGoalCount', team);
         }
     },
     getters: {

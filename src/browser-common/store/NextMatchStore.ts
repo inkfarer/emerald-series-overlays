@@ -2,6 +2,7 @@ import { NodeCGBrowser } from 'nodecg/browser';
 import { defineStore } from 'pinia';
 import { NextMatch } from 'schemas';
 import { UpdateNextTeamsAndMatchRequest } from 'types/messages/NextMatch';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export const nextMatchReps = [
     nodecg.Replicant<NextMatch>('nextMatch')
@@ -16,14 +17,14 @@ export const useNextMatchStore = defineStore('nextMatch', {
         nextMatch: null
     } as NextMatchStore),
     actions: {
-        setTeamsAndMatchData(request: UpdateNextTeamsAndMatchRequest) {
-            nodecg.sendMessage('nextMatch:setTeamsAndMatchData', request);
+        async setTeamsAndMatchData(request: UpdateNextTeamsAndMatchRequest) {
+            return sendMessage('nextMatch:setTeamsAndMatchData', request);
         },
-        setMaps(request: string[]) {
-            nodecg.sendMessage('nextMatch:setMaps', request);
+        async setMaps(request: string[]) {
+            return sendMessage('nextMatch:setMaps', request);
         },
-        beginMatch() {
-            nodecg.sendMessage('nextMatch:begin');
+        async beginMatch() {
+            return sendMessage('nextMatch:begin');
         }
     }
 });

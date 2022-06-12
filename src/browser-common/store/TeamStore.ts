@@ -2,6 +2,7 @@ import { NodeCGBrowser } from 'nodecg/browser';
 import { TeamStore } from 'schemas';
 import { defineStore } from 'pinia';
 import { Team } from 'types/Team';
+import { sendMessage } from '@browser-common/typedNodecg';
 
 export const teamStoreReps = [
     nodecg.Replicant<TeamStore>('teamStore')
@@ -16,14 +17,14 @@ export const useTeamStore = defineStore('teams', {
         teamStore: null
     } as TeamDataStore),
     actions: {
-        async save(team: Team): Promise<string> {
-            return nodecg.sendMessage('teams:save', team);
+        async save(team: Team) {
+            return sendMessage('teams:save', team);
         },
-        reset(): Promise<void> {
-            return nodecg.sendMessage('teams:reset');
+        async reset() {
+            return sendMessage('teams:reset');
         },
-        delete(id: string): Promise<void> {
-            return nodecg.sendMessage('teams:delete', id);
+        async delete(id: string) {
+            return sendMessage('teams:delete', id);
         }
     }
 });
