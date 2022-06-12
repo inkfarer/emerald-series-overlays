@@ -1,66 +1,40 @@
 <template>
     <ipl-space>
-        <div class="text-small text-center max-width m-b-2">Set score</div>
-        <div class="layout horizontal center-horizontal center-vertical">
-            <ipl-space
-                color="light"
-                class="layout horizontal score-display-space"
-            >
-                <div class="layout vertical">
-                    <ipl-button
-                        icon="plus"
-                        color="green"
-                        small
-                        :disabled="disableAddScore"
-                        data-test="team-a-plus-btn"
-                        @click="setLastWinner(GameWinner.ALPHA)"
-                    />
-                    <ipl-button
-                        class="m-t-4"
-                        icon="minus"
-                        color="red"
-                        small
-                        data-test="team-a-minus-btn"
-                        :disabled="lastWinner === GameWinner.BRAVO || lastWinner == null"
-                        @click="removeWinner"
-                    />
-                </div>
-                <div class="layout horizontal center-horizontal center-vertical score-wrapper left">
-                    <span class="score">{{ teamAScore }}</span>
-                </div>
-            </ipl-space>
-            <span class="score-separator">:</span>
-            <ipl-space
-                color="light"
-                class="layout horizontal score-display-space"
-            >
-                <div class="layout horizontal center-horizontal center-vertical score-wrapper right">
-                    <span class="score">{{ teamBScore }}</span>
-                </div>
-                <div class="layout vertical">
-                    <ipl-button
-                        icon="plus"
-                        color="green"
-                        small
-                        :disabled="disableAddScore"
-                        data-test="team-b-plus-btn"
-                        @click="setLastWinner(GameWinner.BRAVO)"
-                    />
-                    <ipl-button
-                        class="m-t-4"
-                        icon="minus"
-                        color="red"
-                        small
-                        :disabled="lastWinner === GameWinner.ALPHA || lastWinner == null"
-                        data-test="team-b-minus-btn"
-                        @click="removeWinner"
-                    />
-                </div>
-            </ipl-space>
+        <div class="score-display-layout m-b-8">
+            <span class="max-width text-small wrap-anywhere">{{ teamAName }}</span>
+            <span class="score m-x-2">
+                {{ teamAScore }}<span class="score-separator">:</span>{{ teamBScore }}
+            </span>
+            <span class="max-width text-small text-right wrap-anywhere">{{ teamBName }}</span>
         </div>
-        <div class="layout horizontal m-t-8 m-x-8">
-            <span class="max-width text-small wrap-anywhere m-r-4">{{ teamAName }}</span>
-            <span class="max-width text-small text-right wrap-anywhere m-l-4">{{ teamBName }}</span>
+        <ipl-button
+            label="Finish game"
+            color="green"
+            :disabled="finishGameDisabled"
+            @click="onFinishGame"
+        />
+        <div class="layout horizontal m-t-8">
+            <ipl-button
+                label="A Win"
+                small
+                class="m-r-8"
+                :disabled="disableAddScore"
+                @click="setLastWinner(TeamRef.ALPHA)"
+            />
+            <ipl-button
+                label="Remove win"
+                small
+                class="m-r-8"
+                color="red"
+                :disabled="teamAScore <= 0 && teamBScore <= 0"
+                @click="removeWinner"
+            />
+            <ipl-button
+                label="B Win"
+                small
+                :disabled="disableAddScore"
+                @click="setLastWinner(TeamRef.BRAVO)"
+            />
         </div>
     </ipl-space>
 </template>
@@ -69,7 +43,6 @@
 import { IplButton, IplSpace } from '@iplsplatoon/vue-components';
 import { computed, defineComponent } from 'vue';
 import { TeamRef } from 'types/enums/TeamRef';
-import last from 'lodash/last';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -86,30 +59,57 @@ export default defineComponent({
     setup() {
         const activeMatchStore = useActiveMatchStore();
 
+        const teamAScore = computed(() => activeMatchStore.activeMatch.teamA.score);
+        const teamBScore = computed(() => activeMatchStore.activeMatch.teamB.score);
+        const disableAddScore = computed(() => {
+            const activeMatch = activeMatchStore.activeMatch;
+            return activeMatch.teamA.score + activeMatch.teamB.score >= activeMatch.games.length;
+        });
+
         return {
-            teamAScore: computed(() => activeMatchStore.activeMatch.teamA.score),
-            teamBScore: computed(() => activeMatchStore.activeMatch.teamB.score),
+            teamAScore,
+            teamBScore,
             teamAName: computed(() => addDots(activeMatchStore.activeMatch.teamA.name, 36)),
             teamBName: computed(() => addDots(activeMatchStore.activeMatch.teamB.name, 36)),
-            GameWinner: TeamRef,
+            TeamRef,
             setLastWinner(winner: TeamRef) {
                 activeMatchStore.setLastWinner(winner);
             },
             removeWinner() {
                 activeMatchStore.removeLastWinner();
             },
-            disableAddScore: computed(() => {
-                const activeMatch = activeMatchStore.activeMatch;
-                return activeMatch.teamA.score + activeMatch.teamB.score >= activeMatch.games.length;
-            }),
-            lastWinner: computed(() =>
-                last(activeMatchStore.activeMatch.games.filter(game => game.winner !== TeamRef.NONE))?.winner)
+            disableAddScore,
+            finishGameDisabled: computed(() =>
+                disableAddScore.value
+                || activeMatchStore.nextGame?.teamAGoalCount === activeMatchStore.nextGame?.teamBGoalCount),
+            async onFinishGame() {
+                await activeMatchStore.setLastWinnerAutomatically();
+            }
         };
     }
 });
 </script>
 
 <style lang="scss" scoped>
+.score-display-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+    gap: 4px;
+    align-items: center;
+
+    .score {
+        font-weight: 700;
+        font-size: 1.1em;
+        align-self: center;
+        text-align: center;
+        font-feature-settings: 'tnum';
+    }
+
+    .score-separator {
+        margin: 0 2px;
+    }
+}
+
 .score-wrapper {
     width: 60px;
     font-size: 3.25em;
@@ -130,12 +130,5 @@ export default defineComponent({
 
 .ipl-space.score-display-space {
     padding: 4px;
-}
-
-.score-separator {
-    font-size: 2.75em;
-    margin: -5px 6px 0;
-    font-weight: 900;
-    user-select: none;
 }
 </style>

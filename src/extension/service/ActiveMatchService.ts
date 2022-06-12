@@ -146,30 +146,48 @@ export class ActiveMatchService {
     }
 
     addToGoalCount(team: TeamRef): void {
-        const nextGameIndex = this.activeMatch.value.games.findIndex(game => game.winner === TeamRef.NONE);
+        const nextGameIndex = this.getNextGameIndex();
 
         if (nextGameIndex >= 0) {
+            const nextGame = this.activeMatch.value.games[nextGameIndex];
             if (team === TeamRef.ALPHA) {
-                const goalCount = this.activeMatch.value.games[nextGameIndex].teamAGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.min(goalCount + 1, MAX_GOAL_COUNT);
+                nextGame.teamAGoalCount = Math.min(nextGame.teamAGoalCount + 1, MAX_GOAL_COUNT);
             } else if (team === TeamRef.BRAVO) {
-                const goalCount = this.activeMatch.value.games[nextGameIndex].teamBGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.min(goalCount + 1, MAX_GOAL_COUNT);
+                nextGame.teamBGoalCount = Math.min(nextGame.teamBGoalCount + 1, MAX_GOAL_COUNT);
             }
         }
     }
 
     removeFromGoalCount(team: TeamRef): void {
-        const nextGameIndex = this.activeMatch.value.games.findIndex(game => game.winner === TeamRef.NONE);
+        const nextGameIndex = this.getNextGameIndex();
 
         if (nextGameIndex >= 0) {
+            const nextGame = this.activeMatch.value.games[nextGameIndex];
             if (team === TeamRef.ALPHA) {
-                const goalCount = this.activeMatch.value.games[nextGameIndex].teamAGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamAGoalCount = Math.max(goalCount - 1, 0);
+                nextGame.teamAGoalCount = Math.max(nextGame.teamAGoalCount - 1, 0);
             } else if (team === TeamRef.BRAVO) {
-                const goalCount = this.activeMatch.value.games[nextGameIndex].teamBGoalCount;
-                this.activeMatch.value.games[nextGameIndex].teamBGoalCount = Math.max(goalCount - 1, 0);
+                nextGame.teamBGoalCount = Math.max(nextGame.teamBGoalCount - 1, 0);
             }
         }
+    }
+
+    setLastWinnerAutomatically(): void {
+        const nextGameIndex = this.getNextGameIndex();
+
+        if (nextGameIndex >= 0) {
+            const nextGame = this.activeMatch.value.games[nextGameIndex];
+
+            if (nextGame.teamAGoalCount > nextGame.teamBGoalCount) {
+                this.setLastWinner(TeamRef.ALPHA);
+            } else if (nextGame.teamBGoalCount > nextGame.teamAGoalCount) {
+                this.setLastWinner(TeamRef.BRAVO);
+            } else {
+                throw new Error(`Cannot automatically set winner based on goal count ${nextGame.teamAGoalCount}:${nextGame.teamBGoalCount}`);
+            }
+        }
+    }
+
+    private getNextGameIndex(): number {
+        return this.activeMatch.value.games.findIndex(game => game.winner === TeamRef.NONE);
     }
 }

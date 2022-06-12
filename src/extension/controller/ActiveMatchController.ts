@@ -69,5 +69,13 @@ export class ActiveMatchController {
                 return ack(e);
             }
         });
+
+        nodecg.listenFor('activeMatch:setLastWinnerAutomatically', (data: never, ack: UnhandledListenForCb) => {
+            try {
+                this.activeMatchService.setLastWinnerAutomatically();
+            } catch (e) {
+                return ack(e);
+            }
+        });
     }
 }

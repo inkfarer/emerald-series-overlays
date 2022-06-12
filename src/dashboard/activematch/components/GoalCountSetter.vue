@@ -77,15 +77,10 @@ export default defineComponent({
     setup() {
         const activeMatchStore = useActiveMatchStore();
 
-        const nextGameIndex = computed(() => activeMatchStore.activeMatch.games
-            .findIndex(game => game.winner === TeamRef.NONE));
-
         return {
-            nextGameIndex,
-            teamAGoalCount: computed(() => nextGameIndex.value >= 0
-                ? activeMatchStore.activeMatch.games[nextGameIndex.value].teamAGoalCount : 0),
-            teamBGoalCount: computed(() => nextGameIndex.value >= 0
-                ? activeMatchStore.activeMatch.games[nextGameIndex.value].teamBGoalCount : 0),
+            nextGameIndex: computed(() => activeMatchStore.nextGameIndex),
+            teamAGoalCount: computed(() => activeMatchStore.nextGame?.teamAGoalCount),
+            teamBGoalCount: computed(() => activeMatchStore.nextGame?.teamBGoalCount),
             TeamRef,
             addToGoalCount(team: TeamRef) {
                 activeMatchStore.addToGoalCount(team);

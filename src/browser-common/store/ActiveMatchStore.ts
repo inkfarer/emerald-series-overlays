@@ -20,6 +20,9 @@ export const useActiveMatchStore = defineStore('activeMatch', {
         setLastWinner(winner: TeamRef): void {
             nodecg.sendMessage('activeMatch:setWinner', { winner });
         },
+        async setLastWinnerAutomatically(): Promise<void> {
+            return nodecg.sendMessage('activeMatch:setLastWinnerAutomatically');
+        },
         removeLastWinner(): void {
             nodecg.sendMessage('activeMatch:removeLastWinner');
         },
@@ -37,6 +40,13 @@ export const useActiveMatchStore = defineStore('activeMatch', {
         },
         removeFromGoalCount(team: TeamRef) {
             nodecg.sendMessage('activeMatch:removeFromGoalCount', team);
+        }
+    },
+    getters: {
+        nextGameIndex: state => state.activeMatch.games
+            .findIndex(game => game.winner === TeamRef.NONE),
+        nextGame(state) {
+            return this.nextGameIndex >= 0 ? state.activeMatch.games[this.nextGameIndex] : null;
         }
     }
 });
