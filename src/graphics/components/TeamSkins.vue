@@ -3,7 +3,7 @@
         <skin-loader
             v-for="player in players"
             :key="`player-skin_${player.id}`"
-            :username="player.name"
+            :username="player.minecraftName"
             class="player-skin"
             :style="`width: ${width}px`"
         />

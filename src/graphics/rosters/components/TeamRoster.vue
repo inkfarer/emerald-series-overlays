@@ -5,7 +5,7 @@
             <skin-loader
                 v-for="player in players"
                 :key="`player-skin_${player.id}`"
-                :username="player.name"
+                :username="player.minecraftName"
                 :direction="team === 'A' ? 'right' : 'left'"
                 class="player-skin"
             />
