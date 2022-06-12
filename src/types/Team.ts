@@ -8,4 +8,5 @@ export interface Team {
 export interface Player {
     id: string;
     name: string;
+    minecraftName: string;
 }

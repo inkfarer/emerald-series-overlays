@@ -1,5 +1,6 @@
 import { TeamStore } from '../../types/schemas';
 import type { NodeCG, ReplicantServer } from 'nodecg/server';
+import { Team } from '../../types/Team';
 
 export class TeamStoreService {
     private teamStore: ReplicantServer<TeamStore>;
@@ -8,7 +9,7 @@ export class TeamStoreService {
         this.teamStore = nodecg.Replicant<TeamStore>('teamStore');
     }
 
-    getTeam(id: string) {
+    getTeam(id: string): Team {
         const team = this.teamStore.value.find(team => team.id === id);
 
         if (!team) {

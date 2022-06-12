@@ -12,6 +12,7 @@ export interface NextMatch {
 		players: {
 			id: string;
 			name: string;
+			minecraftName: string;
 		}[];
 		[k: string]: unknown;
 	};
@@ -21,6 +22,7 @@ export interface NextMatch {
 		players: {
 			id: string;
 			name: string;
+			minecraftName: string;
 		}[];
 		[k: string]: unknown;
 	};

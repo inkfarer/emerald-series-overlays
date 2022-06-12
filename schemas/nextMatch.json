@@ -41,16 +41,16 @@
             "id": "aaa111",
             "name": "Example team 1",
             "players": [
-                { "id": "aaa1111", "name": "Player One" },
-                { "id": "aaa1112", "name": "Player Two" }
+                { "id": "aaa1111", "name": "Player One", "minecraftName": "Player One" },
+                { "id": "aaa1112", "name": "Player Two", "minecraftName": "Player Two" }
             ]
         },
         "teamB": {
             "id": "bbb222",
             "name": "Example team 2",
             "players": [
-                { "id": "bbb2221", "name": "Player Three" },
-                { "id": "bbb2222", "name": "Player Four" }
+                { "id": "bbb2221", "name": "Player Three", "minecraftName": "Player Three" },
+                { "id": "bbb2222", "name": "Player Four", "minecraftName": "Player Four" }
             ]
         },
         "match": {
