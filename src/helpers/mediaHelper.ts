@@ -1,4 +1,5 @@
 import { isBlank } from '@iplsplatoon/vue-components';
+import axios from 'axios';
 
 export async function loadAndCheckIfImageExists(src: string): Promise<boolean> {
     return new Promise(resolve => {
@@ -16,4 +17,17 @@ export async function loadAndCheckIfImageExists(src: string): Promise<boolean> {
             resolve(false);
         };
     });
+}
+
+export async function checkIfPageExists(src: string): Promise<boolean> {
+    if (isBlank(src)) {
+        return false;
+    }
+
+    try {
+        const response = await axios.get(src);
+        return response.status !== 404;
+    } catch (e) {
+        return false;
+    }
 }

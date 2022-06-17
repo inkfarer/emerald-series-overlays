@@ -21,6 +21,9 @@
                 },
                 "profileImageUrl": {
                     "type": "string"
+                },
+                "videoUrl": {
+                    "type": "string"
                 }
             }
         }

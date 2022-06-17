@@ -13,4 +13,5 @@ export interface Caster {
 	twitter: string;
 	pronouns: string;
 	profileImageUrl?: string;
+	videoUrl?: string;
 }

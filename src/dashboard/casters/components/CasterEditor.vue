@@ -9,7 +9,9 @@
             <span
                 v-if="uncommitted"
                 class="badge badge-red uncommitted-badge"
-            >Unsaved</span>
+            >
+                Unsaved
+            </span>
         </template>
         <ipl-input
             v-model="internalCaster.name"
@@ -35,6 +37,12 @@
             v-model="internalCaster.profileImageUrl"
             name="profileImageUrl"
             label="Profile image URL"
+            @focuschange="setFocused"
+        />
+        <ipl-input
+            v-model="internalCaster.videoUrl"
+            name="videoUrl"
+            label="Video URL"
             @focuschange="setFocused"
         />
         <div class="layout horizontal m-t-8">
@@ -67,8 +75,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faGripVertical } from '@fortawesome/free-solid-svg-icons/faGripVertical';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import pick from 'lodash/pick';
 import { sendMessage } from '@browser-common/typedNodecg';
+import omit from 'lodash/omit';
 
 library.add(faTimes, faGripVertical);
 
@@ -112,11 +120,12 @@ export default defineComponent({
             key,
             async updateCaster() {
                 if (props.uncommitted) {
-                    const newId = await store.saveUncommittedCaster(props.casterId);
+                    const newCaster = await sendMessage('casters:save', omit(internalCaster.value, ['id', 'uncommitted']) as Caster);
+                    store.removeUncommittedCaster(internalCaster.value.id);
                     // todo: breaks in newer vue versions (presumably caused by https://github.com/vuejs/core/pull/5679)
-                    emit('save', newId);
+                    emit('save', newCaster.id);
                 } else {
-                    await sendMessage('casters:save', pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns', 'profileImageUrl']));
+                    await sendMessage('casters:save', omit(internalCaster.value, ['uncommitted']) as Caster);
                 }
             },
             removeCaster() {

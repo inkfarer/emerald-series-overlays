@@ -14,7 +14,7 @@
 import { defineComponent } from 'vue';
 import { computed, PropType, ref, watch } from 'vue';
 import OpacitySwapTransition from './OpacitySwapTransition.vue';
-import { loadAndCheckIfImageExists } from '@helpers/imageHelper';
+import { loadAndCheckIfImageExists } from '@helpers/mediaHelper';
 import { isBlank } from '@iplsplatoon/vue-components';
 
 export default defineComponent({
