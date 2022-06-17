@@ -7,13 +7,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import GameplayInfoTournamentLogo from './GameplayInfoTournamentLogo.vue';
 import { useSlides } from '@helpers/useSlides';
 import GameplayInfoCasters from './GameplayInfoCasters.vue';
 import GameplayInfoPlayerNames from './GameplayInfoPlayerNames.vue';
 import GameplayInfoTournamentData from './GameplayInfoTournamentData.vue';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
+import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 export default defineComponent({
     name: 'GameplayInfoBar',
@@ -27,11 +28,13 @@ export default defineComponent({
     },
 
     setup() {
+        const runtimeConfigStore = useRuntimeConfigStore();
+
         const slides = useSlides([
             { component: 'GameplayInfoTournamentLogo' },
             { component: 'GameplayInfoCasters' },
             { component: 'GameplayInfoTournamentData' },
-            { component: 'GameplayInfoPlayerNames' }
+            { component: 'GameplayInfoPlayerNames', enabled: computed(() => runtimeConfigStore.isBuckyMode) }
         ]);
 
         return {
