@@ -8,7 +8,7 @@
                 :max-width="450"
                 class="player-name"
             >
-                {{ player.name }}
+                {{ addDots(player.name) }}
             </fitted-content>
         </div>
     </div>
@@ -19,6 +19,7 @@ import { computed, defineComponent, PropType } from 'vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import TeamSkins from '../TeamSkins.vue';
 import FittedContent from '../FittedContent.vue';
+import { addDots } from '@helpers/stringHelper';
 
 export default defineComponent({
     name: 'IibTeam',
@@ -40,7 +41,8 @@ export default defineComponent({
             : activeMatchStore.activeMatch.teamB);
 
         return {
-            players: computed(() => selectedTeam.value.players.slice(0, 2))
+            players: computed(() => selectedTeam.value.players.slice(0, 2)),
+            addDots
         };
     }
 });
