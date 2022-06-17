@@ -19,5 +19,10 @@ export const useRuntimeConfigStore = defineStore('runtimeConfig', {
         setMode(mode: GraphicMode) {
             runtimeConfig.value.mode = mode;
         }
+    },
+    getters: {
+        isStratusMode: state => state.runtimeConfig.mode === GraphicMode.STRATUS,
+        isBuckyMode: state => state.runtimeConfig.mode === GraphicMode.BUCKY,
+        modeClassName: state => state.runtimeConfig.mode === GraphicMode.BUCKY ? 'is-bucky-mode' : 'is-stratus-mode'
     }
 });
