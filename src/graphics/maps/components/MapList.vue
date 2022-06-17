@@ -280,6 +280,7 @@ export default defineComponent({
             top: 0;
             left: 0;
             z-index: 2;
+            overflow: hidden;
 
             &.winner-alpha {
                 background-color: rgba(255, 85, 85, 0.6);
