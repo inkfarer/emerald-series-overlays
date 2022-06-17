@@ -31,6 +31,7 @@ export interface NextMatch {
 	};
 	games: {
 		map: string;
+		mode?: string;
 		[k: string]: unknown;
 	}[];
 }

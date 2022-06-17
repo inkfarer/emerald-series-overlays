@@ -7,13 +7,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useSlides } from '@helpers/useSlides';
 import BottomInfoTournamentLogo from './BottomInfoTournamentLogo.vue';
 import OpacitySwapTransition from '../../../components/OpacitySwapTransition.vue';
 import BottomInfoCasters from './BottomInfoCasters.vue';
 import BottomInfoTournamentData from './BottomInfoTournamentData.vue';
 import BottomInfoPlayerNames from './BottomInfoPlayerNames.vue';
+import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 export default defineComponent({
     name: 'MapsBottomInfo',
@@ -27,11 +28,13 @@ export default defineComponent({
     },
 
     setup() {
+        const runtimeConfigStore = useRuntimeConfigStore();
+
         const slides = useSlides([
             { component: 'BottomInfoTournamentLogo' },
             { component: 'BottomInfoCasters' },
             { component: 'BottomInfoTournamentData' },
-            { component: 'BottomInfoPlayerNames' }
+            { component: 'BottomInfoPlayerNames', enabled: computed(() => runtimeConfigStore.isBuckyMode) }
         ]);
 
         return {
