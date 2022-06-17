@@ -54,6 +54,6 @@ export default defineComponent({
 
     background-color: $container-background;
 
-    border-bottom: 15px solid $accent;
+    border-bottom: 15px solid var(--accent-color);
 }
 </style>

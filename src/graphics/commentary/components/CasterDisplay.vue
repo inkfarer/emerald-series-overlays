@@ -79,7 +79,7 @@ export default defineComponent({
     width: 350px;
     flex-basis: 0;
     background-color: $container-background-light;
-    border-bottom: 10px solid $accent;
+    border-bottom: 10px solid var(--accent-color);
     color: $text-color-dark;
     text-transform: uppercase;
     padding: 10px;

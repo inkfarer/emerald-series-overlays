@@ -2,6 +2,8 @@ import { NodeCGBrowser } from 'nodecg/browser';
 import { defineStore } from 'pinia';
 import { RuntimeConfig } from 'schemas';
 import { GraphicMode } from 'types/enums/GraphicMode';
+import { watch } from 'vue';
+import { colors } from '../../graphics/styles/colors';
 
 const runtimeConfig = nodecg.Replicant<RuntimeConfig>('runtimeConfig');
 
@@ -26,3 +28,15 @@ export const useRuntimeConfigStore = defineStore('runtimeConfig', {
         modeClassName: state => state.runtimeConfig.mode === GraphicMode.BUCKY ? 'is-bucky-mode' : 'is-stratus-mode'
     }
 });
+
+export function assignAccentColor() {
+    const runtimeConfigStore = useRuntimeConfigStore();
+
+    watch(() => runtimeConfigStore.runtimeConfig.mode, mode => {
+        if (mode === GraphicMode.BUCKY) {
+            document.body.style.setProperty('--accent-color', colors.buckyAccent);
+        } else if (mode === GraphicMode.STRATUS) {
+            document.body.style.setProperty('--accent-color', colors.stratusAccent);
+        }
+    }, { immediate: true });
+}

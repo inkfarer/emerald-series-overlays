@@ -179,7 +179,7 @@ export default defineComponent({
         .picked-by {
             height: 100%;
             position: relative;
-            border-bottom: 10px solid $accent;
+            border-bottom: 10px solid var(--accent-color);
             overflow: hidden;
             text-transform: uppercase;
             font-size: 40px;
@@ -230,7 +230,7 @@ export default defineComponent({
             .game-number {
                 width: 150px;
                 background-color: $container-background;
-                color: $accent;
+                color: var(--accent-color);
                 font-size: 35px;
                 font-weight: bold;
                 text-transform: uppercase;
@@ -242,7 +242,7 @@ export default defineComponent({
                 flex-grow: 1;
                 margin-left: 10px;
                 background-color: $container-background-light;
-                border-bottom: 10px solid $accent;
+                border-bottom: 10px solid var(--accent-color);
                 color: $text-color-dark;
                 font-weight: bold;
                 font-size: 40px;
@@ -255,7 +255,7 @@ export default defineComponent({
         transition: width 500ms ease-in-out;
         width: 650px;
         height: 100%;
-        border-bottom: 10px solid $accent;
+        border-bottom: 10px solid var(--accent-color);
         background-color: $container-background;
         position: relative;
 

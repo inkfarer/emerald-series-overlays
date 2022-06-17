@@ -51,6 +51,6 @@ export default defineComponent({
     height: calc(100% - 10px);
     width: 100%;
     background-color: $container-background;
-    border-bottom: 10px solid $accent;
+    border-bottom: 10px solid var(--accent-color);
 }
 </style>

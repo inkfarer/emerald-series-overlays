@@ -6,7 +6,7 @@ import { setUpReplicants } from '@browser-common/store/storeHelper';
 import { activeMatchStoreReps, useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { castersReps, useCasterStore } from '@browser-common/store/CasterStore';
 import CommentaryGraphic from './CommentaryGraphic.vue';
-import { runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import { assignAccentColor, runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 (async () => {
     const app = createApp(CommentaryGraphic);
@@ -14,5 +14,6 @@ import { runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/
     await setUpReplicants(activeMatchStoreReps, useActiveMatchStore());
     await setUpReplicants(castersReps, useCasterStore());
     await setUpReplicants(runtimeConfigReps, useRuntimeConfigStore());
+    assignAccentColor();
     app.mount('#app');
 })();

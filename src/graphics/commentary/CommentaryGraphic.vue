@@ -47,7 +47,7 @@ export default defineComponent({
     > .background {
         height: 425px;
         width: 100%;
-        background: $accent;
+        background: var(--accent-color);
         position: absolute;
         z-index: 1;
     }

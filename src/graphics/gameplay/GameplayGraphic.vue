@@ -57,7 +57,7 @@ export default defineComponent({
     }
 
     .team-display {
-        border-bottom: 10px solid $accent;
+        border-bottom: 10px solid var(--accent-color);
         position: relative;
         overflow: hidden;
         height: 175px;

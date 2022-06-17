@@ -61,7 +61,7 @@ export default defineComponent({
 @import 'src/graphics/styles/constants';
 
 .maps-team-score-display {
-    border-bottom: 10px solid $accent;
+    border-bottom: 10px solid var(--accent-color);
     overflow: hidden;
     position: relative;
 
@@ -89,7 +89,7 @@ export default defineComponent({
     }
 
     .score {
-        color: $accent;
+        color: var(--accent-color);
         align-self: flex-end;
         flex-grow: 1;
         text-align: center;

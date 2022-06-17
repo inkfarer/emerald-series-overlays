@@ -7,7 +7,7 @@ import { activeMatchStoreReps, useActiveMatchStore } from '@browser-common/store
 import { castersReps, useCasterStore } from '@browser-common/store/CasterStore';
 import { tournamentReps, useTournamentDataStore } from '@browser-common/store/TournamentDataStore';
 import GameplayGraphic from './GameplayGraphic.vue';
-import { runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import { assignAccentColor, runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 (async () => {
     const app = createApp(GameplayGraphic);
@@ -16,5 +16,6 @@ import { runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/
     await setUpReplicants(tournamentReps, useTournamentDataStore());
     await setUpReplicants(castersReps, useCasterStore());
     await setUpReplicants(runtimeConfigReps, useRuntimeConfigStore());
+    assignAccentColor();
     app.mount('#app');
 })();

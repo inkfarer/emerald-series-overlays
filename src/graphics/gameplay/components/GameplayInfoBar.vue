@@ -46,6 +46,6 @@ export default defineComponent({
 
 .gameplay-info-bar {
     background-color: $container-background;
-    border-bottom: 10px solid $accent;
+    border-bottom: 10px solid var(--accent-color);
 }
 </style>

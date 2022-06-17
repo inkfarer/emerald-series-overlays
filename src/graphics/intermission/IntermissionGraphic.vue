@@ -113,7 +113,7 @@ export default defineComponent({
         width: 900px;
         height: 150px;
         background-color: $container-background;
-        border-bottom: 15px solid $accent;
+        border-bottom: 15px solid var(--accent-color);
         font-size: 75px;
 
         .intermission-tournament-name {
