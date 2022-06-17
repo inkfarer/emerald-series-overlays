@@ -10,16 +10,21 @@
 import { computed, defineComponent } from 'vue';
 import IibSupportLinks from './IIBSupportLinks.vue';
 import IibCasters from './IIBCasters.vue';
+import IibTeams from './IIBTeams.vue';
 import { useSlides } from '@helpers/useSlides';
 import OpacitySwapTransition from '../OpacitySwapTransition.vue';
 
 export default defineComponent({
     name: 'IntermissionInfoBar',
 
-    components: { IibSupportLinks, IibCasters, OpacitySwapTransition },
+    components: { IibSupportLinks, IibCasters, IibTeams, OpacitySwapTransition },
 
     props: {
         showCasters: {
+            type: Boolean,
+            default: false
+        },
+        showTeams: {
             type: Boolean,
             default: false
         }
@@ -28,7 +33,8 @@ export default defineComponent({
     setup(props) {
         const slides = useSlides([
             { component: 'IibSupportLinks' },
-            { component: 'IibCasters', enabled: computed(() => props.showCasters) }
+            { component: 'IibCasters', enabled: computed(() => props.showCasters) },
+            { component: 'IibTeams', enabled: computed(() => props.showTeams) }
         ]);
 
         return {
@@ -42,11 +48,12 @@ export default defineComponent({
 @import '../../styles/constants';
 
 .intermission-info-bar__content-wrapper {
+    position: relative;
     width: 1600px;
     height: 125px;
 
     background-color: $container-background;
 
-    border-bottom: 15px solid $accent;
+    border-bottom: 15px solid var(--accent-color);
 }
 </style>

@@ -7,6 +7,7 @@ import { activeMatchStoreReps, useActiveMatchStore } from '@browser-common/store
 import { castersReps, useCasterStore } from '@browser-common/store/CasterStore';
 import MapsGraphic from './MapsGraphic.vue';
 import { tournamentReps, useTournamentDataStore } from '@browser-common/store/TournamentDataStore';
+import { assignAccentColor, runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 (async () => {
     const app = createApp(MapsGraphic);
@@ -14,5 +15,7 @@ import { tournamentReps, useTournamentDataStore } from '@browser-common/store/To
     await setUpReplicants(activeMatchStoreReps, useActiveMatchStore());
     await setUpReplicants(tournamentReps, useTournamentDataStore());
     await setUpReplicants(castersReps, useCasterStore());
+    await setUpReplicants(runtimeConfigReps, useRuntimeConfigStore());
+    assignAccentColor();
     app.mount('#app');
 })();

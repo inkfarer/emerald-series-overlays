@@ -2,7 +2,7 @@
     <div class="map-list-wrapper">
         <div
             class="map-list flex vertical"
-            :class="`active-map-${activeMapIndex}`"
+            :class="[`active-map-${activeMapIndex}`, runtimeConfigStore.modeClassName]"
         >
             <div
                 v-for="(game, index) in activeMatchStore.activeMatch.games"
@@ -13,28 +13,36 @@
                 <div class="game-info-layout flex vertical">
                     <div class="picked-by">
                         <div class="background" />
-                        <div
-                            v-if="game.pickedBy === 'none'"
-                            class="neutral-pick font-condensed flex center-xy"
-                        >
-                            Neutral map pick
-                        </div>
+                        <template v-if="runtimeConfigStore.isBuckyMode">
+                            <div
+                                v-if="game.pickedBy === 'none'"
+                                class="neutral-pick font-condensed flex center-xy"
+                            >
+                                Neutral map pick
+                            </div>
+                            <div
+                                v-else
+                                class="map-picked-by flex font-condensed"
+                            >
+                                <team-skins
+                                    :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
+                                    :width="70"
+                                />
+                                <div class="picking-team-name">
+                                    Picked by:<br>
+                                    <fitted-content
+                                        :max-width="255"
+                                    >
+                                        {{ getFirstPlayerNames(game.pickedBy) }}
+                                    </fitted-content>
+                                </div>
+                            </div>
+                        </template>
                         <div
                             v-else
-                            class="map-picked-by flex font-condensed"
+                            class="neutral-pick font-condensed flex center-xy"
                         >
-                            <team-skins
-                                :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
-                                :width="70"
-                            />
-                            <div class="picking-team-name">
-                                Picked by:<br>
-                                <fitted-content
-                                    :max-width="255"
-                                >
-                                    {{ getFirstPlayerNames(game.pickedBy) }}
-                                </fitted-content>
-                            </div>
+                            {{ game.mode ?? '???' }}
                         </div>
                     </div>
                     <div class="number-map-section flex">
@@ -58,6 +66,7 @@
                             :class="`winner-${game.winner}`"
                         >
                             <team-skins
+                                v-if="runtimeConfigStore.isBuckyMode"
                                 :team="game.winner === 'alpha' ? 'A' : 'B'"
                                 :width="110"
                             />
@@ -86,6 +95,7 @@ import ImageLoader from '../../components/ImageLoader.vue';
 import TeamSkins from '../../components/TeamSkins.vue';
 import { getFirstPlayerNames } from '@helpers/teamHelper';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
+import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 export default defineComponent({
     name: 'MapList',
@@ -93,11 +103,14 @@ export default defineComponent({
     components: { OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
 
     setup() {
+        const runtimeConfigStore = useRuntimeConfigStore();
+
         const activeMatchStore = useActiveMatchStore();
         const nextGameIndex = computed(() => activeMatchStore.activeMatch.games
             .findIndex(game => game.winner === TeamRef.NONE));
 
         return {
+            runtimeConfigStore,
             activeMatchStore,
             nextGameIndex,
             activeMapIndex: computed(() => {
@@ -132,6 +145,19 @@ export default defineComponent({
     right: 0;
     align-items: flex-end;
     transition: top 750ms ease-in-out;
+
+    &.is-stratus-mode {
+        .map-winner-wrapper > .team-name {
+            text-align: center;
+        }
+    }
+
+    &.is-bucky-mode {
+        .map-winner-wrapper > .team-name {
+            text-align: right;
+            margin-right: 25px;
+        }
+    }
 }
 
 .game {
@@ -153,7 +179,7 @@ export default defineComponent({
         .picked-by {
             height: 100%;
             position: relative;
-            border-bottom: 10px solid $accent;
+            border-bottom: 10px solid var(--accent-color);
             overflow: hidden;
             text-transform: uppercase;
             font-size: 40px;
@@ -204,7 +230,7 @@ export default defineComponent({
             .game-number {
                 width: 150px;
                 background-color: $container-background;
-                color: $accent;
+                color: var(--accent-color);
                 font-size: 35px;
                 font-weight: bold;
                 text-transform: uppercase;
@@ -216,7 +242,7 @@ export default defineComponent({
                 flex-grow: 1;
                 margin-left: 10px;
                 background-color: $container-background-light;
-                border-bottom: 10px solid $accent;
+                border-bottom: 10px solid var(--accent-color);
                 color: $text-color-dark;
                 font-weight: bold;
                 font-size: 40px;
@@ -229,7 +255,7 @@ export default defineComponent({
         transition: width 500ms ease-in-out;
         width: 650px;
         height: 100%;
-        border-bottom: 10px solid $accent;
+        border-bottom: 10px solid var(--accent-color);
         background-color: $container-background;
         position: relative;
 
@@ -254,6 +280,7 @@ export default defineComponent({
             top: 0;
             left: 0;
             z-index: 2;
+            overflow: hidden;
 
             &.winner-alpha {
                 background-color: rgba(255, 85, 85, 0.6);
@@ -270,8 +297,6 @@ export default defineComponent({
 
             > .team-name {
                 width: 380px;
-                margin-right: 25px;
-                text-align: right;
                 font-size: 50px;
                 font-weight: bold;
                 text-transform: uppercase;

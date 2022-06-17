@@ -28,6 +28,9 @@
                 "properties": {
                     "map": {
                         "type": "string"
+                    },
+                    "mode": {
+                        "type": "string"
                     }
                 },
                 "required": [

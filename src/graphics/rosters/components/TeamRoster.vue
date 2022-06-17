@@ -75,14 +75,14 @@ export default defineComponent({
             font-weight: bold;
             color: $text-color-dark;
             background-color: $container-background-light;
-            border-bottom: 10px solid $accent;
+            border-bottom: 10px solid var(--accent-color);
             padding: 10px 0;
         }
     }
 
     .player-skins-wrapper {
         height: 450px;
-        border-bottom: 10px solid $accent;
+        border-bottom: 10px solid var(--accent-color);
         margin-bottom: 15px;
         position: relative;
         overflow: hidden;

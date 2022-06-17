@@ -4,7 +4,10 @@
         <div class="center-info-wrapper flex vertical center-xy">
             <slot />
         </div>
-        <intermission-info-bar :show-casters="showCasters" />
+        <intermission-info-bar
+            :show-casters="showCasters"
+            :show-teams="showTeams"
+        />
     </div>
 </template>
 
@@ -25,6 +28,10 @@ export default defineComponent({
         showCasters: {
             type: Boolean,
             default: false
+        },
+        showTeams: {
+            type: Boolean,
+            default: false
         }
     }
 });
@@ -38,6 +45,10 @@ export default defineComponent({
     margin: 60px 0;
     top: 0;
     left: 0;
+}
+
+.center-info-wrapper {
+    margin-bottom: 25px;
 }
 
 .tournament-logo {

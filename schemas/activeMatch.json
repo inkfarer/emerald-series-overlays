@@ -67,6 +67,9 @@
                     "map": {
                         "type": "string"
                     },
+                    "mode": {
+                        "type": "string"
+                    },
                     "teamAGoalCount": {
                         "type": "number"
                     },
