@@ -31,6 +31,12 @@
             :formatter="pronounFormatter"
             @focuschange="setFocused"
         />
+        <ipl-input
+            v-model="internalCaster.profileImageUrl"
+            name="profileImageUrl"
+            label="Profile image URL"
+            @focuschange="setFocused"
+        />
         <div class="layout horizontal m-t-8">
             <ipl-button
                 :label="updateButtonLabel"
@@ -110,7 +116,7 @@ export default defineComponent({
                     // todo: breaks in newer vue versions (presumably caused by https://github.com/vuejs/core/pull/5679)
                     emit('save', newId);
                 } else {
-                    await sendMessage('casters:save', pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns']));
+                    await sendMessage('casters:save', pick(internalCaster.value, ['id', 'name', 'twitter', 'pronouns', 'profileImageUrl']));
                 }
             },
             removeCaster() {
