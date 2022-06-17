@@ -35,14 +35,6 @@ export const useCasterStore = defineStore('casters', {
             this.addUncommittedCaster({ id });
             return id;
         },
-        async saveUncommittedCaster(id: string): Promise<string> {
-            const newCaster = await sendMessage('casters:save', {
-                ...(this.uncommittedCasters as Caster[]).find(caster => caster.id === id),
-                id: undefined
-            });
-            this.removeUncommittedCaster(id);
-            return newCaster.id;
-        },
         async removeCaster(id: string) {
             return sendMessage('casters:delete', id);
         }

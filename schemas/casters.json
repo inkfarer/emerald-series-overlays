@@ -18,6 +18,12 @@
                 },
                 "pronouns": {
                     "type": "string"
+                },
+                "profileImageUrl": {
+                    "type": "string"
+                },
+                "videoUrl": {
+                    "type": "string"
                 }
             }
         }

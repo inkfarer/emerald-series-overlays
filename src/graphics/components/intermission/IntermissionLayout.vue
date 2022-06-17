@@ -34,8 +34,8 @@ export default defineComponent({
 .content-wrapper {
     position: absolute;
     width: 100%;
-    height: calc(100% - 150px);
-    margin: 75px 0;
+    height: calc(100% - 120px);
+    margin: 60px 0;
     top: 0;
     left: 0;
 }

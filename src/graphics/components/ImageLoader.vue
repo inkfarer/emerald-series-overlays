@@ -3,7 +3,7 @@
         <opacity-swap-transition>
             <div
                 v-if="imageVisible"
-                :style="{ backgroundImage: `url('${src}')` }"
+                :style="{ backgroundImage: `url('${doesImageExist ? src : defaultSrc}')` }"
                 class="image-loader"
             />
         </opacity-swap-transition>
@@ -14,7 +14,8 @@
 import { defineComponent } from 'vue';
 import { computed, PropType, ref, watch } from 'vue';
 import OpacitySwapTransition from './OpacitySwapTransition.vue';
-import { loadAndCheckIfImageExists } from '@helpers/imageHelper';
+import { loadAndCheckIfImageExists } from '@helpers/mediaHelper';
+import { isBlank } from '@iplsplatoon/vue-components';
 
 export default defineComponent({
     name: 'ImageLoader',
@@ -23,6 +24,10 @@ export default defineComponent({
 
     props: {
         src: {
+            type: [String, null] as PropType<string | null>,
+            default: null
+        },
+        defaultSrc: {
             type: [String, null] as PropType<string | null>,
             default: null
         }
@@ -45,7 +50,8 @@ export default defineComponent({
         }, { immediate: true });
 
         return {
-            imageVisible: computed(() => doesImageExist.value && !imageLoading.value)
+            doesImageExist,
+            imageVisible: computed(() => (doesImageExist.value || !isBlank(props.defaultSrc)) && !imageLoading.value)
         };
     }
 });
