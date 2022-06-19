@@ -12,8 +12,7 @@ export interface MessageMap {
     'activeMatch:update': UpdateActiveMatchRequest
     'activeMatch:setMaps': string[]
     'activeMatch:setFirstPicker': TeamRef
-    'activeMatch:addToGoalCount': TeamRef
-    'activeMatch:removeFromGoalCount': TeamRef
+    'activeMatch:setGoalCount': { team: TeamRef, goalCount: number }
 
     'casters:delete': string
     'casters:save': SaveCasterRequest

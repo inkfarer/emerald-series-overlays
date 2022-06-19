@@ -34,12 +34,8 @@ export class ActiveMatchController extends BaseController {
             this.activeMatchService.setFirstPicker(data);
         });
 
-        this.listen('activeMatch:addToGoalCount', data => {
-            this.activeMatchService.addToGoalCount(data);
-        });
-
-        this.listen('activeMatch:removeFromGoalCount', data => {
-            this.activeMatchService.removeFromGoalCount(data);
+        this.listen('activeMatch:setGoalCount', data => {
+            this.activeMatchService.setGoalCount(data.team, data.goalCount);
         });
 
         this.listen('activeMatch:setLastWinnerAutomatically', () => {
