@@ -65,14 +65,22 @@
                             class="map-winner-wrapper flex center-xy"
                             :class="`winner-${game.winner}`"
                         >
-                            <team-skins
-                                v-if="runtimeConfigStore.isBuckyMode"
-                                :team="game.winner === 'alpha' ? 'A' : 'B'"
-                                :width="110"
-                            />
-                            <div class="team-name">
-                                {{ getFirstPlayerNames(game.winner) }}
-                            </div>
+                            <template v-if="runtimeConfigStore.isBuckyMode">
+                                <team-skins
+                                    :team="game.winner === 'alpha' ? 'A' : 'B'"
+                                    :width="110"
+                                />
+                                <div class="team-name">
+                                    {{ getFirstPlayerNames(game.winner) }}
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="team-name">
+                                    {{ game.winner === 'alpha'
+                                        ? activeMatchStore.activeMatch.teamA.name
+                                        : activeMatchStore.activeMatch.teamB.name }}
+                                </div>
+                            </template>
                         </div>
                     </opacity-swap-transition>
                     <div class="map-image">
