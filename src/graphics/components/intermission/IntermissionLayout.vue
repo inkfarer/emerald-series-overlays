@@ -1,6 +1,9 @@
 <template>
     <div class="content-wrapper flex vertical center-x space-between">
-        <tournament-logo class="tournament-logo" />
+        <tournament-logo
+            v-if="!hideHeader"
+            class="tournament-logo"
+        />
         <div class="center-info-wrapper flex vertical center-xy">
             <slot />
         </div>
@@ -30,6 +33,10 @@ export default defineComponent({
             default: false
         },
         showTeams: {
+            type: Boolean,
+            default: false
+        },
+        hideHeader: {
             type: Boolean,
             default: false
         }

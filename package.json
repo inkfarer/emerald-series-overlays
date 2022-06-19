@@ -92,6 +92,16 @@
                 "file": "commentary.html",
                 "width": 1920,
                 "height": 1080
+            },
+            {
+                "file": "team-a-roster.html",
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "file": "team-b-roster.html",
+                "width": 1920,
+                "height": 1080
             }
         ]
     },

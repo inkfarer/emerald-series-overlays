@@ -65,14 +65,22 @@
                             class="map-winner-wrapper flex center-xy"
                             :class="`winner-${game.winner}`"
                         >
-                            <team-skins
-                                v-if="runtimeConfigStore.isBuckyMode"
-                                :team="game.winner === 'alpha' ? 'A' : 'B'"
-                                :width="110"
-                            />
-                            <div class="team-name">
-                                {{ getFirstPlayerNames(game.winner) }}
-                            </div>
+                            <template v-if="runtimeConfigStore.isBuckyMode">
+                                <team-skins
+                                    :team="game.winner === 'alpha' ? 'A' : 'B'"
+                                    :width="110"
+                                />
+                                <div class="team-name">
+                                    {{ getFirstPlayerNames(game.winner) }}
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="team-name">
+                                    {{ game.winner === 'alpha'
+                                        ? activeMatchStore.activeMatch.teamA.name
+                                        : activeMatchStore.activeMatch.teamB.name }}
+                                </div>
+                            </template>
                         </div>
                     </opacity-swap-transition>
                     <div class="map-image">
@@ -147,15 +155,27 @@ export default defineComponent({
     transition: top 750ms ease-in-out;
 
     &.is-stratus-mode {
-        .map-winner-wrapper > .team-name {
-            text-align: center;
+        .map-winner-wrapper {
+            &.winner-alpha {
+                background-color: rgba(0, 255, 85, 0.6);
+            }
+
+            > .team-name {
+                text-align: center;
+            }
         }
     }
 
     &.is-bucky-mode {
-        .map-winner-wrapper > .team-name {
-            text-align: right;
-            margin-right: 25px;
+        .map-winner-wrapper {
+            &.winner-alpha {
+                background-color: rgba(255, 85, 85, 0.6);
+            }
+
+            > .team-name {
+                text-align: right;
+                margin-right: 25px;
+            }
         }
     }
 }
@@ -281,10 +301,6 @@ export default defineComponent({
             left: 0;
             z-index: 2;
             overflow: hidden;
-
-            &.winner-alpha {
-                background-color: rgba(255, 85, 85, 0.6);
-            }
 
             &.winner-bravo {
                 background-color: rgba(85, 85, 255, 0.6);
