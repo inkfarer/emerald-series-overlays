@@ -145,28 +145,17 @@ export class ActiveMatchService {
         }
     }
 
-    addToGoalCount(team: TeamRef): void {
+    setGoalCount(team: TeamRef, score: number): void {
         const nextGameIndex = this.getNextGameIndex();
 
         if (nextGameIndex >= 0) {
             const nextGame = this.activeMatch.value.games[nextGameIndex];
-            if (team === TeamRef.ALPHA) {
-                nextGame.teamAGoalCount = Math.min(nextGame.teamAGoalCount + 1, MAX_GOAL_COUNT);
-            } else if (team === TeamRef.BRAVO) {
-                nextGame.teamBGoalCount = Math.min(nextGame.teamBGoalCount + 1, MAX_GOAL_COUNT);
-            }
-        }
-    }
+            const normalizedScore = Math.max(Math.min(score, MAX_GOAL_COUNT), 0);
 
-    removeFromGoalCount(team: TeamRef): void {
-        const nextGameIndex = this.getNextGameIndex();
-
-        if (nextGameIndex >= 0) {
-            const nextGame = this.activeMatch.value.games[nextGameIndex];
             if (team === TeamRef.ALPHA) {
-                nextGame.teamAGoalCount = Math.max(nextGame.teamAGoalCount - 1, 0);
+                nextGame.teamAGoalCount = normalizedScore;
             } else if (team === TeamRef.BRAVO) {
-                nextGame.teamBGoalCount = Math.max(nextGame.teamBGoalCount - 1, 0);
+                nextGame.teamBGoalCount = normalizedScore;
             }
         }
     }

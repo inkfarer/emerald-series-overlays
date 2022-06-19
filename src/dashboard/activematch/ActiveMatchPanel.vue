@@ -1,7 +1,7 @@
 <template>
     <error-log />
     <goal-count-setter />
-    <score-setter class="m-t-8" />
+    <match-score-setter class="m-t-8" />
     <active-match-updater class="m-t-8" />
     <counterpick-options
         v-if="runtimeConfigStore.runtimeConfig.mode === 'BUCKY'"
@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ScoreSetter from './components/ScoreSetter.vue';
+import MatchScoreSetter from './components/MatchScoreSetter.vue';
 import ErrorLog from '../components/ErrorLog.vue';
 import ActiveMatchUpdater from './components/ActiveMatchUpdater.vue';
 import ActiveMapEditor from './components/ActiveMapEditor.vue';
@@ -23,7 +23,14 @@ import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore'
 export default defineComponent({
     name: 'ActiveMatchPanel',
 
-    components: { CounterpickOptions, ActiveMapEditor, ActiveMatchUpdater, ErrorLog, ScoreSetter, GoalCountSetter },
+    components: {
+        CounterpickOptions,
+        ActiveMapEditor,
+        ActiveMatchUpdater,
+        ErrorLog,
+        MatchScoreSetter,
+        GoalCountSetter
+    },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
