@@ -6,7 +6,8 @@
             :team-b-score="teamBGoalCount"
             :team-a-add-disabled="teamAGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
             :team-b-add-disabled="teamBGoalCount >= MAX_GOAL_COUNT || nextGameIndex < 0"
-            :remove-score-disabled="nextGameIndex < 0"
+            :team-a-remove-disabled="nextGameIndex < 0"
+            :team-b-remove-disabled="nextGameIndex < 0"
             @update:team-a-score="setGoalCount(TeamRef.ALPHA, $event)"
             @update:team-b-score="setGoalCount(TeamRef.BRAVO, $event)"
         />

@@ -17,7 +17,7 @@
                     icon="minus"
                     color="red"
                     small
-                    :disabled="teamAScore <= 0 || removeScoreDisabled"
+                    :disabled="teamAScore <= 0 || teamARemoveDisabled"
                     @click="setTeamAScore(teamAScore - 1)"
                 />
             </div>
@@ -46,7 +46,7 @@
                     icon="minus"
                     color="red"
                     small
-                    :disabled="teamBScore <= 0 || removeScoreDisabled"
+                    :disabled="teamBScore <= 0 || teamBRemoveDisabled"
                     @click="setTeamBScore(teamBScore - 1)"
                 />
             </div>
@@ -80,7 +80,11 @@ export default defineComponent({
             type: Boolean,
             default: false
         },
-        removeScoreDisabled: {
+        teamARemoveDisabled: {
+            type: Boolean,
+            default: false
+        },
+        teamBRemoveDisabled: {
             type: Boolean,
             default: false
         }
