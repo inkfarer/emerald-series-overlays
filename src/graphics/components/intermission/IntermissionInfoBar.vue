@@ -1,9 +1,13 @@
 <template>
-    <div class="intermission-info-bar__content-wrapper flex center-xy">
+    <underlined-container
+        class="intermission-info-bar__content-wrapper flex center-xy"
+        background-color="dark"
+        :animation-length="1"
+    >
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
-    </div>
+    </underlined-container>
 </template>
 
 <script lang="ts">
@@ -13,11 +17,12 @@ import IibCasters from './IIBCasters.vue';
 import IibTeams from './IIBTeams.vue';
 import { useSlides } from '@helpers/useSlides';
 import OpacitySwapTransition from '../OpacitySwapTransition.vue';
+import UnderlinedContainer from '../UnderlinedContainer.vue';
 
 export default defineComponent({
     name: 'IntermissionInfoBar',
 
-    components: { IibSupportLinks, IibCasters, IibTeams, OpacitySwapTransition },
+    components: { UnderlinedContainer, IibSupportLinks, IibCasters, IibTeams, OpacitySwapTransition },
 
     props: {
         showCasters: {
@@ -51,9 +56,5 @@ export default defineComponent({
     position: relative;
     width: 1600px;
     height: 125px;
-
-    background-color: $container-background;
-
-    border-bottom: 15px solid var(--accent-color);
 }
 </style>

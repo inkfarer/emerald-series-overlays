@@ -7,12 +7,14 @@ import { activeMatchStoreReps, useActiveMatchStore } from '@browser-common/store
 import { castersReps, useCasterStore } from '@browser-common/store/CasterStore';
 import { assignAccentColor, runtimeConfigReps, useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import SingleRosterGraphic from '../singleroster/SingleRosterGraphic.vue';
+import { useGraphicVariableStore } from '../helpers/graphicVariableStore';
 
 (async () => {
     const app = createApp(SingleRosterGraphic, {
         team: 'A'
     });
     app.use(createPinia());
+    useGraphicVariableStore().accentInPosition = 1.7;
     await setUpReplicants(activeMatchStoreReps, useActiveMatchStore());
     await setUpReplicants(castersReps, useCasterStore());
     await setUpReplicants(runtimeConfigReps, useRuntimeConfigStore());

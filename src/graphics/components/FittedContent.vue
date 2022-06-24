@@ -1,7 +1,7 @@
 <template>
     <div
         class="fitted-content-wrapper"
-        :style="{ justifyContent, maxWidth: `${maxWidth}px` }"
+        :style="{ justifyContent, maxWidth: disableMaxWidth ? 'unset' : `${maxWidth}px` }"
     >
         <div
             ref="content"
@@ -27,6 +27,10 @@ export default defineComponent({
         align: {
             type: String as PropType<'left' | 'center' | 'right'>,
             default: 'left'
+        },
+        disableMaxWidth: {
+            type: Boolean,
+            default: false
         }
     },
 
