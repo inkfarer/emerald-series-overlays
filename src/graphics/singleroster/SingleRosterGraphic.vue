@@ -5,17 +5,22 @@
     >
         <div class="single-roster">
             <div class="header flex center-x">
-                <div class="team-name flex center-xy">
+                <underlined-container class="team-name">
                     <fitted-content
-                        :max-width="450"
+                        :max-width="460"
                         align="center"
+                        style="width: 500px;"
+                        disable-max-width
                     >
                         <span>{{ addDots(selectedTeam.name) }}</span>
                     </fitted-content>
-                </div>
+                </underlined-container>
             </div>
             <div class="players flex center-xy">
-                <div class="skins flex horizontal center-x">
+                <div
+                    ref="playerSkinsWrapper"
+                    class="skins flex horizontal center-x"
+                >
                     <div
                         v-for="player in players"
                         :key="`player-skin_${player.id}`"
@@ -30,18 +35,21 @@
                 </div>
                 <div class="names flex horizontal center-x">
                     <div
-                        v-for="player in players"
-                        :key="player.id"
+                        v-for="(player, index) in players"
+                        :key="player.name"
                         class="player-name-wrapper flex center-x"
                     >
-                        <div class="player-name flex center-xy">
+                        <underlined-container
+                            class="player-name"
+                            :delay="0.7 + (index * 0.1)"
+                        >
                             <fitted-content
                                 :max-width="350"
                                 align="center"
                             >
                                 {{ player.name }}
                             </fitted-content>
-                        </div>
+                        </underlined-container>
                     </div>
                 </div>
             </div>
@@ -51,18 +59,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import GraphicBackground from '../components/GraphicBackground.vue';
 import IntermissionLayout from '../components/intermission/IntermissionLayout.vue';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { addDots } from '@helpers/stringHelper';
 import FittedContent from '../components/FittedContent.vue';
 import SkinLoader from '../components/SkinLoader.vue';
+import UnderlinedContainer from '../components/UnderlinedContainer.vue';
+import gsap from 'gsap';
+import { useGlobalTimeline } from '../helpers/useGlobalTimeline';
 
 export default defineComponent({
     name: 'RostersGraphic',
 
-    components: { FittedContent, IntermissionLayout, GraphicBackground, SkinLoader },
+    components: { UnderlinedContainer, FittedContent, IntermissionLayout, GraphicBackground, SkinLoader },
 
     props: {
         team: {
@@ -78,7 +89,26 @@ export default defineComponent({
             ? activeMatchStore.activeMatch.teamA
             : activeMatchStore.activeMatch.teamB);
 
+        const playerSkinsWrapper = ref<HTMLDivElement>();
+        onMounted(() => {
+            const skinEntranceTl = gsap.timeline();
+
+            skinEntranceTl
+                .fromTo(
+                    playerSkinsWrapper.value.querySelector('.background'),
+                    { width: 0 },
+                    { width: '100%', duration: 0.75, ease: 'power2.out' })
+                .fromTo(
+                    playerSkinsWrapper.value.querySelectorAll('.player-skin'),
+                    { y: 35, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.35, ease: 'power2.out', stagger: 0.05 },
+                    '-=0.35');
+
+            useGlobalTimeline(skinEntranceTl, 0);
+        });
+
         return {
+            playerSkinsWrapper,
             selectedTeam,
             addDots,
             players: computed(() => selectedTeam.value.players.slice(0, 8))
@@ -101,10 +131,6 @@ $player-width: 200px;
         > .team-name {
             width: 500px;
             height: 90px;
-            background-color: $container-background-light;
-            border-bottom: 10px solid var(--accent-color);
-
-            color: $text-color-dark;
             text-align: center;
             font-size: 50px;
             font-weight: bold;
@@ -180,12 +206,10 @@ $player-width: 200px;
 
             .player-name {
                 position: absolute;
-                background-color: $container-background-light;
-                border-bottom: 10px solid var(--accent-color);
-                color: $text-color-dark;
-                padding: 10px 10px;
+                padding: 0 10px;
                 font-size: 45px;
                 font-weight: bold;
+                height: 80px;
             }
         }
     }
