@@ -1,6 +1,9 @@
 <template>
     <div class="support-links flex space-between">
-        <div class="support-link-group flex">
+        <div
+            v-if="runtimeConfigStore.isBuckyMode"
+            class="support-link-group flex"
+        >
             <iib-support-link
                 :icon="['fab', 'discord']"
                 text="buckytour.com/discord"
@@ -12,6 +15,23 @@
             <iib-support-link
                 icon="globe"
                 text="buckytour.com"
+            />
+        </div>
+        <div
+            v-else-if="runtimeConfigStore.isStratusMode"
+            class="support-link-group flex"
+        >
+            <iib-support-link
+                :icon="['fab', 'discord']"
+                text="discord.gg/GQhvaJW"
+            />
+            <iib-support-link
+                :icon="['fab', 'discord']"
+                text="discord.gg/ranked"
+            />
+            <iib-support-link
+                :icon="['fab', 'twitter']"
+                text="@StratusMC"
             />
         </div>
         <div class="support-link-group flex">
@@ -35,13 +55,22 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import IibSupportLink from './IIBSupportLink.vue';
+import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 library.add(faDiscord, faTwitter, faGlobe);
 
 export default defineComponent({
     name: 'IibSupportLinks',
 
-    components: { IibSupportLink, FontAwesomeIcon }
+    components: { IibSupportLink, FontAwesomeIcon },
+
+    setup() {
+        const runtimeConfigStore = useRuntimeConfigStore();
+
+        return {
+            runtimeConfigStore
+        };
+    }
 });
 </script>
 
