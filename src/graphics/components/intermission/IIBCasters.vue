@@ -1,5 +1,5 @@
 <template>
-    <div class="iib-casters">
+    <div class="iib-casters flex center-xy">
         <fitted-content
             :max-width="700"
             align="right"
@@ -60,14 +60,11 @@ export default defineComponent({
 .iib-casters {
     width: 100%;
     margin: 0 50px;
-    display: grid;
-    grid-template-columns: 1fr 100px 1fr;
-    align-items: center;
 
     .icon {
         text-align: center;
-        width: 100%;
         font-size: 45px;
+        margin: 0 20px;
     }
 
     .caster {
