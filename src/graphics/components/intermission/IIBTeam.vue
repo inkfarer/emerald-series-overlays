@@ -1,5 +1,8 @@
 <template>
-    <div class="iib-team flex horizontal">
+    <div
+        class="iib-team flex horizontal"
+        :class="{ 'is-bucky-mode': runtimeConfigStore.isBuckyMode }"
+    >
         <template v-if="runtimeConfigStore.isBuckyMode">
             <team-skins :team="team" />
             <div class="player-names flex vertical center-y">
@@ -65,9 +68,12 @@ export default defineComponent({
 
 <style lang="scss">
 .iib-team {
-    width: 100%;
     align-items: flex-end;
     justify-content: flex-start;
+
+    &.is-bucky-mode {
+        width: 100%;
+    }
 
     > .player-names {
         height: 125px;
