@@ -46,8 +46,8 @@ export default defineComponent({
             entranceTl
                 .fromTo(
                     wrapperElement.value,
-                    { clipPath: 'polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)' },
-                    { clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', duration: props.animationLength, ease: 'expo.out', delay: props.delay })
+                    { clipPath: 'polygon(0% -1000px, 0% -1000px, 0% 100%, 0% 100%)' },
+                    { clipPath: 'polygon(0% -1000px, 100% -1000px, 100% 100%, 0% 100%)', duration: props.animationLength, ease: 'expo.out', delay: props.delay })
                 .fromTo(
                     wrapperElement.value.querySelector('.accent'),
                     { height: 0 },
@@ -69,7 +69,6 @@ export default defineComponent({
 
 .underlined-container {
     position: relative;
-    overflow: hidden;
 
     &.background-light {
         color: $text-color-dark;
