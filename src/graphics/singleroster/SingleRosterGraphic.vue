@@ -22,12 +22,13 @@
                     class="skins flex horizontal center-x"
                 >
                     <div
-                        v-for="player in players"
+                        v-for="(player, index) in players"
                         :key="`player-skin_${player.id}`"
                         class="player-skin-wrapper flex center-x"
                     >
-                        <skin-loader
+                        <animated-skin-loader
                             :username="player.minecraftName"
+                            :delay="0.35 + (index * 0.05)"
                             class="player-skin"
                         />
                     </div>
@@ -65,15 +66,15 @@ import IntermissionLayout from '../components/intermission/IntermissionLayout.vu
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { addDots } from '@helpers/stringHelper';
 import FittedContent from '../components/FittedContent.vue';
-import SkinLoader from '../components/SkinLoader.vue';
 import UnderlinedContainer from '../components/UnderlinedContainer.vue';
 import gsap from 'gsap';
 import { useGlobalTimeline } from '../helpers/useGlobalTimeline';
+import AnimatedSkinLoader from '../components/AnimatedSkinLoader.vue';
 
 export default defineComponent({
     name: 'RostersGraphic',
 
-    components: { UnderlinedContainer, FittedContent, IntermissionLayout, GraphicBackground, SkinLoader },
+    components: { UnderlinedContainer, FittedContent, IntermissionLayout, GraphicBackground, AnimatedSkinLoader },
 
     props: {
         team: {
@@ -97,12 +98,7 @@ export default defineComponent({
                 .fromTo(
                     playerSkinsWrapper.value.querySelector('.background'),
                     { width: 0 },
-                    { width: '100%', duration: 0.75, ease: 'power2.out' })
-                .fromTo(
-                    playerSkinsWrapper.value.querySelectorAll('.player-skin'),
-                    { y: 35, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.35, ease: 'power2.out', stagger: 0.05 },
-                    '-=0.35');
+                    { width: '100%', duration: 0.75, ease: 'power2.out' });
 
             useGlobalTimeline(skinEntranceTl, 0);
         });
