@@ -43,11 +43,25 @@ export default defineComponent({
         onMounted(() => {
             bindEntranceToTimelineGenerator(() =>
                 gsap.timeline()
+                    .addLabel('contentIn', `+=${props.delay}`)
                     .addLabel('accent', graphicVariableStore.accentInPosition)
                     .fromTo(
-                        wrapperElement.value,
-                        { clipPath: 'polygon(0% -1000px, 0% -1000px, 0% 100%, 0% 100%)' },
-                        { clipPath: 'polygon(0% -1000px, 100% -1000px, 100% 100%, 0% 100%)', duration: props.animationLength, ease: 'expo.out', delay: props.delay })
+                        wrapperElement.value, {
+                            clipPath: 'polygon(0% -1000px, 0% -1000px, 0% 100%, 0% 100%)'
+                        }, {
+                            clipPath: 'polygon(0% -1000px, 100% -1000px, 100% 100%, 0% 100%)',
+                            duration: props.animationLength,
+                            ease: 'expo.out',
+                        },
+                        'contentIn')
+                    .fromTo(
+                        wrapperElement.value.querySelector('.content'), {
+                            x: '-50%'
+                        }, {
+                            x: '0%',
+                            duration: props.animationLength,
+                            ease: 'expo.out',
+                        }, 'contentIn')
                     .fromTo(
                         wrapperElement.value.querySelector('.accent'),
                         { height: 0 },
