@@ -14,14 +14,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
+import gsap from 'gsap';
 
 export default defineComponent({
     name: 'TournamentLogo',
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
+
+        onMounted(() => {
+            bindEntranceToTimelineGenerator(() => gsap.timeline()
+                .fromTo(
+                    '.tournament-logo__wrapper > img',
+                    { y: -35, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.35, ease: 'power1.out', stagger: 0.05 }));
+        });
 
         return {
             runtimeConfigStore
