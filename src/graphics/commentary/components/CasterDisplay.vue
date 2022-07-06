@@ -1,36 +1,40 @@
 <template>
-    <div
-        class="caster flex vertical center-x"
+    <underlined-container
+        background-color="light"
+        class="caster-display-wrapper"
         :class="{ 'has-video': hasVideo }"
+        :delay="index * 0.1 + 0.5"
     >
-        <div class="caster-photo-wrapper flex center-xy">
-            <image-loader
-                v-if="!hasVideo"
-                :src="caster.profileImageUrl"
-                default-src="/bundles/emerald-series-overlays/assets/default-caster-photo.png"
-                class="caster-photo"
-            />
-            <video-loader
-                v-else
-                :src="caster.videoUrl"
-                class="caster-video"
-            />
+        <div class="caster flex vertical center-x">
+            <div class="caster-photo-wrapper flex center-xy">
+                <image-loader
+                    v-if="!hasVideo"
+                    :src="caster.profileImageUrl"
+                    default-src="/bundles/emerald-series-overlays/assets/default-caster-photo.png"
+                    class="caster-photo"
+                />
+                <video-loader
+                    v-else
+                    :src="caster.videoUrl"
+                    class="caster-video"
+                />
+            </div>
+            <fitted-content
+                :max-width="330"
+                align="center"
+                class="caster-name"
+            >
+                {{ caster.name }}
+            </fitted-content>
+            <fitted-content
+                :max-width="330"
+                align="center"
+                class="caster-details font-condensed"
+            >
+                {{ caster.twitter }} <span class="pronouns">{{ caster.pronouns }}</span>
+            </fitted-content>
         </div>
-        <fitted-content
-            :max-width="330"
-            align="center"
-            class="caster-name"
-        >
-            {{ caster.name }}
-        </fitted-content>
-        <fitted-content
-            :max-width="330"
-            align="center"
-            class="caster-details font-condensed"
-        >
-            {{ caster.twitter }} <span class="pronouns">{{ caster.pronouns }}</span>
-        </fitted-content>
-    </div>
+    </underlined-container>
 </template>
 
 <script lang="ts">
@@ -40,15 +44,20 @@ import FittedContent from '../../components/FittedContent.vue';
 import ImageLoader from '../../components/ImageLoader.vue';
 import { Caster } from 'schemas';
 import { checkIfPageExists } from '@helpers/mediaHelper';
+import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
 
 export default defineComponent({
     name: 'CasterDisplay',
 
-    components: { ImageLoader, VideoLoader, FittedContent },
+    components: { UnderlinedContainer, ImageLoader, VideoLoader, FittedContent },
 
     props: {
         caster: {
             type: Object as PropType<Caster>,
+            required: true
+        },
+        index: {
+            type: Number,
             required: true
         }
     },
@@ -70,27 +79,27 @@ export default defineComponent({
 <style lang="scss">
 @import 'src/graphics/styles/constants';
 
-.caster {
-    $video-height: 410px;
-    $video-width: $video-height * (16 / 9);
+$video-height: 410px;
+$video-width: $video-height * (16 / 9);
 
+.caster-display-wrapper {
     z-index: 2;
-    height: 500px;
-    width: 350px;
     flex-basis: 0;
-    background-color: $container-background-light;
-    border-bottom: 10px solid var(--accent-color);
-    color: $text-color-dark;
-    text-transform: uppercase;
-    padding: 10px;
-
-    &.has-video {
-        flex-basis: $video-width;
-    }
 
     &:not(:last-child) {
         margin-right: 100px;
     }
+
+    &.has-video, &.has-video .caster {
+        flex-basis: $video-width;
+    }
+}
+
+.caster {
+    height: 500px;
+    width: 350px;
+    text-transform: uppercase;
+    padding: 10px;
 
     > .caster-photo-wrapper {
         height: $video-height;
@@ -125,6 +134,7 @@ export default defineComponent({
         font-size: 40px;
         line-height: 40px;
         font-style: oblique;
+        padding-bottom: 10px;
 
         .pronouns {
             font-size: 25px;

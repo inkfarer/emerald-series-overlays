@@ -3,9 +3,10 @@
         <div class="casters-layout flex center-xy">
             <div class="background" />
             <caster-display
-                v-for="caster in casters"
+                v-for="(caster, index) in casters"
                 :key="caster.id"
                 :caster="caster"
+                :index="index"
             />
         </div>
     </intermission-layout>
@@ -13,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 import GraphicBackground from '../components/GraphicBackground.vue';
 import IntermissionLayout from '../components/intermission/IntermissionLayout.vue';
 import { useCasterStore } from '@browser-common/store/CasterStore';
@@ -21,6 +22,8 @@ import ImageLoader from '../components/ImageLoader.vue';
 import FittedContent from '../components/FittedContent.vue';
 import VideoLoader from '../components/VideoLoader.vue';
 import CasterDisplay from './components/CasterDisplay.vue';
+import gsap from 'gsap';
+import { bindEntranceToTimeline } from '../helpers/obsSourceHelper';
 
 export default defineComponent({
     name: 'CommentaryGraphic',
@@ -29,6 +32,20 @@ export default defineComponent({
 
     setup() {
         const casterStore = useCasterStore();
+
+        onMounted(() => {
+            const backgroundInTimeline = gsap.timeline();
+
+            backgroundInTimeline.fromTo('.casters-layout > .background', {
+                width: '0%'
+            }, {
+                width: '100%',
+                duration: 0.75,
+                ease: 'power2.out'
+            });
+
+            bindEntranceToTimeline(backgroundInTimeline);
+        });
 
         return {
             casters: computed(() => casterStore.casters)
@@ -49,6 +66,7 @@ export default defineComponent({
         width: 100%;
         background: var(--accent-color);
         position: absolute;
+        left: 0;
         z-index: 1;
     }
 }

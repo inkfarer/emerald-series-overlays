@@ -68,8 +68,8 @@ import { addDots } from '@helpers/stringHelper';
 import FittedContent from '../components/FittedContent.vue';
 import UnderlinedContainer from '../components/UnderlinedContainer.vue';
 import gsap from 'gsap';
-import { useGlobalTimeline } from '../helpers/useGlobalTimeline';
 import AnimatedSkinLoader from '../components/AnimatedSkinLoader.vue';
+import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 
 export default defineComponent({
     name: 'RostersGraphic',
@@ -92,15 +92,11 @@ export default defineComponent({
 
         const playerSkinsWrapper = ref<HTMLDivElement>();
         onMounted(() => {
-            const skinEntranceTl = gsap.timeline();
-
-            skinEntranceTl
+            bindEntranceToTimelineGenerator(() => gsap.timeline()
                 .fromTo(
                     playerSkinsWrapper.value.querySelector('.background'),
                     { width: 0 },
-                    { width: '100%', duration: 0.75, ease: 'power2.out' });
-
-            useGlobalTimeline(skinEntranceTl, 0);
+                    { width: '100%', duration: 0.75, ease: 'power2.out' }));
         });
 
         return {

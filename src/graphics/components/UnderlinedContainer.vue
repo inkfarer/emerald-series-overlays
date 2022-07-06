@@ -15,8 +15,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, PropType, ref } from 'vue';
 import gsap from 'gsap';
-import { useGlobalTimeline } from '../helpers/useGlobalTimeline';
 import { useGraphicVariableStore } from '../helpers/graphicVariableStore';
+import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 
 export default defineComponent({
     name: 'UnderlinedContainer',
@@ -38,23 +38,35 @@ export default defineComponent({
 
     setup(props) {
         const wrapperElement = ref<HTMLDivElement>();
+        const graphicVariableStore = useGraphicVariableStore();
 
         onMounted(() => {
-            const entranceTl = gsap.timeline();
-            entranceTl.addLabel('accent', useGraphicVariableStore().accentInPosition);
-
-            entranceTl
-                .fromTo(
-                    wrapperElement.value,
-                    { clipPath: 'polygon(0% -1000px, 0% -1000px, 0% 100%, 0% 100%)' },
-                    { clipPath: 'polygon(0% -1000px, 100% -1000px, 100% 100%, 0% 100%)', duration: props.animationLength, ease: 'expo.out', delay: props.delay })
-                .fromTo(
-                    wrapperElement.value.querySelector('.accent'),
-                    { height: 0 },
-                    { height: '100%', duration: 0.35, ease: 'power2.out' },
-                    'accent');
-
-            useGlobalTimeline(entranceTl, 0);
+            bindEntranceToTimelineGenerator(() =>
+                gsap.timeline()
+                    .addLabel('contentIn', `+=${props.delay}`)
+                    .addLabel('accent', graphicVariableStore.accentInPosition)
+                    .fromTo(
+                        wrapperElement.value, {
+                            clipPath: 'polygon(0% -1000px, 0% -1000px, 0% 100%, 0% 100%)'
+                        }, {
+                            clipPath: 'polygon(0% -1000px, 100% -1000px, 100% 100%, 0% 100%)',
+                            duration: props.animationLength,
+                            ease: 'expo.out',
+                        },
+                        'contentIn')
+                    .fromTo(
+                        wrapperElement.value.querySelector('.content'), {
+                            x: '-50%'
+                        }, {
+                            x: '0%',
+                            duration: props.animationLength,
+                            ease: 'expo.out',
+                        }, 'contentIn')
+                    .fromTo(
+                        wrapperElement.value.querySelector('.accent'),
+                        { height: 0 },
+                        { height: '100%', duration: 0.35, ease: 'power2.out' },
+                        'accent'));
         });
 
         return {
