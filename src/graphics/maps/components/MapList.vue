@@ -32,6 +32,7 @@
                                     <team-skins
                                         :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
                                         :width="70"
+                                        :delay="0.5"
                                     />
                                 </div>
                                 <div class="picking-team-name">
@@ -93,6 +94,7 @@
                                 <team-skins
                                     :team="game.winner === 'alpha' ? 'A' : 'B'"
                                     :width="110"
+                                    :delay="0.5"
                                 />
                                 <div class="team-name">
                                     {{ getFirstPlayerNames(game.winner) }}
