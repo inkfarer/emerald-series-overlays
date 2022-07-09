@@ -84,20 +84,19 @@ $video-width: $video-height * (16 / 9);
 
 .caster-display-wrapper {
     z-index: 2;
-    flex-basis: 0;
+    width: 350px;
 
     &:not(:last-child) {
         margin-right: 100px;
     }
 
-    &.has-video, &.has-video .caster {
+    &.has-video {
         flex-basis: $video-width;
     }
 }
 
 .caster {
     height: 500px;
-    width: 350px;
     text-transform: uppercase;
     padding: 10px;
 
