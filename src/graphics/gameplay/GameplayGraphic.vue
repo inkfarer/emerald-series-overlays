@@ -4,11 +4,16 @@
         :class="runtimeConfigStore.modeClassName"
     >
         <div class="gameplay-graphic-layout">
-            <div class="team-display flex center-x">
+            <underlined-container
+                class="team-display"
+                background-color="dark"
+                :delay="0.2"
+            >
                 <team-skins
                     v-if="runtimeConfigStore.isBuckyMode"
                     team="A"
                     :width="70"
+                    :delay="0.5"
                 />
                 <div
                     v-else
@@ -16,8 +21,7 @@
                 >
                     <span>{{ teamAName }}</span>
                 </div>
-                <div class="background" />
-            </div>
+            </underlined-container>
             <div class="gameplay-info flex">
                 <gameplay-team-score-display
                     v-if="runtimeConfigStore.isBuckyMode"
@@ -29,11 +33,16 @@
                     team="B"
                 />
             </div>
-            <div class="team-display flex center-x">
+            <underlined-container
+                class="team-display"
+                background-color="dark"
+                :delay="0.3"
+            >
                 <team-skins
                     v-if="runtimeConfigStore.isBuckyMode"
                     team="B"
                     :width="70"
+                    :delay="0.5"
                 />
                 <div
                     v-else
@@ -41,8 +50,7 @@
                 >
                     <span>{{ teamBName }}</span>
                 </div>
-                <div class="background" />
-            </div>
+            </underlined-container>
         </div>
     </div>
 </template>
@@ -55,11 +63,12 @@ import GameplayInfoBar from './components/GameplayInfoBar.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { addDots } from '@helpers/stringHelper';
+import UnderlinedContainer from '../components/UnderlinedContainer.vue';
 
 export default defineComponent({
     name: 'GameplayGraphic',
 
-    components: { GameplayInfoBar, GameplayTeamScoreDisplay, TeamSkins },
+    components: { UnderlinedContainer, GameplayInfoBar, GameplayTeamScoreDisplay, TeamSkins },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
@@ -85,7 +94,7 @@ export default defineComponent({
     left: 0;
 
     &.is-bucky-mode {
-        .team-display > .background {
+        .team-display {
             height: 90px;
         }
 
@@ -96,12 +105,8 @@ export default defineComponent({
 
     &.is-stratus-mode {
         .team-display {
-            height: 130px;
+            height: 140px;
             align-items: center;
-
-            > .background {
-                height: 100%;
-            }
         }
 
         > .gameplay-graphic-layout {
@@ -139,22 +144,20 @@ export default defineComponent({
     }
 
     .team-display {
-        border-bottom: 10px solid var(--accent-color);
         position: relative;
-        overflow: hidden;
-        height: 175px;
-
-        > .background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: $container-background;
-            z-index: -1;
-        }
+        height: 140px;
 
         .team-skins {
             height: 200px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            justify-content: center;
+            overflow: hidden;
+
+            .player-skin {
+                margin-top: 25px;
+            }
         }
     }
 
@@ -167,7 +170,7 @@ export default defineComponent({
 
         .gameplay-info-bar {
             width: 100%;
-            height: 130px;
+            height: 140px;
         }
     }
 }
