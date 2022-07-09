@@ -24,7 +24,7 @@
                 </fitted-content>
             </opacity-swap-transition>
         </div>
-        <underlined-container
+        <sliding-container
             class="tournament-name-wrapper flex center-xy"
             background-color="dark"
             center-content
@@ -35,7 +35,7 @@
             >
                 <span class="intermission-tournament-name">{{ tournamentDataStore.tournamentData.name }}</span>
             </fitted-content>
-        </underlined-container>
+        </sliding-container>
     </intermission-layout>
     <graphic-background />
 </template>
@@ -51,7 +51,7 @@ import OpacitySwapTransition from '../components/OpacitySwapTransition.vue';
 import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
 import IntermissionInfoBar from '../components/intermission/IntermissionInfoBar.vue';
 import IntermissionLayout from '../components/intermission/IntermissionLayout.vue';
-import UnderlinedContainer from '../components/UnderlinedContainer.vue';
+import SlidingContainer from '../components/SlidingContainer.vue';
 import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 import gsap from 'gsap';
 
@@ -59,7 +59,7 @@ export default defineComponent({
     name: 'IntermissionGraphic',
 
     components: {
-        UnderlinedContainer,
+        SlidingContainer,
         IntermissionLayout,
         IntermissionInfoBar,
         OpacitySwapTransition,

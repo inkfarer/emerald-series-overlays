@@ -1,7 +1,7 @@
 <template>
     <div
         ref="wrapperElement"
-        class="underlined-container"
+        class="sliding-container"
         :class="{ [`background-${backgroundColor}`]: true, 'no-underline': noUnderline }"
     >
         <div
@@ -25,7 +25,7 @@ import { useGraphicVariableStore } from '../helpers/graphicVariableStore';
 import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 
 export default defineComponent({
-    name: 'UnderlinedContainer',
+    name: 'SlidingContainer',
 
     props: {
         delay: {
@@ -99,7 +99,7 @@ export default defineComponent({
 <style lang="scss">
 @import 'src/graphics/styles/constants';
 
-.underlined-container {
+.sliding-container {
     position: relative;
 
     &.background-light {

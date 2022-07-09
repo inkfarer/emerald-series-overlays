@@ -5,7 +5,7 @@
     >
         <div class="single-roster">
             <div class="header flex center-x">
-                <underlined-container class="team-name">
+                <sliding-container class="team-name">
                     <fitted-content
                         :max-width="460"
                         align="center"
@@ -14,7 +14,7 @@
                     >
                         <span>{{ addDots(selectedTeam.name) }}</span>
                     </fitted-content>
-                </underlined-container>
+                </sliding-container>
             </div>
             <div class="players flex center-xy">
                 <div
@@ -40,7 +40,7 @@
                         :key="player.name"
                         class="player-name-wrapper flex center-x"
                     >
-                        <underlined-container
+                        <sliding-container
                             class="player-name"
                             :delay="0.7 + (index * 0.1)"
                         >
@@ -50,7 +50,7 @@
                             >
                                 {{ player.name }}
                             </fitted-content>
-                        </underlined-container>
+                        </sliding-container>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@ import IntermissionLayout from '../components/intermission/IntermissionLayout.vu
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { addDots } from '@helpers/stringHelper';
 import FittedContent from '../components/FittedContent.vue';
-import UnderlinedContainer from '../components/UnderlinedContainer.vue';
+import SlidingContainer from '../components/SlidingContainer.vue';
 import gsap from 'gsap';
 import AnimatedSkinLoader from '../components/AnimatedSkinLoader.vue';
 import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
@@ -74,7 +74,7 @@ import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 export default defineComponent({
     name: 'RostersGraphic',
 
-    components: { UnderlinedContainer, FittedContent, IntermissionLayout, GraphicBackground, AnimatedSkinLoader },
+    components: { SlidingContainer, FittedContent, IntermissionLayout, GraphicBackground, AnimatedSkinLoader },
 
     props: {
         team: {

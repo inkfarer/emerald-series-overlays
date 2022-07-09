@@ -4,7 +4,7 @@
         :class="runtimeConfigStore.modeClassName"
     >
         <div class="gameplay-graphic-layout">
-            <underlined-container
+            <sliding-container
                 class="team-display"
                 background-color="dark"
                 :delay="0.2"
@@ -21,7 +21,7 @@
                 >
                     <span>{{ teamAName }}</span>
                 </div>
-            </underlined-container>
+            </sliding-container>
             <div class="gameplay-info flex">
                 <gameplay-team-score-display
                     v-if="runtimeConfigStore.isBuckyMode"
@@ -33,7 +33,7 @@
                     team="B"
                 />
             </div>
-            <underlined-container
+            <sliding-container
                 class="team-display"
                 background-color="dark"
                 :delay="0.3"
@@ -50,7 +50,7 @@
                 >
                     <span>{{ teamBName }}</span>
                 </div>
-            </underlined-container>
+            </sliding-container>
         </div>
     </div>
 </template>
@@ -63,12 +63,12 @@ import GameplayInfoBar from './components/GameplayInfoBar.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import { addDots } from '@helpers/stringHelper';
-import UnderlinedContainer from '../components/UnderlinedContainer.vue';
+import SlidingContainer from '../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'GameplayGraphic',
 
-    components: { UnderlinedContainer, GameplayInfoBar, GameplayTeamScoreDisplay, TeamSkins },
+    components: { SlidingContainer, GameplayInfoBar, GameplayTeamScoreDisplay, TeamSkins },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();

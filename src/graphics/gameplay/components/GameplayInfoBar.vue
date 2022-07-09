@@ -1,5 +1,5 @@
 <template>
-    <underlined-container
+    <sliding-container
         class="gameplay-info-bar"
         center-content
         background-color="dark"
@@ -7,7 +7,7 @@
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
-    </underlined-container>
+    </sliding-container>
 </template>
 
 <script lang="ts">
@@ -19,13 +19,13 @@ import GameplayInfoPlayerNames from './GameplayInfoPlayerNames.vue';
 import GameplayInfoTournamentData from './GameplayInfoTournamentData.vue';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
-import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
+import SlidingContainer from '../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'GameplayInfoBar',
 
     components: {
-        UnderlinedContainer,
+        SlidingContainer,
         OpacitySwapTransition,
         GameplayInfoTournamentLogo,
         GameplayInfoCasters,

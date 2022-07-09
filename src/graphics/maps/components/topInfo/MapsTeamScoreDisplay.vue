@@ -1,5 +1,5 @@
 <template>
-    <underlined-container
+    <sliding-container
         class="maps-team-score-display"
         :class="runtimeConfigStore.modeClassName"
         background-color="dark"
@@ -24,7 +24,7 @@
             </fitted-content>
             <div class="score font-condensed font-numeric">{{ selectedTeam.score }}</div>
         </div>
-    </underlined-container>
+    </sliding-container>
 </template>
 
 <script lang="ts">
@@ -35,12 +35,12 @@ import TeamSkins from '../../../components/TeamSkins.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import FittedContent from '../../../components/FittedContent.vue';
 import { addDots } from '@helpers/stringHelper';
-import UnderlinedContainer from '../../../components/UnderlinedContainer.vue';
+import SlidingContainer from '../../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'MapsTeamScoreDisplay',
 
-    components: { UnderlinedContainer, FittedContent, TeamSkins, SkinLoader },
+    components: { SlidingContainer, FittedContent, TeamSkins, SkinLoader },
 
     props: {
         team: {

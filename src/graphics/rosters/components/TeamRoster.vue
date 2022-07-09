@@ -1,6 +1,6 @@
 <template>
     <div class="team-roster">
-        <underlined-container
+        <sliding-container
             class="player-skins-container"
             background-color="dark"
             :delay="baseDelay"
@@ -15,9 +15,9 @@
                     class="player-skin"
                 />
             </div>
-        </underlined-container>
+        </sliding-container>
         <div class="player-names flex">
-            <underlined-container
+            <sliding-container
                 v-for="(player, index) in players"
                 :key="`player-name_${player.id}`"
                 class="player-name flex center-x"
@@ -31,7 +31,7 @@
                 >
                     {{ addDots(player.name) }}
                 </fitted-content>
-            </underlined-container>
+            </sliding-container>
         </div>
     </div>
 </template>
@@ -42,13 +42,13 @@ import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import FittedContent from '../../components/FittedContent.vue';
 import SkinLoader from '../../components/SkinLoader.vue';
 import { addDots } from '@helpers/stringHelper';
-import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
+import SlidingContainer from '../../components/SlidingContainer.vue';
 import AnimatedSkinLoader from '../../components/AnimatedSkinLoader.vue';
 
 export default defineComponent({
     name: 'TeamRoster',
 
-    components: { AnimatedSkinLoader, UnderlinedContainer, SkinLoader, FittedContent },
+    components: { AnimatedSkinLoader, SlidingContainer, SkinLoader, FittedContent },
 
     props: {
         team: {

@@ -11,7 +11,7 @@
                 :class="{ 'is-active': nextGameIndex === index }"
             >
                 <div class="game-info-layout flex vertical">
-                    <underlined-container
+                    <sliding-container
                         class="picked-by"
                         background-color="dark"
                         center-content
@@ -47,17 +47,17 @@
                         >
                             {{ game.mode ?? '???' }}
                         </div>
-                    </underlined-container>
+                    </sliding-container>
                     <div class="number-map-section flex">
-                        <underlined-container
+                        <sliding-container
                             class="game-number font-condensed"
                             no-underline
                             center-content
                             background-color="dark"
                         >
                             Game {{ index + 1 }}
-                        </underlined-container>
-                        <underlined-container
+                        </sliding-container>
+                        <sliding-container
                             class="map-name"
                             center-content
                         >
@@ -67,10 +67,10 @@
                             >
                                 {{ game.map }}
                             </fitted-content>
-                        </underlined-container>
+                        </sliding-container>
                     </div>
                 </div>
-                <underlined-container
+                <sliding-container
                     class="map-image-wrapper"
                     background-color="dark"
                     center-content
@@ -104,7 +104,7 @@
                     <div class="map-image">
                         <image-loader :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`" />
                     </div>
-                </underlined-container>
+                </sliding-container>
             </div>
         </div>
     </div>
@@ -120,12 +120,12 @@ import TeamSkins from '../../components/TeamSkins.vue';
 import { getFirstPlayerNames } from '@helpers/teamHelper';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
-import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
+import SlidingContainer from '../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'MapList',
 
-    components: { UnderlinedContainer, OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
+    components: { SlidingContainer, OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
