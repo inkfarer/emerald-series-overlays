@@ -4,7 +4,10 @@
         class="underlined-container"
         :class="`background-${backgroundColor}`"
     >
-        <div class="content flex vertical center-y">
+        <div
+            class="content flex vertical center-y"
+            :class="{ 'center-x': centerContent }"
+        >
             <slot />
         </div>
         <div class="background content-background" />
@@ -33,6 +36,10 @@ export default defineComponent({
         animationLength: {
             type: Number,
             default: 0.6
+        },
+        centerContent: {
+            type: Boolean,
+            default: false
         }
     },
 

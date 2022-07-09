@@ -24,20 +24,24 @@
                 </fitted-content>
             </opacity-swap-transition>
         </div>
-        <div class="tournament-name-wrapper flex center-xy">
+        <underlined-container
+            class="tournament-name-wrapper flex center-xy"
+            background-color="dark"
+            center-content
+        >
             <fitted-content
                 align="center"
                 :max-width="850"
             >
                 <span class="intermission-tournament-name">{{ tournamentDataStore.tournamentData.name }}</span>
             </fitted-content>
-        </div>
+        </underlined-container>
     </intermission-layout>
     <graphic-background />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import GraphicBackground from '../components/GraphicBackground.vue';
 import TournamentLogo from '../components/TournamentLogo.vue';
 import FittedContent from '../components/FittedContent.vue';
@@ -47,11 +51,15 @@ import OpacitySwapTransition from '../components/OpacitySwapTransition.vue';
 import { useNextMatchStore } from '@browser-common/store/NextMatchStore';
 import IntermissionInfoBar from '../components/intermission/IntermissionInfoBar.vue';
 import IntermissionLayout from '../components/intermission/IntermissionLayout.vue';
+import UnderlinedContainer from '../components/UnderlinedContainer.vue';
+import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
+import gsap from 'gsap';
 
 export default defineComponent({
     name: 'IntermissionGraphic',
 
     components: {
+        UnderlinedContainer,
         IntermissionLayout,
         IntermissionInfoBar,
         OpacitySwapTransition,
@@ -64,6 +72,15 @@ export default defineComponent({
         const intermissionDataStore = useIntermissionDataStore();
         const tournamentDataStore = useTournamentDataStore();
         const nextMatchStore = useNextMatchStore();
+
+        onMounted(() => {
+            bindEntranceToTimelineGenerator(() => gsap.timeline()
+                .fromTo(
+                    '.center-info-top-text-wrapper',
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.35 }
+                ));
+        });
 
         return {
             intermissionDataStore,
@@ -112,13 +129,7 @@ export default defineComponent({
     .tournament-name-wrapper {
         width: 900px;
         height: 150px;
-        background-color: $container-background;
-        border-bottom: 15px solid var(--accent-color);
         font-size: 75px;
-
-        .intermission-tournament-name {
-            color: $text-color-light;
-        }
     }
 }
 </style>
