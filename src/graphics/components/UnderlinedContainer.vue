@@ -80,8 +80,8 @@ export default defineComponent({
                 if (!props.noUnderline) {
                     tl.fromTo(
                         wrapperElement.value.querySelector('.accent'),
-                        { height: 0 },
-                        { height: '100%', duration: 0.35, ease: 'power2.out' },
+                        { height: 'calc(100% - 10px)' },
+                        { height: 'calc(100% - 0px)', duration: 0.2, ease: 'power2.out' },
                         'accent');
                 }
 
