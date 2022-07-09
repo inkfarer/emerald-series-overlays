@@ -15,6 +15,7 @@
                         class="picked-by"
                         background-color="dark"
                         center-content
+                        :delay="Math.min(activeMapIndex - index, 0) * 0.1"
                     >
                         <template v-if="runtimeConfigStore.isBuckyMode">
                             <div
@@ -54,12 +55,14 @@
                             no-underline
                             center-content
                             background-color="dark"
+                            :delay="index * 0.05"
                         >
                             Game {{ index + 1 }}
                         </sliding-container>
                         <sliding-container
                             class="map-name"
                             center-content
+                            :delay="index * 0.05"
                         >
                             <fitted-content
                                 :max-width="250"
@@ -75,6 +78,7 @@
                     background-color="dark"
                     center-content
                     :animation-length="1"
+                    :delay="index * 0.05"
                 >
                     <opacity-swap-transition>
                         <div
