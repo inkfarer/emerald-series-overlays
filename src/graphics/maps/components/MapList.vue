@@ -49,7 +49,7 @@
                             v-else
                             class="neutral-pick font-condensed flex center-xy"
                         >
-                            {{ game.mode ?? '???' }}
+                            {{ modeNames[game.mode] ?? '???' }}
                         </div>
                     </sliding-container>
                     <div class="number-map-section flex">
@@ -68,7 +68,7 @@
                             :delay="index * 0.05"
                         >
                             <fitted-content
-                                :max-width="250"
+                                :max-width="240"
                                 align="center"
                             >
                                 {{ game.map }}
@@ -129,6 +129,7 @@ import { getFirstPlayerNames } from '@helpers/teamHelper';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import SlidingContainer from '../../components/SlidingContainer.vue';
+import { modeNames } from '@helpers/maps';
 
 export default defineComponent({
     name: 'MapList',
@@ -151,7 +152,8 @@ export default defineComponent({
                     nextGameIndex.value === -1 ? activeMatchStore.activeMatch.games.length : nextGameIndex.value,
                     activeMatchStore.activeMatch.games.length - 2
                 )),
-            getFirstPlayerNames
+            getFirstPlayerNames,
+            modeNames
         };
     }
 });

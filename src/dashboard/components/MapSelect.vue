@@ -9,7 +9,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { IplSelect } from '@iplsplatoon/vue-components';
-import { maps } from '@helpers/maps';
+import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 
 export default defineComponent({
     name: 'MapSelect',
@@ -39,8 +39,10 @@ export default defineComponent({
             }
         });
 
+        const runtimeConfigStore = useRuntimeConfigStore();
+
         return {
-            maps: maps.map(map => ({ value: map.name, name: map.name })),
+            maps: computed(() => runtimeConfigStore.availableMaps.map(map => ({ value: map.name, name: map.name }))),
             selectedMap
         };
     }

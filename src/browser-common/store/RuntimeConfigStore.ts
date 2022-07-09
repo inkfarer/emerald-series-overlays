@@ -4,6 +4,7 @@ import { RuntimeConfig } from 'schemas';
 import { GraphicMode } from 'types/enums/GraphicMode';
 import { watch } from 'vue';
 import { colors } from '../../graphics/styles/colors';
+import { buckyMaps, stratusMaps } from '@helpers/maps';
 
 const runtimeConfig = nodecg.Replicant<RuntimeConfig>('runtimeConfig');
 
@@ -25,7 +26,8 @@ export const useRuntimeConfigStore = defineStore('runtimeConfig', {
     getters: {
         isStratusMode: state => state.runtimeConfig.mode === GraphicMode.STRATUS,
         isBuckyMode: state => state.runtimeConfig.mode === GraphicMode.BUCKY,
-        modeClassName: state => state.runtimeConfig.mode === GraphicMode.BUCKY ? 'is-bucky-mode' : 'is-stratus-mode'
+        modeClassName: state => state.runtimeConfig.mode === GraphicMode.BUCKY ? 'is-bucky-mode' : 'is-stratus-mode',
+        availableMaps: state => state.runtimeConfig.mode === 'BUCKY' ? buckyMaps : stratusMaps
     }
 });
 

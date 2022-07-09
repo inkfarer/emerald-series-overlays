@@ -1,18 +1,21 @@
 import type { NodeCG, ReplicantServer } from 'nodecg/server';
-import { NextMatch } from '../../types/schemas';
+import { NextMatch, RuntimeConfig } from '../../types/schemas';
 import { isBlank } from '../../helpers/stringHelper';
 import { TeamStoreService } from './TeamStoreService';
 import { Team } from '../../types/Team';
 import cloneDeep from 'lodash/cloneDeep';
 import { ActiveMatchService } from './ActiveMatchService';
+import { MapHelper } from '../helper/MapHelper';
 
 export class NextMatchService {
     private nextMatch: ReplicantServer<NextMatch>;
+    private runtimeConfig: ReplicantServer<RuntimeConfig>;
     private teamStoreService: TeamStoreService;
     private activeMatchService: ActiveMatchService;
 
     constructor(nodecg: NodeCG, teamStoreService: TeamStoreService, activeMatchService: ActiveMatchService) {
         this.nextMatch = nodecg.Replicant<NextMatch>('nextMatch');
+        this.runtimeConfig = nodecg.Replicant<RuntimeConfig>('runtimeConfig');
         this.teamStoreService = teamStoreService;
         this.activeMatchService = activeMatchService;
     }
@@ -57,7 +60,7 @@ export class NextMatchService {
         }
 
         this.nextMatch.value.games = this.nextMatch.value.games.map((game, index) =>
-            ({ ...game, map: maps[index] }));
+            ({ ...game, map: maps[index], mode: MapHelper.getMode(maps[index], this.runtimeConfig.value.mode) }));
     }
 
     beginMatch(): void {

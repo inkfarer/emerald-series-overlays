@@ -1,4 +1,4 @@
-import { ActiveMatch } from '../../types/schemas';
+import { ActiveMatch, RuntimeConfig } from '../../types/schemas';
 import type { NodeCG, ReplicantServer } from 'nodecg/server';
 import { TeamRef } from '../../types/enums/TeamRef';
 import cloneDeep from 'lodash/cloneDeep';
@@ -7,13 +7,16 @@ import findLastIndex from 'lodash/findLastIndex';
 import { Team } from '../../types/Team';
 import { isBlank } from '../../helpers/stringHelper';
 import { MAX_GOAL_COUNT } from '../../helpers/constants';
+import { MapHelper } from '../helper/MapHelper';
 
 export class ActiveMatchService {
     private activeMatch: ReplicantServer<ActiveMatch>;
+    private runtimeConfig: ReplicantServer<RuntimeConfig>;
     private teamStoreService: TeamStoreService;
 
     constructor(nodecg: NodeCG, teamStoreService: TeamStoreService) {
         this.activeMatch = nodecg.Replicant<ActiveMatch>('activeMatch');
+        this.runtimeConfig = nodecg.Replicant<RuntimeConfig>('runtimeConfig');
         this.teamStoreService = teamStoreService;
     }
 
@@ -115,7 +118,7 @@ export class ActiveMatchService {
         }
 
         this.activeMatch.value.games = this.activeMatch.value.games.map((game, index) =>
-            ({ ...game, map: maps[index] }));
+            ({ ...game, map: maps[index], mode: MapHelper.getMode(maps[index], this.runtimeConfig.value.mode) }));
     }
 
     replaceMaps(maps: string[]): void {
