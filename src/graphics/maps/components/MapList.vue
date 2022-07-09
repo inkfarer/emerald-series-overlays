@@ -11,8 +11,11 @@
                 :class="{ 'is-active': nextGameIndex === index }"
             >
                 <div class="game-info-layout flex vertical">
-                    <div class="picked-by">
-                        <div class="background" />
+                    <underlined-container
+                        class="picked-by"
+                        background-color="dark"
+                        center-content
+                    >
                         <template v-if="runtimeConfigStore.isBuckyMode">
                             <div
                                 v-if="game.pickedBy === 'none'"
@@ -44,20 +47,35 @@
                         >
                             {{ game.mode ?? '???' }}
                         </div>
-                    </div>
+                    </underlined-container>
                     <div class="number-map-section flex">
-                        <div class="game-number font-condensed flex center-xy">Game {{ index + 1 }}</div>
-                        <div class="map-name flex center-xy">
+                        <underlined-container
+                            class="game-number font-condensed"
+                            no-underline
+                            center-content
+                            background-color="dark"
+                        >
+                            Game {{ index + 1 }}
+                        </underlined-container>
+                        <underlined-container
+                            class="map-name"
+                            center-content
+                        >
                             <fitted-content
                                 :max-width="250"
                                 align="center"
                             >
                                 {{ game.map }}
                             </fitted-content>
-                        </div>
+                        </underlined-container>
                     </div>
                 </div>
-                <div class="map-image-wrapper">
+                <underlined-container
+                    class="map-image-wrapper"
+                    background-color="dark"
+                    center-content
+                    :animation-length="1"
+                >
                     <opacity-swap-transition>
                         <div
                             v-if="game.winner !== 'none'"
@@ -86,7 +104,7 @@
                     <div class="map-image">
                         <image-loader :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`" />
                     </div>
-                </div>
+                </underlined-container>
             </div>
         </div>
     </div>
@@ -102,11 +120,12 @@ import TeamSkins from '../../components/TeamSkins.vue';
 import { getFirstPlayerNames } from '@helpers/teamHelper';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
 
 export default defineComponent({
     name: 'MapList',
 
-    components: { OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
+    components: { UnderlinedContainer, OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
@@ -192,24 +211,15 @@ export default defineComponent({
         height: 100%;
         width: 420px;
         margin-right: 10px;
+        justify-content: flex-end;
 
         .picked-by {
-            height: 100%;
+            height: 90px;
             position: relative;
-            border-bottom: 10px solid var(--accent-color);
             overflow: hidden;
             text-transform: uppercase;
             font-size: 40px;
             font-style: oblique;
-
-            > .background {
-                background-color: $container-background;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                height: 90px;
-                width: 100%;
-            }
 
             > .neutral-pick {
                 position: absolute;
@@ -243,10 +253,10 @@ export default defineComponent({
 
         .number-map-section {
             margin-top: 10px;
+            height: 65px;
 
             .game-number {
                 width: 150px;
-                background-color: $container-background;
                 color: var(--accent-color);
                 font-size: 35px;
                 font-weight: bold;
@@ -258,9 +268,6 @@ export default defineComponent({
             .map-name {
                 flex-grow: 1;
                 margin-left: 10px;
-                background-color: $container-background-light;
-                border-bottom: 10px solid var(--accent-color);
-                color: $text-color-dark;
                 font-weight: bold;
                 font-size: 40px;
                 padding: 4px 0;
@@ -272,8 +279,6 @@ export default defineComponent({
         transition: width 500ms ease-in-out;
         width: 650px;
         height: 100%;
-        border-bottom: 10px solid var(--accent-color);
-        background-color: $container-background;
         position: relative;
 
         .map-image {

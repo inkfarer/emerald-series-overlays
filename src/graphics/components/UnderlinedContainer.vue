@@ -2,7 +2,7 @@
     <div
         ref="wrapperElement"
         class="underlined-container"
-        :class="`background-${backgroundColor}`"
+        :class="{ [`background-${backgroundColor}`]: true, 'no-underline': noUnderline }"
     >
         <div
             class="content flex vertical center-y"
@@ -11,7 +11,10 @@
             <slot />
         </div>
         <div class="background content-background" />
-        <div class="background accent" />
+        <div
+            v-if="!noUnderline"
+            class="background accent"
+        />
     </div>
 </template>
 
@@ -40,6 +43,10 @@ export default defineComponent({
         centerContent: {
             type: Boolean,
             default: false
+        },
+        noUnderline: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -48,8 +55,8 @@ export default defineComponent({
         const graphicVariableStore = useGraphicVariableStore();
 
         onMounted(() => {
-            bindEntranceToTimelineGenerator(() =>
-                gsap.timeline()
+            bindEntranceToTimelineGenerator(() => {
+                const tl = gsap.timeline()
                     .addLabel('contentIn', `+=${props.delay}`)
                     .addLabel('accent', graphicVariableStore.accentInPosition)
                     .fromTo(
@@ -68,12 +75,18 @@ export default defineComponent({
                             x: '0%',
                             duration: props.animationLength,
                             ease: 'expo.out',
-                        }, 'contentIn')
-                    .fromTo(
+                        }, 'contentIn');
+
+                if (!props.noUnderline) {
+                    tl.fromTo(
                         wrapperElement.value.querySelector('.accent'),
                         { height: 0 },
                         { height: '100%', duration: 0.35, ease: 'power2.out' },
-                        'accent'));
+                        'accent');
+                }
+
+                return tl;
+            });
         });
 
         return {
@@ -102,6 +115,16 @@ export default defineComponent({
 
         > .content-background {
             background-color: $container-background;
+        }
+    }
+
+    &.no-underline {
+        > .background.content-background {
+            height: 100%;
+        }
+
+        > .content {
+            height: 100%;
         }
     }
 
