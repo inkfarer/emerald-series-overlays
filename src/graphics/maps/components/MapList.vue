@@ -84,9 +84,7 @@
                         </div>
                     </opacity-swap-transition>
                     <div class="map-image">
-                        <image-loader
-                            :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`"
-                        />
+                        <image-loader :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`" />
                     </div>
                 </div>
             </div>
@@ -121,12 +119,11 @@ export default defineComponent({
             runtimeConfigStore,
             activeMatchStore,
             nextGameIndex,
-            activeMapIndex: computed(() => {
-                return Math.min(
+            activeMapIndex: computed(() =>
+                Math.min(
                     nextGameIndex.value === -1 ? activeMatchStore.activeMatch.games.length : nextGameIndex.value,
                     activeMatchStore.activeMatch.games.length - 2
-                );
-            }),
+                )),
             getFirstPlayerNames
         };
     }
@@ -143,7 +140,7 @@ export default defineComponent({
 
 @for $i from 2 through 6 {
     .map-list.active-map-#{$i} {
-        top: #{($i - 1) * 31.3 * -1}vh
+        top: #{($i - 1) * 336.5 * -1}px
     }
 }
 
@@ -181,9 +178,9 @@ export default defineComponent({
 }
 
 .game {
-    height: 28.3vh;
+    height: 306.5px;
     align-items: flex-end;
-    margin-bottom: 3vh;
+    margin-bottom: 30px;
 
     &.is-active {
         .map-image-wrapper {
@@ -309,6 +306,7 @@ export default defineComponent({
             > .team-skins {
                 height: 100%;
                 margin-left: 25px;
+                transform: translateY(-15px);
             }
 
             > .team-name {

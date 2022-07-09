@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-info-player-names">
+    <div class="bottom-info-player-names flex vertical center-x">
         <fitted-content
             v-for="player in teamAPlayers"
             :key="`team-a-player-name_${player.id}`"

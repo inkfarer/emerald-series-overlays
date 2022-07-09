@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-info-casters">
+    <div class="bottom-info-casters flex vertical center-x">
         <fitted-content
             :max-width="400"
             class="caster-name"

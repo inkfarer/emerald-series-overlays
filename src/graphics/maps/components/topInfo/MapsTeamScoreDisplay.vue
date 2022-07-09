@@ -1,22 +1,30 @@
 <template>
-    <div
-        class="maps-team-score-display flex"
+    <underlined-container
+        class="maps-team-score-display"
         :class="runtimeConfigStore.modeClassName"
+        background-color="dark"
+        :delay="team === 'A' ? 0 : 0.1"
     >
-        <team-skins
-            v-if="runtimeConfigStore.isBuckyMode"
-            :team="team"
-        />
-        <fitted-content
-            v-else
-            :max-width="300"
-            class="team-name flex center-y"
-        >
-            {{ addDots(selectedTeam.name) }}
-        </fitted-content>
-        <div class="score font-condensed font-numeric">{{ selectedTeam.score }}</div>
-        <div class="background" />
-    </div>
+        <div class="flex">
+            <div
+                v-if="runtimeConfigStore.isBuckyMode"
+                class="skin-wrapper"
+            >
+                <team-skins
+                    :team="team"
+                    :delay="0.5"
+                />
+            </div>
+            <fitted-content
+                v-else
+                :max-width="300"
+                class="team-name flex center-y"
+            >
+                {{ addDots(selectedTeam.name) }}
+            </fitted-content>
+            <div class="score font-condensed font-numeric">{{ selectedTeam.score }}</div>
+        </div>
+    </underlined-container>
 </template>
 
 <script lang="ts">
@@ -27,11 +35,12 @@ import TeamSkins from '../../../components/TeamSkins.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
 import FittedContent from '../../../components/FittedContent.vue';
 import { addDots } from '@helpers/stringHelper';
+import UnderlinedContainer from '../../../components/UnderlinedContainer.vue';
 
 export default defineComponent({
     name: 'MapsTeamScoreDisplay',
 
-    components: { FittedContent, TeamSkins, SkinLoader },
+    components: { UnderlinedContainer, FittedContent, TeamSkins, SkinLoader },
 
     props: {
         team: {
@@ -61,9 +70,9 @@ export default defineComponent({
 @import 'src/graphics/styles/constants';
 
 .maps-team-score-display {
-    border-bottom: 10px solid var(--accent-color);
-    overflow: hidden;
     position: relative;
+    height: 125px;
+    align-self: end;
 
     &.is-bucky-mode {
         margin-right: 80px;
@@ -73,13 +82,26 @@ export default defineComponent({
         margin-right: 30px;
     }
 
-    .team-skins {
+    .skin-wrapper {
+        width: 200px;
+        position: relative;
         margin-left: 25px;
-        margin-bottom: -25px;
+    }
+
+    .team-skins {
+        height: 250px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        justify-content: center;
+        overflow: hidden;
+
+        .player-skin {
+            margin-top: 25px;
+        }
     }
 
     .team-name {
-        color: $text-color-light;
         width: 300px;
         align-self: flex-end;
         font-weight: bold;
@@ -96,17 +118,7 @@ export default defineComponent({
         font-weight: bold;
         font-style: oblique;
         font-size: 90px;
-        margin-bottom: 6px;
-    }
-
-    .background {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-        height: 125px;
-        width: 100%;
-        background-color: $container-background;
+        transform: translateY(-5px);
     }
 }
 </style>
