@@ -39,7 +39,7 @@ export function useSlides(slides: Array<Slide>):
         slideChangeTimeout = window.setTimeout(() => {
             findNextVisibleSlide();
             setSlideChangeTimeout();
-        }, (activeSlide.duration ?? 5) * 1000);
+        }, (activeSlide.duration ?? 30) * 1000);
     };
 
     let forceAllowSlide = false;
