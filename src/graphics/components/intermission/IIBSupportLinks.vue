@@ -24,10 +24,12 @@
             <iib-support-link
                 :icon="['fab', 'discord']"
                 text="discord.gg/GQhvaJW"
+                subtitle="Join our major tournaments"
             />
             <iib-support-link
                 :icon="['fab', 'discord']"
                 text="discord.gg/ranked"
+                subtitle="Play in our competitive ladder"
             />
             <iib-support-link
                 :icon="['fab', 'twitter']"
@@ -76,7 +78,7 @@ export default defineComponent({
 
 <style lang="scss">
 .support-links {
-    width: 100%;
+    width: calc(100% - 100px);
     margin: 0 50px;
 
     .support-link:not(:last-child) {

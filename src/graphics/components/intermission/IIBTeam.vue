@@ -4,7 +4,10 @@
         :class="{ 'is-bucky-mode': runtimeConfigStore.isBuckyMode }"
     >
         <template v-if="runtimeConfigStore.isBuckyMode">
-            <team-skins :team="team" />
+            <team-skins
+                :team="team"
+                :delay="0.5"
+            />
             <div class="player-names flex vertical center-y">
                 <fitted-content
                     v-for="player in players"

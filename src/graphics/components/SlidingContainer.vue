@@ -1,14 +1,20 @@
 <template>
     <div
         ref="wrapperElement"
-        class="underlined-container"
-        :class="`background-${backgroundColor}`"
+        class="sliding-container"
+        :class="{ [`background-${backgroundColor}`]: true, 'no-underline': noUnderline }"
     >
-        <div class="content flex center-y">
+        <div
+            class="content flex vertical center-y"
+            :class="{ 'center-x': centerContent }"
+        >
             <slot />
         </div>
         <div class="background content-background" />
-        <div class="background accent" />
+        <div
+            v-if="!noUnderline"
+            class="background accent"
+        />
     </div>
 </template>
 
@@ -19,7 +25,7 @@ import { useGraphicVariableStore } from '../helpers/graphicVariableStore';
 import { bindEntranceToTimelineGenerator } from '../helpers/obsSourceHelper';
 
 export default defineComponent({
-    name: 'UnderlinedContainer',
+    name: 'SlidingContainer',
 
     props: {
         delay: {
@@ -33,6 +39,14 @@ export default defineComponent({
         animationLength: {
             type: Number,
             default: 0.6
+        },
+        centerContent: {
+            type: Boolean,
+            default: false
+        },
+        noUnderline: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -41,8 +55,8 @@ export default defineComponent({
         const graphicVariableStore = useGraphicVariableStore();
 
         onMounted(() => {
-            bindEntranceToTimelineGenerator(() =>
-                gsap.timeline()
+            bindEntranceToTimelineGenerator(() => {
+                const tl = gsap.timeline()
                     .addLabel('contentIn', `+=${props.delay}`)
                     .addLabel('accent', graphicVariableStore.accentInPosition)
                     .fromTo(
@@ -61,12 +75,18 @@ export default defineComponent({
                             x: '0%',
                             duration: props.animationLength,
                             ease: 'expo.out',
-                        }, 'contentIn')
-                    .fromTo(
+                        }, 'contentIn');
+
+                if (!props.noUnderline) {
+                    tl.fromTo(
                         wrapperElement.value.querySelector('.accent'),
-                        { height: 0 },
-                        { height: '100%', duration: 0.35, ease: 'power2.out' },
-                        'accent'));
+                        { height: 'calc(100% - 10px)' },
+                        { height: 'calc(100% - 0px)', duration: 0.2, ease: 'power2.out' },
+                        'accent');
+                }
+
+                return tl;
+            });
         });
 
         return {
@@ -79,7 +99,7 @@ export default defineComponent({
 <style lang="scss">
 @import 'src/graphics/styles/constants';
 
-.underlined-container {
+.sliding-container {
     position: relative;
 
     &.background-light {
@@ -95,6 +115,16 @@ export default defineComponent({
 
         > .content-background {
             background-color: $container-background;
+        }
+    }
+
+    &.no-underline {
+        > .background.content-background {
+            height: 100%;
+        }
+
+        > .content {
+            height: 100%;
         }
     }
 

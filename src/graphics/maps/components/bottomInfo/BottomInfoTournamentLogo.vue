@@ -38,6 +38,7 @@ export default defineComponent({
 .bottom-info-tournament-logo {
     .vca-logo {
         width: 200px;
+        margin-top: 15px;
     }
 
     .bucky-logo {

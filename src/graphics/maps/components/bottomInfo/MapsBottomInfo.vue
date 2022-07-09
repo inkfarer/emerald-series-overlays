@@ -1,9 +1,13 @@
 <template>
-    <div class="maps-bottom-info flex center-xy">
+    <sliding-container
+        class="maps-bottom-info"
+        background-color="dark"
+        :delay="0.2"
+    >
         <opacity-swap-transition>
             <component :is="activeSlide" />
         </opacity-swap-transition>
-    </div>
+    </sliding-container>
 </template>
 
 <script lang="ts">
@@ -15,11 +19,13 @@ import BottomInfoCasters from './BottomInfoCasters.vue';
 import BottomInfoTournamentData from './BottomInfoTournamentData.vue';
 import BottomInfoPlayerNames from './BottomInfoPlayerNames.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import SlidingContainer from '../../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'MapsBottomInfo',
 
     components: {
+        SlidingContainer,
         OpacitySwapTransition,
         BottomInfoTournamentLogo,
         BottomInfoCasters,
@@ -50,7 +56,5 @@ export default defineComponent({
 .maps-bottom-info {
     height: calc(100% - 10px);
     width: 100%;
-    background-color: $container-background;
-    border-bottom: 10px solid var(--accent-color);
 }
 </style>

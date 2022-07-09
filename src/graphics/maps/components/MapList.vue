@@ -11,8 +11,12 @@
                 :class="{ 'is-active': nextGameIndex === index }"
             >
                 <div class="game-info-layout flex vertical">
-                    <div class="picked-by">
-                        <div class="background" />
+                    <sliding-container
+                        class="picked-by"
+                        background-color="dark"
+                        center-content
+                        :delay="Math.min(activeMapIndex - index, 0) * 0.1"
+                    >
                         <template v-if="runtimeConfigStore.isBuckyMode">
                             <div
                                 v-if="game.pickedBy === 'none'"
@@ -24,10 +28,12 @@
                                 v-else
                                 class="map-picked-by flex font-condensed"
                             >
-                                <team-skins
-                                    :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
-                                    :width="70"
-                                />
+                                <div class="skin-wrapper">
+                                    <team-skins
+                                        :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
+                                        :width="70"
+                                    />
+                                </div>
                                 <div class="picking-team-name">
                                     Picked by:<br>
                                     <fitted-content
@@ -44,20 +50,38 @@
                         >
                             {{ game.mode ?? '???' }}
                         </div>
-                    </div>
+                    </sliding-container>
                     <div class="number-map-section flex">
-                        <div class="game-number font-condensed flex center-xy">Game {{ index + 1 }}</div>
-                        <div class="map-name flex center-xy">
+                        <sliding-container
+                            class="game-number font-condensed"
+                            no-underline
+                            center-content
+                            background-color="dark"
+                            :delay="index * 0.05"
+                        >
+                            Game {{ index + 1 }}
+                        </sliding-container>
+                        <sliding-container
+                            class="map-name"
+                            center-content
+                            :delay="index * 0.05"
+                        >
                             <fitted-content
                                 :max-width="250"
                                 align="center"
                             >
                                 {{ game.map }}
                             </fitted-content>
-                        </div>
+                        </sliding-container>
                     </div>
                 </div>
-                <div class="map-image-wrapper">
+                <sliding-container
+                    class="map-image-wrapper"
+                    background-color="dark"
+                    center-content
+                    :animation-length="1"
+                    :delay="index * 0.05"
+                >
                     <opacity-swap-transition>
                         <div
                             v-if="game.winner !== 'none'"
@@ -84,11 +108,9 @@
                         </div>
                     </opacity-swap-transition>
                     <div class="map-image">
-                        <image-loader
-                            :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`"
-                        />
+                        <image-loader :src="`/bundles/emerald-series-overlays/assets/maps/${game.map}.png`" />
                     </div>
-                </div>
+                </sliding-container>
             </div>
         </div>
     </div>
@@ -104,11 +126,12 @@ import TeamSkins from '../../components/TeamSkins.vue';
 import { getFirstPlayerNames } from '@helpers/teamHelper';
 import OpacitySwapTransition from '../../components/OpacitySwapTransition.vue';
 import { useRuntimeConfigStore } from '@browser-common/store/RuntimeConfigStore';
+import SlidingContainer from '../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'MapList',
 
-    components: { OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
+    components: { SlidingContainer, OpacitySwapTransition, TeamSkins, ImageLoader, FittedContent },
 
     setup() {
         const runtimeConfigStore = useRuntimeConfigStore();
@@ -121,12 +144,11 @@ export default defineComponent({
             runtimeConfigStore,
             activeMatchStore,
             nextGameIndex,
-            activeMapIndex: computed(() => {
-                return Math.min(
+            activeMapIndex: computed(() =>
+                Math.min(
                     nextGameIndex.value === -1 ? activeMatchStore.activeMatch.games.length : nextGameIndex.value,
                     activeMatchStore.activeMatch.games.length - 2
-                );
-            }),
+                )),
             getFirstPlayerNames
         };
     }
@@ -143,7 +165,7 @@ export default defineComponent({
 
 @for $i from 2 through 6 {
     .map-list.active-map-#{$i} {
-        top: #{($i - 1) * 31.3 * -1}vh
+        top: #{($i - 1) * 336.5 * -1}px
     }
 }
 
@@ -181,9 +203,9 @@ export default defineComponent({
 }
 
 .game {
-    height: 28.3vh;
+    height: 306.5px;
     align-items: flex-end;
-    margin-bottom: 3vh;
+    margin-bottom: 30px;
 
     &.is-active {
         .map-image-wrapper {
@@ -195,24 +217,14 @@ export default defineComponent({
         height: 100%;
         width: 420px;
         margin-right: 10px;
+        justify-content: flex-end;
 
         .picked-by {
-            height: 100%;
+            height: 100px;
             position: relative;
-            border-bottom: 10px solid var(--accent-color);
-            overflow: hidden;
             text-transform: uppercase;
             font-size: 40px;
             font-style: oblique;
-
-            > .background {
-                background-color: $container-background;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                height: 90px;
-                width: 100%;
-            }
 
             > .neutral-pick {
                 position: absolute;
@@ -222,22 +234,33 @@ export default defineComponent({
                 width: 100%;
             }
 
-            > .map-picked-by {
-                position: absolute;
-                bottom: 0;
+            .map-picked-by {
                 left: 0;
                 height: 175px;
-                margin-bottom: -15px;
                 margin-left: 15px;
                 width: 100%;
                 align-items: flex-end;
 
-                .team-skins {
-                    height: 100%;
+                .skin-wrapper {
+                    width: 135px;
+                    position: relative;
+
+                    .team-skins {
+                        height: 200px;
+                        width: 100%;
+                        position: absolute;
+                        bottom: 0;
+                        justify-content: center;
+                        overflow: hidden;
+
+                        .player-skin {
+                            margin-top: 25px;
+                        }
+                    }
                 }
 
                 .picking-team-name {
-                    margin-bottom: 18px;
+                    margin-bottom: 4px;
                     margin-left: 10px;
                     line-height: 40px;
                 }
@@ -246,10 +269,10 @@ export default defineComponent({
 
         .number-map-section {
             margin-top: 10px;
+            height: 65px;
 
             .game-number {
                 width: 150px;
-                background-color: $container-background;
                 color: var(--accent-color);
                 font-size: 35px;
                 font-weight: bold;
@@ -261,9 +284,6 @@ export default defineComponent({
             .map-name {
                 flex-grow: 1;
                 margin-left: 10px;
-                background-color: $container-background-light;
-                border-bottom: 10px solid var(--accent-color);
-                color: $text-color-dark;
                 font-weight: bold;
                 font-size: 40px;
                 padding: 4px 0;
@@ -275,8 +295,6 @@ export default defineComponent({
         transition: width 500ms ease-in-out;
         width: 650px;
         height: 100%;
-        border-bottom: 10px solid var(--accent-color);
-        background-color: $container-background;
         position: relative;
 
         .map-image {
@@ -309,6 +327,7 @@ export default defineComponent({
             > .team-skins {
                 height: 100%;
                 margin-left: 25px;
+                transform: translateY(-15px);
             }
 
             > .team-name {

@@ -1,28 +1,37 @@
 <template>
     <div class="team-roster">
-        <div class="player-skins-wrapper flex center-x">
-            <div class="background" />
-            <skin-loader
-                v-for="player in players"
-                :key="`player-skin_${player.id}`"
-                :username="player.minecraftName"
-                :direction="team === 'A' ? 'right' : 'left'"
-                class="player-skin"
-            />
-        </div>
+        <sliding-container
+            class="player-skins-container"
+            background-color="dark"
+            :delay="baseDelay"
+        >
+            <div class="player-skins-wrapper flex center-x">
+                <animated-skin-loader
+                    v-for="(player, index) in players"
+                    :key="`player-skin_${player.id}`"
+                    :username="player.minecraftName"
+                    :direction="team === 'A' ? 'right' : 'left'"
+                    :delay="0.3 + baseDelay + (index * 0.05)"
+                    class="player-skin"
+                />
+            </div>
+        </sliding-container>
         <div class="player-names flex">
-            <div
-                v-for="player in players"
+            <sliding-container
+                v-for="(player, index) in players"
                 :key="`player-name_${player.id}`"
                 class="player-name flex center-x"
+                background-color="light"
+                :delay="baseDelay + (index * 0.1)"
             >
                 <fitted-content
                     :max-width="300"
                     align="center"
+                    class="player-name-text"
                 >
                     {{ addDots(player.name) }}
                 </fitted-content>
-            </div>
+            </sliding-container>
         </div>
     </div>
 </template>
@@ -33,11 +42,13 @@ import { useActiveMatchStore } from '@browser-common/store/ActiveMatchStore';
 import FittedContent from '../../components/FittedContent.vue';
 import SkinLoader from '../../components/SkinLoader.vue';
 import { addDots } from '@helpers/stringHelper';
+import SlidingContainer from '../../components/SlidingContainer.vue';
+import AnimatedSkinLoader from '../../components/AnimatedSkinLoader.vue';
 
 export default defineComponent({
     name: 'TeamRoster',
 
-    components: { SkinLoader, FittedContent },
+    components: { AnimatedSkinLoader, SlidingContainer, SkinLoader, FittedContent },
 
     props: {
         team: {
@@ -55,7 +66,8 @@ export default defineComponent({
 
         return {
             players: computed(() => selectedTeam.value.players.slice(0, 2)),
-            addDots
+            addDots,
+            baseDelay: computed(() => props.team === 'A' ? 0 : 0.2)
         };
     }
 });
@@ -68,37 +80,42 @@ export default defineComponent({
     .player-names {
         width: 100%;
         justify-content: space-around;
+        margin-top: 15px;
 
         .player-name {
             width: 340px;
             font-size: 45px;
             font-weight: bold;
-            color: $text-color-dark;
-            background-color: $container-background-light;
-            border-bottom: 10px solid var(--accent-color);
             padding: 10px 0;
+            height: 70px;
+
+            > .content {
+                width: 100%;
+                align-items: center;
+            }
+        }
+    }
+
+    .player-skins-container {
+        margin-top: 175px;
+
+        > .content {
+            height: 275px;
         }
     }
 
     .player-skins-wrapper {
-        height: 450px;
-        border-bottom: 10px solid var(--accent-color);
-        margin-bottom: 15px;
-        position: relative;
+        height: 500px;
+        width: 100%;
+        position: absolute;
+        bottom: 10px;
         overflow: hidden;
 
-        > .background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 275px;
-            background: $container-background;
-        }
-
-        > .player-skin {
-            height: 110%;
+        .player-skin {
+            height: 500px;
             width: 250px;
+            margin-top: 50px;
+            transform: translateY(-10px);
 
             &:not(:last-child) {
                 margin-right: -60px;

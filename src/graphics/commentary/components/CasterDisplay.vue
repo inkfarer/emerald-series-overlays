@@ -1,5 +1,5 @@
 <template>
-    <underlined-container
+    <sliding-container
         background-color="light"
         class="caster-display-wrapper"
         :class="{ 'has-video': hasVideo }"
@@ -34,7 +34,7 @@
                 {{ caster.twitter }} <span class="pronouns">{{ caster.pronouns }}</span>
             </fitted-content>
         </div>
-    </underlined-container>
+    </sliding-container>
 </template>
 
 <script lang="ts">
@@ -44,12 +44,12 @@ import FittedContent from '../../components/FittedContent.vue';
 import ImageLoader from '../../components/ImageLoader.vue';
 import { Caster } from 'schemas';
 import { checkIfPageExists } from '@helpers/mediaHelper';
-import UnderlinedContainer from '../../components/UnderlinedContainer.vue';
+import SlidingContainer from '../../components/SlidingContainer.vue';
 
 export default defineComponent({
     name: 'CasterDisplay',
 
-    components: { UnderlinedContainer, ImageLoader, VideoLoader, FittedContent },
+    components: { SlidingContainer, ImageLoader, VideoLoader, FittedContent },
 
     props: {
         caster: {
@@ -84,20 +84,19 @@ $video-width: $video-height * (16 / 9);
 
 .caster-display-wrapper {
     z-index: 2;
-    flex-basis: 0;
+    width: 350px;
 
     &:not(:last-child) {
         margin-right: 100px;
     }
 
-    &.has-video, &.has-video .caster {
+    &.has-video {
         flex-basis: $video-width;
     }
 }
 
 .caster {
     height: 500px;
-    width: 350px;
     text-transform: uppercase;
     padding: 10px;
 
