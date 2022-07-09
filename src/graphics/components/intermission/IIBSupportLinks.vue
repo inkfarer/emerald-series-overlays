@@ -24,10 +24,12 @@
             <iib-support-link
                 :icon="['fab', 'discord']"
                 text="discord.gg/GQhvaJW"
+                subtitle="Join our major tournaments"
             />
             <iib-support-link
                 :icon="['fab', 'discord']"
                 text="discord.gg/ranked"
+                subtitle="Play in our competitive ladder"
             />
             <iib-support-link
                 :icon="['fab', 'twitter']"
