@@ -28,10 +28,12 @@
                                 v-else
                                 class="map-picked-by flex font-condensed"
                             >
-                                <team-skins
-                                    :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
-                                    :width="70"
-                                />
+                                <div class="skin-wrapper">
+                                    <team-skins
+                                        :team="game.pickedBy === 'alpha' ? 'A' : 'B'"
+                                        :width="70"
+                                    />
+                                </div>
                                 <div class="picking-team-name">
                                     Picked by:<br>
                                     <fitted-content
@@ -218,9 +220,8 @@ export default defineComponent({
         justify-content: flex-end;
 
         .picked-by {
-            height: 90px;
+            height: 100px;
             position: relative;
-            overflow: hidden;
             text-transform: uppercase;
             font-size: 40px;
             font-style: oblique;
@@ -233,22 +234,33 @@ export default defineComponent({
                 width: 100%;
             }
 
-            > .map-picked-by {
-                position: absolute;
-                bottom: 0;
+            .map-picked-by {
                 left: 0;
                 height: 175px;
-                margin-bottom: -15px;
                 margin-left: 15px;
                 width: 100%;
                 align-items: flex-end;
 
-                .team-skins {
-                    height: 100%;
+                .skin-wrapper {
+                    width: 135px;
+                    position: relative;
+
+                    .team-skins {
+                        height: 200px;
+                        width: 100%;
+                        position: absolute;
+                        bottom: 0;
+                        justify-content: center;
+                        overflow: hidden;
+
+                        .player-skin {
+                            margin-top: 25px;
+                        }
+                    }
                 }
 
                 .picking-team-name {
-                    margin-bottom: 18px;
+                    margin-bottom: 4px;
                     margin-left: 10px;
                     line-height: 40px;
                 }
