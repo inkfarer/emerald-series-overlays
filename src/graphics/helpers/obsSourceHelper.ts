@@ -1,19 +1,20 @@
 import gsap from 'gsap';
 import { ObsEvent } from 'types/obs';
 import { onUnmounted } from 'vue';
+import { useGraphicVariableStore } from './graphicVariableStore';
 
 export function bindEntranceToTimeline(timeline: gsap.core.Timeline): void {
     if (window.obsstudio !== undefined) {
         const activeChangedHandler = (e: ObsEvent) => {
             if (e.detail.active) {
-                timeline.restart(true);
+                timeline.delay(useGraphicVariableStore().sceneChangeStartDelay).restart(true);
             } else {
                 timeline.pause(0);
             }
         };
         const visibleChangedHandler = (e: ObsEvent) => {
             if (e.detail.visible) {
-                timeline.restart(false);
+                timeline.delay(useGraphicVariableStore().sceneChangeStartDelay).restart(false);
             }
         };
 
@@ -45,7 +46,7 @@ export function bindEntranceToTimelineGenerator(generator: () => gsap.core.Timel
         window.addEventListener('obsSourceActiveChanged', (e: ObsEvent) => {
             const timeline = generator();
             if (e.detail.active) {
-                timeline.restart(true);
+                timeline.delay(useGraphicVariableStore().sceneChangeStartDelay).restart(true);
             } else {
                 timeline.pause(0);
                 timeline.kill();
@@ -54,7 +55,7 @@ export function bindEntranceToTimelineGenerator(generator: () => gsap.core.Timel
 
         window.addEventListener('obsSourceVisibleChanged', (e: ObsEvent) => {
             if (e.detail.visible) {
-                generator().restart(false);
+                generator().delay(useGraphicVariableStore().sceneChangeStartDelay).restart(false);
             }
         });
     }
