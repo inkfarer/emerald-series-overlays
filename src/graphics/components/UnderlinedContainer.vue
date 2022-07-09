@@ -4,7 +4,7 @@
         class="underlined-container"
         :class="`background-${backgroundColor}`"
     >
-        <div class="content flex center-y">
+        <div class="content flex vertical center-y">
             <slot />
         </div>
         <div class="background content-background" />
