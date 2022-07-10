@@ -37,6 +37,7 @@ export const stratusMaps = [
     { mode: 'KotF', name: 'Splinter' },
     { mode: 'KotF', name: 'Shinobi' },
     { mode: 'KotF', name: 'West Rider' },
+    { mode: 'CTP', name: 'Moonshine' },
     { name: 'Unknown' }
 ];
 
@@ -44,5 +45,6 @@ export const modeNames = {
     KotH: 'King of the Hill',
     CTF: 'Capture the Flag',
     '5CP': 'Five Control Points',
-    KotF: 'King of the Flag'
+    KotF: 'King of the Flag',
+    CTP: 'Capture the Point'
 };
