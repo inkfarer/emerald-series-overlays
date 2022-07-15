@@ -27,6 +27,14 @@
                 "headerColor": "#262F40"
             },
             {
+                "name": "teamimport",
+                "title": "Team Import",
+                "width": 2,
+                "file": "teamimport.html",
+                "workspace": "VCA Setup",
+                "headerColor": "#262F40"
+            },
+            {
                 "name": "tournament",
                 "title": "Tournament Info",
                 "width": 2,
@@ -123,6 +131,7 @@
         "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@iplsplatoon/vue-components": "^2.8.0",
         "@types/lodash": "^4.14.182",
+        "@types/seedrandom": "^3.0.2",
         "@types/webpack": "^5.28.0",
         "@types/webpack-livereload-plugin": "^2.3.3",
         "@typescript-eslint/eslint-plugin": "^5.26.0",
@@ -143,6 +152,7 @@
         "pinia": "^2.0.14",
         "sass": "^1.52.1",
         "sass-loader": "^13.0.0",
+        "seedrandom": "^3.0.5",
         "style-loader": "^3.3.1",
         "trash-cli": "^5.0.0",
         "ts-loader": "^9.3.0",
