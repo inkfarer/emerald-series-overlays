@@ -48,5 +48,5 @@ export const modeNames: { [key in GameMode]: string } = {
     [GameMode.CTF]: 'Capture the Flag',
     [GameMode.FIVE_CP]: 'Five Control Points',
     [GameMode.KOTF]: 'King of the Flag',
-    [GameMode.CTP]: 'Capture the Point'
+    [GameMode.CTP]: 'Control the Point'
 };
