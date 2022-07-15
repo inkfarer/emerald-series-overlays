@@ -21,6 +21,7 @@ export interface MessageMap {
     'nextMatch:setMaps': string[]
     'nextMatch:begin': never
 
+    'teams:import': { url: string }
     'teams:save': Team
     'teams:reset': never
     'teams:delete': string

@@ -1,38 +1,17 @@
 import type { NodeCG } from 'nodecg/server';
 import { TeamStore } from '../../types/schemas';
-import { generateId } from '../../helpers/generateId';
 import { ActiveMatchService } from '../service/ActiveMatchService';
 import { BaseController } from './BaseController';
-import { addDots, isBlank } from '../../helpers/stringHelper';
+import { TeamStoreService } from '../service/TeamStoreService';
 
 export class TeamController extends BaseController {
-    constructor(nodecg: NodeCG, activeMatchService: ActiveMatchService) {
+    constructor(nodecg: NodeCG, activeMatchService: ActiveMatchService, teamStoreService: TeamStoreService) {
         super(nodecg);
 
         const teamStore = nodecg.Replicant<TeamStore>('teamStore');
 
         this.listen('teams:save', data => {
-            data.players = data.players?.map(player => ({ ...player, id: player.id ?? generateId() }));
-
-            if (isBlank(data.name)) {
-                data.name = data.players.slice(0, 2).map(player => addDots(player.name)).join(' & ');
-            }
-
-            if (data.id) {
-                const teamIndex = teamStore.value.findIndex(team => team.id === data.id);
-
-                if (teamIndex < 0) {
-                    throw new Error(`Could not find team with ID "${data.id}"`);
-                }
-
-                teamStore.value[teamIndex] = data;
-                activeMatchService.updateTeam(data);
-            } else {
-                data.id = generateId();
-                teamStore.value.push(data);
-            }
-
-            return data.id;
+            return teamStoreService.saveTeam(data);
         });
 
         this.listen('teams:reset', () => {
@@ -70,6 +49,10 @@ export class TeamController extends BaseController {
             if (teamStore.value.length === oldLength) {
                 throw new Error(`Could not find team with ID '${data}'.`);
             }
+        });
+
+        this.listen('teams:import', data => {
+            return teamStoreService.importTeams(data.url);
         });
     }
 }
