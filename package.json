@@ -1,6 +1,6 @@
 {
     "name": "emerald-series-overlays",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "author": {
         "name": "inkfarer",
         "email": "inkfarer@inkfarer.com",
@@ -124,6 +124,9 @@
         "lint": "eslint --ext .js,.vue,.ts ./src",
         "lint:fix": "eslint ./src --fix"
     },
+    "dependencies": {
+        "axios": "^0.27.2"
+    },
     "devDependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-brands-svg-icons": "^6.1.1",
@@ -136,7 +139,6 @@
         "@types/webpack-livereload-plugin": "^2.3.3",
         "@typescript-eslint/eslint-plugin": "^5.26.0",
         "@typescript-eslint/parser": "^5.26.0",
-        "axios": "^0.27.2",
         "cross-env": "^7.0.3",
         "css-loader": "^6.7.1",
         "eslint": "^8.16.0",
