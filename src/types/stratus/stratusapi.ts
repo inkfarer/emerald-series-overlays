@@ -6,8 +6,8 @@ export interface StratusTeam {
     registerDiscordID: string
     slug: string
     teamName: string
-    // Leader of the team. Is included in 'players' list.
-    leader: StratusTeam
+    // Leader of the team. Is sometimes included in 'players' list.
+    leader: StratusPlayer
     players: Array<StratusPlayer>
 }
 
